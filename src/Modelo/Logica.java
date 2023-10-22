@@ -36,13 +36,14 @@ public class Logica {
             ps.setString(1, ac.getNombre());
             ps.setString(2, ac.getDireccion());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(ac.getIcon(), "jpg", baos);
+            ImageIO.write(ac.getIcon(), "png", baos);
             byte[] imageBytes = baos.toByteArray();
             ps.setBytes(3, imageBytes);
             ps.setInt(4, ac.getId());
             ps.execute();
 
-        } catch (SQLException | IOException e)
+        }
+        catch (SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.toString());
         } finally

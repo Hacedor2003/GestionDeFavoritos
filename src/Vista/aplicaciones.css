@@ -5,3 +5,6 @@
 .mainFxmlClass {
 
 }
+#tab {
+  -fx-min-height: 100px;    
+}

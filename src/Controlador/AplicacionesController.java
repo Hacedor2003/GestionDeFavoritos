@@ -41,6 +41,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class AplicacionesController implements Initializable {
 
+    //Componentes del FXML
     @FXML
     private TabPane PanelApp;
     @FXML
@@ -54,14 +55,10 @@ public class AplicacionesController implements Initializable {
     @FXML
     private Button btnGridPaneTab1;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         obtenerLosComponentesDeLaBaseDeDatos();
-        anadirListaBtnACategorias();
     }
 
     //Inicializacion Auxiliar                                
@@ -73,31 +70,28 @@ public class AplicacionesController implements Initializable {
     ArrayList<String> nombresBD = claseLogica.obtenerTablas();
     //Fin
 
-    //Crear los botontes en el panel categorias
-    //Se crean los botones y se anade a una lista
-    private void crearBotonesBoxCategorias(String nombreBtnConIcono)
-    {
-        String nombreBtn = nombreBtnConIcono;
-        String icono = emparajarBtnIcono(nombreBtnConIcono);
-        Button btnCategoria = boton.crearBtn(nombreBtn, icono);
-        listaBtnCategorias.add(index, btnCategoria);
-        index++;
-    }
-
-    //Se anade la lista al panel de categorias
-    private void anadirListaBtnACategorias()
+    //Crear los botontes en el panelTab 
+    private void obtenerLosComponentesDeLaBaseDeDatos()
     {
         PanelApp.getTabs().clear();
-        for (Button btn : listaBtnCategorias)
+        for (String nombresAccD : nombresBD)
         {
+            String icono = emparajarBtnIcono(nombresAccD);
             Tab tab = new Tab();
-            tab = anadirTab(btn.getText());
-
+            try
+            {
+                tab = anadirTab(nombresAccD);
+                Image img = new Image(getClass().getResourceAsStream("/Archivos/" + icono));
+                tab.setGraphic(new javafx.scene.image.ImageView(img));
+            } catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
             PanelApp.getTabs().add(tab);
         }
     }
 
-    //Se crean los btn de Acceso directo
+    //Se crean los tab para guardar los accesos directos
     private Tab anadirTab(String tabla)
     {
         Tab tabNuevo = new Tab();   //Tab para guardar los Accesos directos
@@ -117,7 +111,7 @@ public class AplicacionesController implements Initializable {
             {
                 contenido.getChildren().add(botones.get(i)); // Agregar el botón al contenido del Tab
             }
-            tabNuevo.setContent(contenido); // Establecer el contenido del Tab
+            tabNuevo.setContent(contenido); // Establecer el contenido del Tab            
         } catch (Exception ex)
         {
             // Crea una pantalla emergente con el error
@@ -132,6 +126,7 @@ public class AplicacionesController implements Initializable {
     }
 
     //Metodos Auxiliares
+    //Se empareja el nombre del icono correspondiente
     private String emparajarBtnIcono(String nombre)
     {
         ArrayList<String> iconos = new ArrayList<>();
@@ -158,32 +153,34 @@ public class AplicacionesController implements Initializable {
         return icon;
     }
 
-    private void obtenerLosComponentesDeLaBaseDeDatos()
-    {
-        for (String a : nombresBD)
-        {
-            crearBotonesBoxCategorias(a);
-        }
-    }
-
+    //Se crea el btn para anadir accesos directos
     private Button obtenerBtnCrearAccesoDirecto()
     {
         Button btnCrear = new Button("Crear");
+        try
+        {
+            btnCrear.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event)
+                {
+                    btnAnadirBd();
+                }
+            });
+        } catch (Exception ex)
+        {
+            // Crea una pantalla emergente con el error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setHeaderText("Ooops, algo salió mal!");
+            alert.setContentText(ex.getMessage());
 
-        btnCrear.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                btnAnadirBd();
-            }
-        });
+            alert.showAndWait();
+        }
 
         return btnCrear;
     }
 
     //Fin
-    
-    
     //Agregar Accesos Directos
     //Inicializacion    
     FileChooser fileChooser = new FileChooser();
@@ -241,9 +238,20 @@ public class AplicacionesController implements Initializable {
                 {
                     if (titulo.equals(nombreBD))
                     {
-                        claseLogica.registrarAccesoDirecto(ad, titulo);
-                        encontrado = true;
-                        break;
+                        try
+                        {
+                            claseLogica.registrarAccesoDirecto(ad, titulo);
+                            encontrado = true;
+                            break;
+                        } catch (Exception ex)
+                        {
+                            // Crea una pantalla emergente con el error
+                            alert.setTitle("Error Occured");
+                            alert.setHeaderText("Ooops, algo salió mal!");
+                            alert.setContentText(ex.getMessage());
+
+                            alert.showAndWait();
+                        }
                     }
                 }
                 if (!encontrado)
@@ -281,6 +289,6 @@ public class AplicacionesController implements Initializable {
 
         return null;
     }
-    //fin
 
+    //fin
 }
