@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXML.java to edit this template
  */
-package Controlador;
+package Main;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -35,5 +35,6 @@ public class GestionDeFavoritos extends Application {
     {
         launch(args);
     }
+    
     
 }

@@ -1,14 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="Controlador.HomeController">
-    <stylesheets>
-        <URL value="@home.css" />
-    </stylesheets>
-   <children>
-      <Button fx:id="btn" layoutX="274.0" layoutY="264.0" mnemonicParsing="false" onAction="#holamundo" text="Button" />
-   </children>
-</AnchorPane>
+<BorderPane fx:id="borderPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.HomeController">
+   <left>
+      <VBox fx:id="PanelCategorias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="522.0" prefWidth="130.0" style="-fx-background-color: #0d1824;" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Home" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnBoxCategorias" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Aplicaciones" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Paginas Web" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnAnadir" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Añadir" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+         <menus>
+            <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
+               <items>
+                  <MenuItem fx:id="menuArchivoConfig" mnemonicParsing="false" text="Configuracion" />
+                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" text="Agregar:" />
+                  <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" text="Cerrar App" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Editar">
+               <items>
+                  <MenuItem fx:id="menuEditarActualizar" mnemonicParsing="false" text="Actualizar" />
+                  <MenuItem fx:id="menuEditarEliminartodo" mnemonicParsing="false" text="Eliminar todo" />
+               </items>
+            </Menu>
+            <Menu fx:id="menuVer" mnemonicParsing="false" text="Ver">
+               <items>
+                  <MenuItem fx:id="menuVerSiempreEncima" mnemonicParsing="false" text="Siempre Encima" />
+                  <MenuItem fx:id="menuVerSoloNombres" mnemonicParsing="false" text="Solo Nombres Archivos" />
+                  <MenuItem fx:id="menuVerIconos" mnemonicParsing="false" text="Iconos" />
+                  <MenuItem fx:id="menuVerIdioma" mnemonicParsing="false" text="menuVerIdioma" />
+               </items>
+            </Menu>
+            <Menu fx:id="menuConfiguracion" mnemonicParsing="false" text="Configuracion">
+               <items>
+                  <MenuItem fx:id="menuConfigCargarIniciar" mnemonicParsing="false" text="Cargar al Iniciar Sistema" />
+                  <MenuItem fx:id="menuConfigIniMini" mnemonicParsing="false" text="Iniciar Minimizado" />
+               </items>
+            </Menu>
+            <Menu fx:id="menuAyuda" mnemonicParsing="false" text="Ayuda">
+               <items>
+                  <MenuItem fx:id="menuAyudaSitioWeb" mnemonicParsing="false" text="Sitio Web" />
+                  <MenuItem fx:id="menuAyudaAcerca" mnemonicParsing="false" text="Acerca De" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TabPane fx:id="PanelApp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab fx:id="tabPanelApp" text="Untitled Tab 1">
+               <content>
+                  <AnchorPane fx:id="PanelTabPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <GridPane fx:id="GridPaneTabPanelApp" alignment="CENTER" gridLinesVisible="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Pane fx:id="paneGridPane" prefHeight="200.0" prefWidth="200.0" />
+                              <Button fx:id="btnGridPaneTab1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="144.0" prefWidth="148.0" text="Button" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Untitled Tab 2">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
