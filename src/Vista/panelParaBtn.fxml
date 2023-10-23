@@ -3,13 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="PanelDondeEstaTodo" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
+<AnchorPane fx:id="PanelDondeEstaTodo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
    <children>
-      <Pane fx:id="PanelParaColocar" style="-fx-background-color: red;">
-         <children>
-            <Button fx:id="btnObjetivo" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" />
-            <Label fx:id="nombreTabla" layoutX="111.0" layoutY="9.0" opacity="0.0" text="Label" />
-         </children></Pane>
-      <Button fx:id="btnParaCancelar" layoutX="156.0" mnemonicParsing="false" onAction="#BtnParaBorrar" />
+      <Button fx:id="btnParaCancelar" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnParaBorrar" />
+      <Button fx:id="btnObjetivo" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" />
    </children>
 </AnchorPane>

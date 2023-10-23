@@ -5,14 +5,19 @@
 
 <TabPane id="tab" fx:id="PanelApp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="mainFxmlClass" stylesheets="@aplicaciones.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.AplicacionesController">
    <tabs>
-      <Tab fx:id="tabPanelApp" text="Untitled Tab 1">
+      <Tab fx:id="tabPanelAppBuscar" text="Buscar">
          <content>
-            <AnchorPane fx:id="PanelTabPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-         </content>
-      </Tab>
-      <Tab text="Untitled Tab 2">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane fx:id="PanelTabPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <Pane fx:id="PaneBtn" layoutY="2.0" prefHeight="70.0" prefWidth="610.0">
+                     <children>
+                        <TextField fx:id="TextField" layoutX="88.0" layoutY="18.0" />
+                        <Label layoutX="24.0" layoutY="22.0" text="Buscar:" />
+                        <Button fx:id="btnBuscar" layoutX="267.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="PaneAccesosDirectos" layoutX="10.0" layoutY="63.0" prefHeight="147.0" prefWidth="590.0" />
+               </children></AnchorPane>
          </content>
       </Tab>
    </tabs>

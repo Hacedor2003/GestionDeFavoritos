@@ -28,8 +28,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -46,9 +48,17 @@ public class AplicacionesController implements Initializable {
     @FXML
     private TabPane PanelApp;
     @FXML
-    private Tab tabPanelApp;
-    @FXML
     private AnchorPane PanelTabPanel;
+    @FXML
+    private Tab tabPanelAppBuscar;
+    @FXML
+    private Pane PaneBtn;
+    @FXML
+    private TextField TextField;
+    @FXML
+    private Button btnBuscar;
+    @FXML
+    private Pane PaneAccesosDirectos;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -68,7 +78,6 @@ public class AplicacionesController implements Initializable {
     //Crear los botontes en el panelTab 
     private void obtenerLosComponentesDeLaBaseDeDatos()
     {
-        PanelApp.getTabs().clear();
         for (String nombresAccD : nombresBD)
         {
             String icono = emparajarBtnIcono(nombresAccD);
@@ -93,7 +102,6 @@ public class AplicacionesController implements Initializable {
         VBox contenido = new VBox(); // Contenedor para los elementos del Tab
         tabNuevo.setText(tabla);
         Boton btn = new Boton();
-        ArrayList<PanelParaBtnController> panelesConBtn = new ArrayList<>();
         PanelParaBtnController panelConBotones;
         try
         {
@@ -102,8 +110,9 @@ public class AplicacionesController implements Initializable {
                 panelConBotones = loadPage();
                 panelConBotones.setContent(btn.inicializarBotonDeLasPestañas(i, tabla));
                 contenido.getChildren().add(panelConBotones.getRoot());
-                PanelTabPanel.getChildren().clear();
-                PanelTabPanel.getChildren().add(contenido);
+                AnchorPane TabPanel = new AnchorPane();
+                TabPanel.getChildren().clear();
+                TabPanel.getChildren().add(contenido);
                 tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab                 
             }
             contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido del Tab
@@ -308,5 +317,17 @@ public class AplicacionesController implements Initializable {
         return null;
     }
 
-    //fin
+    @FXML
+    private void btnBuscar(ActionEvent event)
+    {
+        Logica claseLogica = new Logica();
+        Boton btn = new Boton();
+        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText());        
+        for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla).size(); i++)
+        {            
+            PaneAccesosDirectos.getChildren().add(btn.inicializarBotonDeLasPestañas(i, tabla));
+            
+        }
+
+    }
 }

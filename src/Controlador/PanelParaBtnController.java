@@ -52,6 +52,7 @@ public class PanelParaBtnController implements Initializable {
         btnObjetivo.setStyle(b.getStyle());
         btnObjetivo.setPrefSize(b.getPrefWidth(), b.getPrefHeight());
         btnObjetivo.setOnAction(b.getOnAction());
+        btnObjetivo.setGraphic(b.getGraphic());
     }
 
     public Node getRoot()

@@ -90,6 +90,40 @@ public class Logica {
         return listaAd;
     }
 
+    public String buscarAccesoDirecto(String nombre)
+    {
+        ArrayList<String> tabla = obtenerTablas();
+        for (String s : tabla)
+        {
+            String sql = "SELECT * FROM " + s + " WHERE nombre = ?";
+            try
+            {
+                con = cn.getConnection();
+                ps = con.prepareStatement(sql);
+                ps.setString(1, nombre);
+                rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    return s;
+                }
+                rs.close();
+            } catch (SQLException e)
+            {
+                System.out.println(e.toString());
+            } finally
+            {
+                try
+                {
+                    con.close();
+                } catch (SQLException ex)
+                {
+                    System.out.println(ex.toString());
+                }
+            }
+        }
+        return null;
+    }
+
     public boolean eliminarAccesoDirecto(int id, String tabla)
     {
         String sql = "DELETE FROM " + tabla + " WHERE id = ?";
