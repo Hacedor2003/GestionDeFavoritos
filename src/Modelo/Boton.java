@@ -25,6 +25,7 @@ public class Boton {
         Button nuevoBoton = new Button("Nuevo Botón");
         String nombre;
         String direccion;
+        int id;
 
         //Creo un lista de la bd
         ArrayList<AccesoDirecto> leerAccesosDirectos = claseLogica.leerAccesosDirecto(tabla);
@@ -37,6 +38,7 @@ public class Boton {
 
         nombre = leerAccesosDirectos.get(index).getNombre();
         direccion = leerAccesosDirectos.get(index).getDireccion();
+        id = leerAccesosDirectos.get(index).getId();
 
         BufferedImage buffImg = null;
         buffImg = leerAccesosDirectos.get(index).getIcon();
@@ -44,6 +46,7 @@ public class Boton {
         nuevoBoton.setGraphic(new ImageView(fxImage));
 
         nuevoBoton.setText(nombre);
+        nuevoBoton.setId(id + "");
         nuevoBoton.setOnAction((ActionEvent e) ->
         {
             try

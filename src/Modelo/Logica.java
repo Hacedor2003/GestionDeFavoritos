@@ -42,8 +42,7 @@ public class Logica {
             ps.setInt(4, ac.getId());
             ps.execute();
 
-        }
-        catch (SQLException | IOException e)
+        } catch (SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.toString());
         } finally
@@ -91,14 +90,14 @@ public class Logica {
         return listaAd;
     }
 
-    public boolean eliminarAccesoDirecto(int id)
+    public boolean eliminarAccesoDirecto(int id, String tabla)
     {
-        String sql = "DELETE FROM redessociales WHERE id = ?";
+        String sql = "DELETE FROM " + tabla + " WHERE id = ?";
 
         try
         {
             ps = con.prepareStatement(sql);
-            ps.setInt(3, id);
+            ps.setInt(4, id);
             ps.execute();
             return true;
         } catch (SQLException e)

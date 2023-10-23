@@ -8,6 +8,7 @@ import Modelo.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -18,7 +19,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,8 +30,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -48,12 +49,6 @@ public class AplicacionesController implements Initializable {
     private Tab tabPanelApp;
     @FXML
     private AnchorPane PanelTabPanel;
-    @FXML
-    private GridPane GridPaneTabPanelApp;
-    @FXML
-    private Pane paneGridPane;
-    @FXML
-    private Button btnGridPaneTab1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -98,19 +93,20 @@ public class AplicacionesController implements Initializable {
         VBox contenido = new VBox(); // Contenedor para los elementos del Tab
         tabNuevo.setText(tabla);
         Boton btn = new Boton();
-        ArrayList<Button> botones = new ArrayList<>();
-
+        ArrayList<PanelParaBtnController> panelesConBtn = new ArrayList<>();
+        PanelParaBtnController panelConBotones;
         try
         {
             for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla).size(); i++)
             {
-                botones.add(btn.inicializarBotonDeLasPestañas(i, tabla));
+                panelConBotones = loadPage();
+                panelConBotones.setContent(btn.inicializarBotonDeLasPestañas(i, tabla));
+                contenido.getChildren().add(panelConBotones.getRoot());
+                PanelTabPanel.getChildren().clear();
+                PanelTabPanel.getChildren().add(contenido);
+                tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab                 
             }
-            botones.add(obtenerBtnCrearAccesoDirecto());
-            for (int i = 0; i < botones.size(); i++)
-            {
-                contenido.getChildren().add(botones.get(i)); // Agregar el botón al contenido del Tab
-            }
+            contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido del Tab
             tabNuevo.setContent(contenido); // Establecer el contenido del Tab            
         } catch (Exception ex)
         {
@@ -119,7 +115,6 @@ public class AplicacionesController implements Initializable {
             alert.setTitle("Error Occured");
             alert.setHeaderText("Ooops, algo salió mal!");
             alert.setContentText(ex.getMessage());
-
             alert.showAndWait();
         }
         return tabNuevo;
@@ -178,6 +173,29 @@ public class AplicacionesController implements Initializable {
         }
 
         return btnCrear;
+    }
+
+    //Se crea el panel para colocar el boton
+    private PanelParaBtnController loadPage()
+    {
+        PanelParaBtnController panelContolador = null;
+
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vista/panelParaBtn.fxml"));
+            Parent root = loader.load();
+            panelContolador = loader.getController();
+        } catch (IOException ex)
+        {
+            System.out.println(ex.getMessage());
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setHeaderText("Ooops, algo salió mal!");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+        }
+
+        return panelContolador;
     }
 
     //Fin
