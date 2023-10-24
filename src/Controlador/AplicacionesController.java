@@ -84,14 +84,16 @@ public class AplicacionesController implements Initializable {
             Tab tab = new Tab();
             try
             {
-                tab = anadirTab(nombresAccD);
-                Image img = new Image(getClass().getResourceAsStream("/Archivos/" + icono));
-                tab.setGraphic(new javafx.scene.image.ImageView(img));
+                tab = anadirTab(nombresAccD);                           
+                //Image img = new Image(getClass().getResourceAsStream("/Archivos/" + icono));
+                //tab.setGraphic(new javafx.scene.image.ImageView(img));
+               
             } catch (Exception e)
             {
                 System.out.println(e.getMessage());
             }
             PanelApp.getTabs().add(tab);
+            
         }
     }
 
@@ -103,17 +105,22 @@ public class AplicacionesController implements Initializable {
         tabNuevo.setText(tabla);
         Boton btn = new Boton();
         PanelParaBtnController panelConBotones;
+        ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(tabla);
         try
         {
-            for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla).size(); i++)
+            for (int i = 0; i < leerAccesosDirecto.size(); i++)
             {
+                Button boton = btn.inicializarBotonDeLasPestañas(i, tabla);
                 panelConBotones = loadPage();
-                panelConBotones.setContent(btn.inicializarBotonDeLasPestañas(i, tabla));
+                panelConBotones.setContent(boton);
+                panelConBotones.setTabla(tabla);
+                panelConBotones.setId(leerAccesosDirecto.get(i).getId());
                 contenido.getChildren().add(panelConBotones.getRoot());
                 AnchorPane TabPanel = new AnchorPane();
                 TabPanel.getChildren().clear();
                 TabPanel.getChildren().add(contenido);
-                tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab                 
+                tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab        
+
             }
             contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido del Tab
             tabNuevo.setContent(contenido); // Establecer el contenido del Tab            
@@ -322,11 +329,11 @@ public class AplicacionesController implements Initializable {
     {
         Logica claseLogica = new Logica();
         Boton btn = new Boton();
-        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText());        
+        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText());
         for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla).size(); i++)
-        {            
+        {
             PaneAccesosDirectos.getChildren().add(btn.inicializarBotonDeLasPestañas(i, tabla));
-            
+
         }
 
     }

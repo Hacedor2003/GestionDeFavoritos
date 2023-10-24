@@ -5,7 +5,7 @@
 
 <AnchorPane fx:id="PanelDondeEstaTodo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
    <children>
-      <Button fx:id="btnParaCancelar" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnParaBorrar" />
+      <Button fx:id="btnParaCancelar" alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnParaBorrar" />
       <Button fx:id="btnObjetivo" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" />
    </children>
 </AnchorPane>

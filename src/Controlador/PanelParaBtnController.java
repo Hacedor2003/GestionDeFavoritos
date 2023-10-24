@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.Logica;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,15 +24,34 @@ import javafx.scene.layout.Pane;
 public class PanelParaBtnController implements Initializable {
 
     @FXML
-    private Pane PanelParaColocar;
-    @FXML
     private Button btnParaCancelar;
-    @FXML
-    private Label nombreTabla;
     @FXML
     private AnchorPane PanelDondeEstaTodo;
     @FXML
     private Button btnObjetivo;
+    
+    private int id;
+    private String tabla;
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public String getTabla()
+    {
+        return tabla;
+    }
+
+    public void setTabla(String tabla)
+    {
+        this.tabla = tabla;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -42,8 +62,8 @@ public class PanelParaBtnController implements Initializable {
     @FXML
     private void BtnParaBorrar(ActionEvent event)
     {
-        //Logica claseLogica = new Logica();
-        //claseLogica.eliminarAccesoDirecto(Integer.parseInt(btn.getId()), nombreTabla.getText());
+        Logica claseLogica = new Logica();
+        claseLogica.eliminarAccesoDirecto(id, tabla);
     }
 
     public void setContent(Button b)

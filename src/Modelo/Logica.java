@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
@@ -27,7 +28,6 @@ public class Logica {
     public boolean registrarAccesoDirecto(AccesoDirecto ac, String tabla)
     {
         String sql = "INSERT INTO " + tabla + " (nombre,direccion,icono,id)VALUES(?,?,?,?)";
-        //String sql = "INSERT INTO otros (nombre,direccion,icono,id)VALUES(?,?,?,?)";
         try
         {
             con = cn.getConnection();
@@ -45,6 +45,7 @@ public class Logica {
         } catch (SQLException | IOException e)
         {
             JOptionPane.showMessageDialog(null, e.toString());
+            return false; // Agregar un return false en caso de error
         } finally
         {
             try
@@ -53,7 +54,6 @@ public class Logica {
             } catch (SQLException e)
             {
                 System.out.println(e.toString());
-
             }
         }
         return true;
@@ -63,7 +63,6 @@ public class Logica {
     {
         ArrayList<AccesoDirecto> listaAd = new ArrayList<AccesoDirecto>();
         String sql = "SELECT * FROM " + tabla;
-        //String sql = "SELECT * FROM otros";
 
         try
         {
@@ -80,6 +79,7 @@ public class Logica {
                 // Crear un objeto BufferedImage a partir de los bytes
                 BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
                 cd.setIcon(image);
+                cd.setId(rs.getInt("id"));
                 listaAd.add(cd);
             }
             rs.close();
@@ -130,13 +130,20 @@ public class Logica {
 
         try
         {
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(4, id);
+            ps.setInt(1, id);
             ps.execute();
             return true;
-        } catch (SQLException e)
+        } catch (Exception e)
         {
             System.out.println(e.toString());
+            // Crea una pantalla emergente con el error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setHeaderText("Ooops, algo salió mal!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
             return false;
         } finally
         {
@@ -148,10 +155,9 @@ public class Logica {
                 System.out.println(ex.toString());
             }
         }
-
     }
 
-    public boolean modificarAccesoDirecto(AccesoDirecto ad)
+    /*public boolean modificarAccesoDirecto(AccesoDirecto ad)
     {
         String sql = "UPDATE redessociales SET telegram=?, id=? WHERE id=?";
         try
@@ -176,8 +182,7 @@ public class Logica {
                 System.out.println(ex.toString());
             }
         }
-    }
-
+    }*/
     public ArrayList<String> obtenerTablas()
     {
         ArrayList<String> nombresDeBD = new ArrayList<>();

@@ -34,7 +34,15 @@ public class AccesoDirecto {
 
     public void setNombre(String nombre)
     {
-        this.nombre = nombre;
+        if (nombre.contains("."))
+        {
+            int index = nombre.lastIndexOf(".");
+            String newStr = nombre.substring(0, index);
+            this.nombre = newStr;
+        } else
+        {
+            this.nombre = nombre;
+        }
     }
 
     public String getDireccion()
@@ -66,7 +74,5 @@ public class AccesoDirecto {
     {
         this.icon = icon;
     }
-
-   
 
 }
