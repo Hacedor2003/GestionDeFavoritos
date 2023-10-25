@@ -72,7 +72,7 @@ public class AplicacionesController implements Initializable {
     ArrayList<Button> listaBtnCategorias = new ArrayList<>();
     Boton boton = new Boton();
     Logica claseLogica = new Logica();
-    ArrayList<String> nombresBD = claseLogica.obtenerTablas();
+    ArrayList<String> nombresBD = claseLogica.obtenerTablas(1);
     //Fin
 
     //Crear los botontes en el panelTab 
@@ -84,16 +84,16 @@ public class AplicacionesController implements Initializable {
             Tab tab = new Tab();
             try
             {
-                tab = anadirTab(nombresAccD);                           
+                tab = anadirTab(nombresAccD);
                 //Image img = new Image(getClass().getResourceAsStream("/Archivos/" + icono));
                 //tab.setGraphic(new javafx.scene.image.ImageView(img));
-               
+
             } catch (Exception e)
             {
                 System.out.println(e.getMessage());
             }
             PanelApp.getTabs().add(tab);
-            
+
         }
     }
 
@@ -105,12 +105,12 @@ public class AplicacionesController implements Initializable {
         tabNuevo.setText(tabla);
         Boton btn = new Boton();
         PanelParaBtnController panelConBotones;
-        ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(tabla);
+        ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(tabla,1);
         try
         {
             for (int i = 0; i < leerAccesosDirecto.size(); i++)
             {
-                Button boton = btn.inicializarBotonDeLasPestañas(i, tabla);
+                Button boton = btn.inicializarBotonDeLasPestañas(i, tabla, 1);
                 panelConBotones = loadPage();
                 panelConBotones.setContent(boton);
                 panelConBotones.setTabla(tabla);
@@ -122,8 +122,6 @@ public class AplicacionesController implements Initializable {
                 tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab        
 
             }
-            contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido del Tab
-            tabNuevo.setContent(contenido); // Establecer el contenido del Tab            
         } catch (Exception ex)
         {
             // Crea una pantalla emergente con el error
@@ -133,6 +131,9 @@ public class AplicacionesController implements Initializable {
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
+        contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido del Tab
+        tabNuevo.setContent(contenido); // Establecer el contenido del Tab            
+
         return tabNuevo;
     }
 
@@ -274,7 +275,7 @@ public class AplicacionesController implements Initializable {
                     {
                         try
                         {
-                            claseLogica.registrarAccesoDirecto(ad, titulo);
+                            claseLogica.registrarAccesoDirecto(ad, titulo,1);
                             encontrado = true;
                             break;
                         } catch (Exception ex)
@@ -290,7 +291,7 @@ public class AplicacionesController implements Initializable {
                 }
                 if (!encontrado)
                 {
-                    claseLogica.registrarAccesoDirecto(ad, "otros");
+                    claseLogica.registrarAccesoDirecto(ad, "otros",1);
                 }
             } else
             {
@@ -329,10 +330,10 @@ public class AplicacionesController implements Initializable {
     {
         Logica claseLogica = new Logica();
         Boton btn = new Boton();
-        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText());
-        for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla).size(); i++)
+        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(),2);
+        for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla,1).size(); i++)
         {
-            PaneAccesosDirectos.getChildren().add(btn.inicializarBotonDeLasPestañas(i, tabla));
+            PaneAccesosDirectos.getChildren().add(btn.inicializarBotonDeLasPestañas(i, tabla, 1));
 
         }
 

@@ -25,9 +25,16 @@ public class Logica {
     PreparedStatement ps;
     ResultSet rs;
 
-    public boolean registrarAccesoDirecto(AccesoDirecto ac, String tabla)
+    public boolean registrarAccesoDirecto(AccesoDirecto ac, String tabla, int condicion)
     {
-        String sql = "INSERT INTO " + tabla + " (nombre,direccion,icono,id)VALUES(?,?,?,?)";
+        String sql;
+        if (condicion == 1)
+        {
+             sql = "INSERT INTO " + tabla + " (nombre,direccion,icono,id)VALUES(?,?,?,?)";
+        } else
+        {
+             sql = "INSERT INTO " + tabla + " (nombre,direccion,id)VALUES(?,?,?)";
+        }
         try
         {
             con = cn.getConnection();
@@ -35,11 +42,17 @@ public class Logica {
 
             ps.setString(1, ac.getNombre());
             ps.setString(2, ac.getDireccion());
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(ac.getIcon(), "png", baos);
-            byte[] imageBytes = baos.toByteArray();
-            ps.setBytes(3, imageBytes);
-            ps.setInt(4, ac.getId());
+            if (condicion == 1)
+            {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(ac.getIcon(), "png", baos);
+                byte[] imageBytes = baos.toByteArray();
+                ps.setBytes(3, imageBytes);
+                ps.setInt(4, ac.getId());
+            } else {
+                ps.setInt(3, ac.getId());
+            }
+            
             ps.execute();
 
         } catch (SQLException | IOException e)
@@ -59,7 +72,7 @@ public class Logica {
         return true;
     }
 
-    public ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla)
+    public ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla , int condicion)
     {
         ArrayList<AccesoDirecto> listaAd = new ArrayList<AccesoDirecto>();
         String sql = "SELECT * FROM " + tabla;
@@ -75,10 +88,12 @@ public class Logica {
                 BufferedImage buffImg = null;
                 cd.setNombre(rs.getString("nombre"));
                 cd.setDireccion(rs.getString("direccion"));
+                if (condicion == 1){
                 byte[] imageBytes = rs.getBytes("icono");
                 // Crear un objeto BufferedImage a partir de los bytes
                 BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
                 cd.setIcon(image);
+                }
                 cd.setId(rs.getInt("id"));
                 listaAd.add(cd);
             }
@@ -90,9 +105,9 @@ public class Logica {
         return listaAd;
     }
 
-    public String buscarAccesoDirecto(String nombre)
+    public String buscarAccesoDirecto(String nombre , int condicion)
     {
-        ArrayList<String> tabla = obtenerTablas();
+        ArrayList<String> tabla = obtenerTablas(condicion);
         for (String s : tabla)
         {
             String sql = "SELECT * FROM " + s + " WHERE nombre = ?";
@@ -183,7 +198,7 @@ public class Logica {
             }
         }
     }*/
-    public ArrayList<String> obtenerTablas()
+    public ArrayList<String> obtenerTablas(int condicion)
     {
         ArrayList<String> nombresDeBD = new ArrayList<>();
         try (Connection conn = cn.getConnection())
@@ -196,7 +211,20 @@ public class Logica {
             ResultSet tables = metaData.getTables("gestiondeaccesosdirectos", null, "%", types);
             while (tables.next())
             {
-                nombresDeBD.add(tables.getString("TABLE_NAME"));
+                String tableName = tables.getString("TABLE_NAME");
+                if (condicion == 1)
+                {
+                    if (!tableName.equalsIgnoreCase("web"))
+                    {
+                        nombresDeBD.add(tableName);
+                    }
+                } else
+                {
+                    if (tableName.equalsIgnoreCase("web"))
+                    {
+                        nombresDeBD.add(tableName);
+                    }
+                }
             }
         } catch (SQLException e)
         {
@@ -204,4 +232,5 @@ public class Logica {
         }
         return nombresDeBD;
     }
+
 }
