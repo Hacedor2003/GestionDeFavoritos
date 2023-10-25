@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package Controlador;
 
 import Modelo.Logica;
@@ -12,8 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
@@ -26,10 +22,10 @@ public class PanelParaBtnController implements Initializable {
     @FXML
     private Button btnParaCancelar;
     @FXML
-    private AnchorPane PanelDondeEstaTodo;
+    private Pane PanelDondeEstaTodo;
     @FXML
     private Button btnObjetivo;
-    
+
     private int id;
     private String tabla;
 
@@ -56,7 +52,7 @@ public class PanelParaBtnController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-     
+
     }
 
     @FXML
@@ -73,6 +69,12 @@ public class PanelParaBtnController implements Initializable {
         btnObjetivo.setPrefSize(b.getPrefWidth(), b.getPrefHeight());
         btnObjetivo.setOnAction(b.getOnAction());
         btnObjetivo.setGraphic(b.getGraphic());
+
+        ImageView imageView = new ImageView();
+        imageView.setImage(new Image("/archivos/icons8-cancel-16.png"));
+        btnParaCancelar.setGraphic(imageView);
+
+        btnParaCancelar.setMinHeight(btnObjetivo.getHeight());
     }
 
     public Node getRoot()

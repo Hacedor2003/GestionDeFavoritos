@@ -38,33 +38,33 @@
                <items>
                   <MenuItem fx:id="menuArchivoConfig" mnemonicParsing="false" text="Configuracion" />
                   <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" text="Agregar:" />
-                  <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" text="Cerrar App" />
+                  <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="Cerrar App" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Editar">
                <items>
                   <MenuItem fx:id="menuEditarActualizar" mnemonicParsing="false" text="Actualizar" />
-                  <MenuItem fx:id="menuEditarEliminartodo" mnemonicParsing="false" text="Eliminar todo" />
+                  <MenuItem fx:id="menuEditarEliminartodo" mnemonicParsing="false" onAction="#MenuItemEliminarTodo" text="Eliminar todo" />
                </items>
             </Menu>
             <Menu fx:id="menuVer" mnemonicParsing="false" text="Ver">
                <items>
-                  <MenuItem fx:id="menuVerSiempreEncima" mnemonicParsing="false" text="Siempre Encima" />
-                  <MenuItem fx:id="menuVerSoloNombres" mnemonicParsing="false" text="Solo Nombres Archivos" />
-                  <MenuItem fx:id="menuVerIconos" mnemonicParsing="false" text="Iconos" />
-                  <MenuItem fx:id="menuVerIdioma" mnemonicParsing="false" text="menuVerIdioma" />
+                  <MenuItem fx:id="menuVerSiempreEncima" mnemonicParsing="false" onAction="#MenuItemSiempreEncima" text="Siempre Encima" />
+                  <MenuItem fx:id="menuVerSoloNombres" mnemonicParsing="false" onAction="#MenuItemSoloNombreArchivos" text="Solo Nombres Archivos" />
+                  <MenuItem fx:id="menuVerIconos" mnemonicParsing="false" onAction="#MenuItemIconos" text="Iconos" />
+                  <MenuItem fx:id="menuVerIdioma" mnemonicParsing="false" onAction="#MenuItemIdioma" text="menuVerIdioma" />
                </items>
             </Menu>
             <Menu fx:id="menuConfiguracion" mnemonicParsing="false" text="Configuracion">
                <items>
-                  <MenuItem fx:id="menuConfigCargarIniciar" mnemonicParsing="false" text="Cargar al Iniciar Sistema" />
-                  <MenuItem fx:id="menuConfigIniMini" mnemonicParsing="false" text="Iniciar Minimizado" />
+                  <MenuItem fx:id="menuConfigCargarIniciar" mnemonicParsing="false" onAction="#MenuItemCargarIniciarSistema" text="Cargar al Iniciar Sistema" />
+                  <MenuItem fx:id="menuConfigIniMini" mnemonicParsing="false" onAction="#MenuItemIniciarMinimizado" text="Iniciar Minimizado" />
                </items>
             </Menu>
             <Menu fx:id="menuAyuda" mnemonicParsing="false" text="Ayuda">
                <items>
-                  <MenuItem fx:id="menuAyudaSitioWeb" mnemonicParsing="false" text="Sitio Web" />
-                  <MenuItem fx:id="menuAyudaAcerca" mnemonicParsing="false" text="Acerca De" />
+                  <MenuItem fx:id="menuAyudaSitioWeb" mnemonicParsing="false" onAction="#MenuItemSitioWeb" text="Sitio Web" />
+                  <MenuItem fx:id="menuAyudaAcerca" mnemonicParsing="false" onAction="#MenuItemAcercaDe" text="Acerca De" />
                </items>
             </Menu>
          </menus>
@@ -84,7 +84,7 @@
                               <Button fx:id="btnBuscar" layoutX="267.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
                            </children>
                         </Pane>
-                        <Pane fx:id="PaneAccesosDirectos" layoutX="10.0" layoutY="63.0" prefHeight="147.0" prefWidth="590.0" />
+                        <Pane fx:id="PaneAccesosDirectos" layoutX="10.0" layoutY="63.0" prefHeight="147.0" prefWidth="507.0" />
                      </children>
                   </AnchorPane>
                </content>

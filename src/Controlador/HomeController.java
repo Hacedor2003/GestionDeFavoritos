@@ -510,4 +510,54 @@ public class HomeController implements Initializable {
 
         }
     }
+
+    @FXML
+    private void MenuItemCerrarApp(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemEliminarTodo(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemSiempreEncima(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemSoloNombreArchivos(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemIconos(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemIdioma(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemCargarIniciarSistema(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemIniciarMinimizado(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemSitioWeb(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void MenuItemAcercaDe(ActionEvent event)
+    {
+    }
 }
