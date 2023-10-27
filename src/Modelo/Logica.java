@@ -174,6 +174,38 @@ public class Logica {
         }
     }
 
+    public boolean eliminarCategoria(String tabla)
+    {
+        String sql = "DROP TABLE `gestiondeaccesosdirectos`.`" + tabla + "`";
+
+        try
+        {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.execute();
+            return true;
+        } catch (Exception e)
+        {
+            System.out.println(e.toString());
+            // Crea una pantalla emergente con el error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setHeaderText("Del metodo eliminarCategoria de" + getClass());
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return false;
+        } finally
+        {
+            try
+            {
+                con.close();
+            } catch (SQLException ex)
+            {
+                System.out.println(ex.toString());
+            }
+        }
+    }
+
     public ArrayList<String> obtenerTablas(int condicion)
     {
         ArrayList<String> nombresDeBD = new ArrayList<>();
@@ -191,13 +223,13 @@ public class Logica {
                 switch (condicion)
                 {
                     case 1:
-                        if (!tableName.equalsIgnoreCase("web") && !tableName.equalsIgnoreCase("configuracion"))
+                        if (tableName.equalsIgnoreCase("programas") || tableName.equalsIgnoreCase("otros") || tableName.equalsIgnoreCase("juegos"))
                         {
                             nombresDeBD.add(tableName);
                         }
                         break;
                     case 2:
-                        if (tableName.equalsIgnoreCase("web") && !tableName.equalsIgnoreCase("configuracion"))
+                        if (tableName.equalsIgnoreCase("web"))
                         {
                             nombresDeBD.add(tableName);
                         }

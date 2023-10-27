@@ -37,6 +37,7 @@
             <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
                   <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" text="Agregar:" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuArchivoEliminarCategoria" text="Eliminar Categoria" />
                   <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />
                </items>
             </Menu>

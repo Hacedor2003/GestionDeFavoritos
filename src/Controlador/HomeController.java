@@ -214,7 +214,25 @@ public class HomeController implements Initializable {
     //Se crean los tab para guardar los accesos directos
     private Tab anadirTab(int indicador, String nombre)
     {
-        ArrayList<String> tabla = claseLogica.obtenerTablas(indicador);
+        String nombreTabla = "";
+        ArrayList<String> tabla;
+        if (indicador == 3)
+        {
+            ArrayList<String> tablasBuscar = claseLogica.obtenerTablas(indicador);
+            for (String s : tablasBuscar)
+            {
+                if (s.equals(nombre))
+                {
+                    nombreTabla = s;
+                }
+            }
+            tabla = new ArrayList<>();
+            tabla.add(nombreTabla);
+        } else
+        {
+            tabla = claseLogica.obtenerTablas(indicador);
+        }
+
         Tab tabNuevo = new Tab();   //Tab para guardar los Accesos directos
         VBox contenido = new VBox(); // Contenedor para los elementos del Tab
         String nombreTab = null;
@@ -228,7 +246,6 @@ public class HomeController implements Initializable {
         tabNuevo.setText(nombreTab);
         for (String s : tabla)
         {
-            
             Boton btn = new Boton();
             PanelParaBtnController panelConBotones;
             ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
@@ -237,16 +254,32 @@ public class HomeController implements Initializable {
                 for (int i = 0; i < leerAccesosDirecto.size(); i++)
                 {
                     Button boton = btn.inicializarBotonDeLasPestañas(i, s, indicador);
-                    panelConBotones = loadPage();
-                    panelConBotones.setContent(boton);
-                    panelConBotones.setTabla(s);
-                    panelConBotones.setId(leerAccesosDirecto.get(i).getId());
-                    contenido.getChildren().add(panelConBotones.getRoot());
-                    AnchorPane TabPanel = new AnchorPane();
-                    TabPanel.getChildren().clear();
-                    TabPanel.getChildren().add(contenido);
-                    tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab        
-
+                    boolean encontre = compararBtn(boton, indicador);
+                    boolean encontrado = false;
+                    if (!encontre)
+                    {
+                        panelConBotones = loadPage();
+                        panelConBotones.setContent(boton);
+                        panelConBotones.setTabla(s);
+                        panelConBotones.setId(leerAccesosDirecto.get(i).getId());
+                        contenido.getChildren().add(panelConBotones.getRoot());
+                        AnchorPane TabPanel = new AnchorPane();
+                        TabPanel.getChildren().clear();
+                        TabPanel.getChildren().add(contenido);
+                        tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab 
+                    } else
+                    {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error Occured");
+                        alert.setHeaderText("Existe una coincidencia");
+                        alert.setContentText("Por Favor use otro nombre que no sea: " + boton.getText());
+                        alert.showAndWait();
+                        encontrado = true;
+                        if (encontrado)
+                        {
+                            claseLogica.eliminarAccesoDirecto(Integer.parseInt(boton.getId()), s);
+                        }
+                    }
                 }
             } catch (Exception ex)
             {
@@ -733,7 +766,11 @@ public class HomeController implements Initializable {
 
     }
 
+    double width = 130.4;
+    double height = 42.4;
+
     @FXML
+
     private void crearBtnBox(ActionEvent event)
     {
         TextInputDialog dialogoNombre = new TextInputDialog();
@@ -747,8 +784,8 @@ public class HomeController implements Initializable {
             String nombreBtn = resultadoNombre.get();
 
             Button nuevoBtn = new Button(nombreBtn);
-            nuevoBtn.setMinHeight(btnBoxCategorias.getHeight());
-            nuevoBtn.setMinWidth(btnBoxCategorias.getWidth());
+            nuevoBtn.setMinHeight(width);
+            nuevoBtn.setMinWidth(height);
             // Configura el estilo de tu botón si lo deseas
             nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
             nuevoBtn.setOnAction((ActionEvent event1) ->
@@ -781,8 +818,8 @@ public class HomeController implements Initializable {
         for (String cp : categoriasPersonalizadas)
         {
             Button nuevoBtn = new Button(cp);
-            nuevoBtn.setMinHeight(btnBoxCategorias.getHeight());
-            nuevoBtn.setMinWidth(btnBoxCategorias.getWidth());
+            nuevoBtn.setMinHeight(height);
+            nuevoBtn.setMinWidth(width);
             nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
             nuevoBtn.setOnAction((ActionEvent event) ->
             {
@@ -793,6 +830,49 @@ public class HomeController implements Initializable {
 
             // Agrega el botón al VBox
             PanelCategorias.getChildren().add(nuevoBtn);
+        }
+    }
+
+    private boolean compararBtn(Button boton, int indicador)
+    {
+        String comparar = boton.getText();
+        int contador = 0;
+
+        ArrayList<String> tabla = claseLogica.obtenerTablas(indicador);
+        for (String s : tabla)
+        {
+            ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
+            Boton btn = new Boton();
+            for (int index = 0; index < leerAccesosDirecto.size(); index++)
+            {
+                Button boton2 = btn.inicializarBotonDeLasPestañas(index, s, indicador);
+                if (comparar.equals(boton2.getText()))
+                {
+                    contador++;
+                }
+            }
+        }
+        return (contador > 1);
+    }
+
+    @FXML
+    private void menuArchivoEliminarCategoria(ActionEvent event)
+    {
+        ArrayList<String> listaTablas = claseLogica.obtenerTablas(4);
+        String nombreBtn = "";
+        ObservableList<String> opciones = FXCollections.observableArrayList(listaTablas);
+        ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
+        dialogo.setTitle("Eliminar Categoria");
+        dialogo.setHeaderText(null);
+        dialogo.setContentText("Selecciona una opción:");
+
+        Optional<String> resultado = dialogo.showAndWait();
+        if (resultado.isPresent())
+        {
+            claseLogica.eliminarCategoria(resultado.get());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Categoria " + resultado.get() + " Eliminada");
+            alert.showAndWait();
         }
     }
 

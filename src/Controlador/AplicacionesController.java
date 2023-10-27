@@ -216,6 +216,7 @@ public class AplicacionesController implements Initializable {
     }
 
     //Fin
+    
     //Agregar Accesos Directos
     //Inicializacion    
     FileChooser fileChooser = new FileChooser();
@@ -224,18 +225,16 @@ public class AplicacionesController implements Initializable {
     //btn para agregar a la bd
     public void btnAnadirBd()
     {
-        String nombreBtn = "";
         ObservableList<String> opciones = FXCollections.observableArrayList(nombresBD);
         ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle("Título del cuadro de diálogo");
+        dialogo.setTitle("Anadir Aplicacion");
         dialogo.setHeaderText(null);
         dialogo.setContentText("Selecciona una opción:");
 
         Optional<String> resultado = dialogo.showAndWait();
         if (resultado.isPresent())
         {
-            nombreBtn = resultado.get();
-            obtenerDirectorioArchivo(nombreBtn);
+            obtenerDirectorioArchivo(resultado.get());
         }
     }
 
