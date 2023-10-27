@@ -23,7 +23,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnAnadir" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Añadir" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onAction="#crearBtnBox" onMouseClicked="#btnAnadir" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Añadir" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -36,22 +36,19 @@
          <menus>
             <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
-                  <MenuItem fx:id="menuArchivoConfig" mnemonicParsing="false" text="Configuracion" />
-                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" text="Agregar:" />
-                  <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="Cerrar App" />
+                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" text="Agregar:" />
+                  <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Editar">
                <items>
-                  <MenuItem fx:id="menuEditarActualizar" mnemonicParsing="false" text="Actualizar" />
-                  <MenuItem fx:id="menuEditarEliminartodo" mnemonicParsing="false" onAction="#MenuItemEliminarTodo" text="Eliminar todo" />
+                  <MenuItem fx:id="menuEditarActualizar" mnemonicParsing="false" onAction="#menuEditarActualizar" text="Actualizar" />
+                  <MenuItem fx:id="menuEditarEliminartodo" mnemonicParsing="false" onAction="#MenuEditarEliminarTodo" text="Eliminar todo" />
                </items>
             </Menu>
             <Menu fx:id="menuVer" mnemonicParsing="false" text="Ver">
                <items>
                   <MenuItem fx:id="menuVerSiempreEncima" mnemonicParsing="false" onAction="#MenuItemSiempreEncima" text="Siempre Encima" />
-                  <MenuItem fx:id="menuVerSoloNombres" mnemonicParsing="false" onAction="#MenuItemSoloNombreArchivos" text="Solo Nombres Archivos" />
-                  <MenuItem fx:id="menuVerIconos" mnemonicParsing="false" onAction="#MenuItemIconos" text="Iconos" />
                   <MenuItem fx:id="menuVerIdioma" mnemonicParsing="false" onAction="#MenuItemIdioma" text="menuVerIdioma" />
                </items>
             </Menu>

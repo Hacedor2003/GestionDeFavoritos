@@ -30,10 +30,10 @@ public class Logica {
         String sql;
         if (condicion == 1)
         {
-             sql = "INSERT INTO " + tabla + " (nombre,direccion,icono,id)VALUES(?,?,?,?)";
+            sql = "INSERT INTO " + tabla + " (nombre,direccion,icono,id)VALUES(?,?,?,?)";
         } else
         {
-             sql = "INSERT INTO " + tabla + " (nombre,direccion,id)VALUES(?,?,?)";
+            sql = "INSERT INTO " + tabla + " (nombre,direccion,id)VALUES(?,?,?)";
         }
         try
         {
@@ -49,10 +49,11 @@ public class Logica {
                 byte[] imageBytes = baos.toByteArray();
                 ps.setBytes(3, imageBytes);
                 ps.setInt(4, ac.getId());
-            } else {
+            } else
+            {
                 ps.setInt(3, ac.getId());
             }
-            
+
             ps.execute();
 
         } catch (SQLException | IOException e)
@@ -72,7 +73,7 @@ public class Logica {
         return true;
     }
 
-    public ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla , int condicion)
+    public ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla, int condicion)
     {
         ArrayList<AccesoDirecto> listaAd = new ArrayList<AccesoDirecto>();
         String sql = "SELECT * FROM " + tabla;
@@ -88,11 +89,12 @@ public class Logica {
                 BufferedImage buffImg = null;
                 cd.setNombre(rs.getString("nombre"));
                 cd.setDireccion(rs.getString("direccion"));
-                if (condicion == 1){
-                byte[] imageBytes = rs.getBytes("icono");
-                // Crear un objeto BufferedImage a partir de los bytes
-                BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
-                cd.setIcon(image);
+                if (condicion != 2)
+                {
+                    byte[] imageBytes = rs.getBytes("icono");
+                    // Crear un objeto BufferedImage a partir de los bytes
+                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
+                    cd.setIcon(image);
                 }
                 cd.setId(rs.getInt("id"));
                 listaAd.add(cd);
@@ -105,7 +107,7 @@ public class Logica {
         return listaAd;
     }
 
-    public String buscarAccesoDirecto(String nombre , int condicion)
+    public String buscarAccesoDirecto(String nombre, int condicion)
     {
         ArrayList<String> tabla = obtenerTablas(condicion);
         for (String s : tabla)
@@ -172,32 +174,6 @@ public class Logica {
         }
     }
 
-    /*public boolean modificarAccesoDirecto(AccesoDirecto ad)
-    {
-        String sql = "UPDATE redessociales SET telegram=?, id=? WHERE id=?";
-        try
-        {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, ad.getNombre());
-            ps.setString(2, ad.getDireccion());
-            ps.setInt(3, ad.getId());
-            ps.execute();
-            return true;
-        } catch (SQLException e)
-        {
-            System.out.println(e.toString());
-            return false;
-        } finally
-        {
-            try
-            {
-                con.close();
-            } catch (SQLException ex)
-            {
-                System.out.println(ex.toString());
-            }
-        }
-    }*/
     public ArrayList<String> obtenerTablas(int condicion)
     {
         ArrayList<String> nombresDeBD = new ArrayList<>();
@@ -212,18 +188,36 @@ public class Logica {
             while (tables.next())
             {
                 String tableName = tables.getString("TABLE_NAME");
-                if (condicion == 1)
+                switch (condicion)
                 {
-                    if (!tableName.equalsIgnoreCase("web"))
-                    {
+                    case 1:
+                        if (!tableName.equalsIgnoreCase("web") && !tableName.equalsIgnoreCase("configuracion"))
+                        {
+                            nombresDeBD.add(tableName);
+                        }
+                        break;
+                    case 2:
+                        if (tableName.equalsIgnoreCase("web") && !tableName.equalsIgnoreCase("configuracion"))
+                        {
+                            nombresDeBD.add(tableName);
+                        }
+                        break;
+                    case 3:
+                        if (tableName.equalsIgnoreCase("configuracion"))
+                        {
+                            String sql = "SELECT * FROM " + tableName;
+                            ps = con.prepareStatement(sql);
+                            rs = ps.executeQuery();
+                            while (rs.next())
+                            {
+                                nombresDeBD.add(rs.getString("nombreTablas"));
+                            }
+                        }
+                        break;
+
+                    default:
                         nombresDeBD.add(tableName);
-                    }
-                } else
-                {
-                    if (tableName.equalsIgnoreCase("web"))
-                    {
-                        nombresDeBD.add(tableName);
-                    }
+                        break;
                 }
             }
         } catch (SQLException e)
@@ -231,6 +225,34 @@ public class Logica {
             System.out.println("Error: " + e.getMessage());
         }
         return nombresDeBD;
+    }
+
+    public void guardarVBox(String nombreTabla, String nombre)
+    {
+        String url = "jdbc:mysql://localhost:3306/gestiondeaccesosdirectos?serverTimezone = UTC";
+        String user = "root";
+        String password = "";
+        String query = "CREATE TABLE " + nombreTabla + " ( nombre VARCHAR(255), direccion VARCHAR(255),icono BLOB,id INT PRIMARY KEY )";
+        String insertQuery = "INSERT INTO configuracion (nombreTablas) VALUE ('" + nombreTabla + "')";
+
+        try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement())
+        {
+            statement.executeUpdate(query);
+            statement.executeUpdate(insertQuery);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "La tabla se ha creado correctamente.");
+            alert.showAndWait();
+        } catch (SQLException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Ha ocurrido un error al crear la tabla: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    public ArrayList<String> leerVBOX()
+    {
+        ArrayList<String> tablasComparar3 = obtenerTablas(3);
+
+        return tablasComparar3;
     }
 
 }

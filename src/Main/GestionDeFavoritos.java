@@ -1,5 +1,6 @@
 package Main;
 
+import Controlador.HomeController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -11,20 +12,23 @@ import javafx.stage.Stage;
  * @author Hacedor
  */
 public class GestionDeFavoritos extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Vista/Home.fxml"));        
-        Scene scene = new Scene(root);     
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vista/Home.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        HomeController controller = loader.getController();
+        controller.setStage(stage);
     }
 
     public static void main(String[] args)
     {
         launch(args);
     }
-    
-    
+
 }

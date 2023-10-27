@@ -105,7 +105,7 @@ public class AplicacionesController implements Initializable {
         tabNuevo.setText(tabla);
         Boton btn = new Boton();
         PanelParaBtnController panelConBotones;
-        ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(tabla,1);
+        ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(tabla, 1);
         try
         {
             for (int i = 0; i < leerAccesosDirecto.size(); i++)
@@ -127,7 +127,7 @@ public class AplicacionesController implements Initializable {
             // Crea una pantalla emergente con el error
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Occured");
-            alert.setHeaderText("Ooops, algo salió mal!");
+            alert.setHeaderText("En el metodo anadirTab de la clase " + getClass());
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
@@ -222,7 +222,7 @@ public class AplicacionesController implements Initializable {
     Stage stage = new Stage();
 
     //btn para agregar a la bd
-    private void btnAnadirBd()
+    public void btnAnadirBd()
     {
         String nombreBtn = "";
         ObservableList<String> opciones = FXCollections.observableArrayList(nombresBD);
@@ -275,7 +275,7 @@ public class AplicacionesController implements Initializable {
                     {
                         try
                         {
-                            claseLogica.registrarAccesoDirecto(ad, titulo,1);
+                            claseLogica.registrarAccesoDirecto(ad, titulo, 1);
                             encontrado = true;
                             break;
                         } catch (Exception ex)
@@ -291,7 +291,7 @@ public class AplicacionesController implements Initializable {
                 }
                 if (!encontrado)
                 {
-                    claseLogica.registrarAccesoDirecto(ad, "otros",1);
+                    claseLogica.registrarAccesoDirecto(ad, "otros", 1);
                 }
             } else
             {
@@ -330,8 +330,8 @@ public class AplicacionesController implements Initializable {
     {
         Logica claseLogica = new Logica();
         Boton btn = new Boton();
-        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(),2);
-        for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla,1).size(); i++)
+        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(), 2);
+        for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla, 1).size(); i++)
         {
             PaneAccesosDirectos.getChildren().add(btn.inicializarBotonDeLasPestañas(i, tabla, 1));
 

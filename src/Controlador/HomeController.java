@@ -2,7 +2,9 @@ package Controlador;
 
 import Modelo.AccesoDirecto;
 import Modelo.Boton;
+import Modelo.CrearTabla;
 import Modelo.Logica;
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,6 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -19,18 +22,22 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -50,8 +57,6 @@ public class HomeController implements Initializable {
     @FXML
     private Menu menuArchivo;
     @FXML
-    private MenuItem menuArchivoConfig;
-    @FXML
     private MenuItem menuArchivoAgrega;
     @FXML
     private MenuItem menuArchivoCerrar;
@@ -63,10 +68,6 @@ public class HomeController implements Initializable {
     private Menu menuVer;
     @FXML
     private MenuItem menuVerSiempreEncima;
-    @FXML
-    private MenuItem menuVerSoloNombres;
-    @FXML
-    private MenuItem menuVerIconos;
     @FXML
     private MenuItem menuVerIdioma;
     @FXML
@@ -103,20 +104,24 @@ public class HomeController implements Initializable {
 
     private int indicador = 1;
 
-    /**
-     * Initializes the controller class.
-     */
+    private Stage stage;
+    Stage nuevoStage = new Stage();
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        obtenerLosComponentesDeLaBaseDeDatos(1);
-        obtenerLosComponentesDeLaBaseDeDatos(2);
+        obtenerLosComponentesDeLaBaseDeDatos(1, "");
+        obtenerLosComponentesDeLaBaseDeDatos(2, "");
+        actualizarVBOX();
     }
 
     @FXML
     private void btnhome(MouseEvent event)
     {
         borderPanel.setCenter(PanelApp);
+        PanelApp.getTabs().clear();
+        obtenerLosComponentesDeLaBaseDeDatos(1, "");
+        obtenerLosComponentesDeLaBaseDeDatos(2, "");
     }
 
     @FXML
@@ -162,7 +167,7 @@ public class HomeController implements Initializable {
     //Fin
 
     //Crear los botontes en el panelTab 
-    private void obtenerLosComponentesDeLaBaseDeDatos(int indicador)
+    private void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
     {
         Tab tab1 = new Tab();
         Tab tab2 = new Tab();
@@ -170,43 +175,60 @@ public class HomeController implements Initializable {
         {
             if (indicador == 1)
             {
-                tab1 = anadirTab(indicador);
+                tab1 = anadirTab(indicador, nombre);
             } else
             {
-                tab2 = anadirTab(indicador);
+                tab2 = anadirTab(indicador, nombre);
             }
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
-        if (indicador == 1)
+        switch (indicador)
         {
-            PanelApp.getTabs().add(tab1);
-            tab1.setOnSelectionChanged(event ->
-            {
-                this.indicador = 1;
-            });
-        } else
-        {
-            PanelApp.getTabs().add(tab2);
-            tab2.setOnSelectionChanged(event ->
-            {
-                this.indicador = 2;
-            });
+            case 1:
+                PanelApp.getTabs().add(tab1);
+                tab1.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 1;
+                });
+                break;
+            case 2:
+                PanelApp.getTabs().add(tab2);
+                tab2.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 2;
+                });
+                break;
+            default:
+                PanelApp.getTabs().add(tab2);
+                tab2.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 3;
+                });
+                break;
         }
 
     }
 
     //Se crean los tab para guardar los accesos directos
-    private Tab anadirTab(int indicador)
+    private Tab anadirTab(int indicador, String nombre)
     {
         ArrayList<String> tabla = claseLogica.obtenerTablas(indicador);
         Tab tabNuevo = new Tab();   //Tab para guardar los Accesos directos
         VBox contenido = new VBox(); // Contenedor para los elementos del Tab
-        String nombreTab = (indicador == 1) ? "Aplicaciones" : "Web";
+        String nombreTab = null;
+        if (!nombre.equals(""))
+        {
+            nombreTab = nombre;
+        } else
+        {
+            nombreTab = (indicador == 1) ? "Aplicaciones" : "Web";
+        }
         tabNuevo.setText(nombreTab);
         for (String s : tabla)
         {
+            
             Boton btn = new Boton();
             PanelParaBtnController panelConBotones;
             ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
@@ -231,7 +253,7 @@ public class HomeController implements Initializable {
                 // Crea una pantalla emergente con el error
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Occured");
-                alert.setHeaderText("Ooops, algo salió mal!");
+                alert.setHeaderText("En el metodo AnadirTab de la clase " + getClass());
                 alert.setContentText(ex.getMessage());
                 alert.showAndWait();
             }
@@ -330,7 +352,6 @@ public class HomeController implements Initializable {
     //Agregar Accesos Directos
     //Inicializacion    
     FileChooser fileChooser = new FileChooser();
-    Stage stage = new Stage();
 
     //btn para agregar a la bd de aplicaciones
     private void btnAnadirApp()
@@ -503,7 +524,7 @@ public class HomeController implements Initializable {
     {
         Logica claseLogica = new Logica();
         Boton btn = new Boton();
-        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(),indicador);
+        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(), indicador);
         for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla, indicador).size(); i++)
         {
             PaneAccesosDirectos.getChildren().add(btn.inicializarBotonDeLasPestañas(i, tabla, indicador));
@@ -511,53 +532,268 @@ public class HomeController implements Initializable {
         }
     }
 
-    @FXML
-    private void MenuItemCerrarApp(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void MenuItemEliminarTodo(ActionEvent event)
-    {
-    }
+    private int idSiempreEncima = 1;
 
     @FXML
     private void MenuItemSiempreEncima(ActionEvent event)
     {
+        if (idSiempreEncima == 1)
+        {
+            stage.setAlwaysOnTop(!stage.isAlwaysOnTop());
+            idSiempreEncima--;
+        } else
+        {
+            stage.setAlwaysOnTop(stage.isAlwaysOnTop());
+            idSiempreEncima++;
+        }
     }
 
-    @FXML
     private void MenuItemSoloNombreArchivos(ActionEvent event)
     {
+        // Crea una pantalla emergente con el error
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Occured");
+        alert.setHeaderText("En el metodo MenuItemSoloNombreArchivos de la clase " + getClass());
+        alert.setContentText("Implementacion");
+        alert.showAndWait();
     }
 
-    @FXML
     private void MenuItemIconos(ActionEvent event)
     {
+        // Crea una pantalla emergente con el error
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Occured");
+        alert.setHeaderText("En el metodo MenuItemIconos de la clase " + getClass());
+        alert.setContentText("Implementacion");
+        alert.showAndWait();
     }
 
     @FXML
     private void MenuItemIdioma(ActionEvent event)
+    {/*
+        // Obtener el idioma seleccionado por el usuario
+        String idioma = "es"; // Por ejemplo, "es" para español o "en" para inglés
+
+        // Cargar el archivo de propiedades correspondiente al idioma seleccionado
+        ResourceBundle bundle = ResourceBundle.getBundle("strings", new Locale(idioma));
+
+        // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
+        updateNodeLanguage(root, bundle);*/
+    }
+
+    private void updateNodeLanguage(Node node, ResourceBundle bundle)
     {
+        if (node instanceof Parent)
+        {
+            for (Node child : ((Parent) node).getChildrenUnmodifiable())
+            {
+                updateNodeLanguage(child, bundle);
+            }
+        }
+
+        if (node instanceof Labeled)
+        {
+            Labeled labeled = (Labeled) node;
+            String key = labeled.getText();
+            if (key != null && !key.isEmpty())
+            {
+                labeled.setText(bundle.getString(key));
+            }
+        }
     }
 
     @FXML
     private void MenuItemCargarIniciarSistema(ActionEvent event)
     {
+        Platform.runLater(() ->
+        {
+            try
+            {
+                // Ruta al archivo ejecutable de tu aplicación
+                String rutaArchivo = "ruta_a_tu_archivo_ejecutable";
+
+                // Abre el archivo ejecutable con el programa predeterminado del sistema operativo
+                Desktop.getDesktop().open(new File(rutaArchivo));
+
+                // Aquí puedes agregar más código que deseas que se ejecute al iniciar la aplicación
+                // ...
+            } catch (IOException e)
+            {
+                // Manejo de errores en caso de que no se pueda abrir el archivo
+                e.printStackTrace();
+            }
+        });
     }
+
+    private int idIniciarMinimizado = 1;
 
     @FXML
     private void MenuItemIniciarMinimizado(ActionEvent event)
     {
+        if (idIniciarMinimizado == 1)
+        {
+            stage.setIconified(true);
+            idIniciarMinimizado--;
+        } else
+        {
+            stage.setIconified(false);
+            idIniciarMinimizado++;
+        }
     }
 
     @FXML
     private void MenuItemSitioWeb(ActionEvent event)
     {
+        // Crea una pantalla emergente con el error
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error Occured");
+        alert.setHeaderText("En el metodo MenuItemIconos de la clase " + getClass());
+        alert.setContentText("Implementacion");
+        alert.showAndWait();
     }
 
     @FXML
     private void MenuItemAcercaDe(ActionEvent event)
     {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Acerca de");
+        alert.setHeaderText("Versión 1.0");
+        alert.setContentText("Autor: Bryan");
+        alert.showAndWait();
     }
+
+    @FXML
+    private void menuArchivoAgregar(ActionEvent event)
+    {
+        // Crear un nuevo diálogo de alerta
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Seleccionar opción");
+        alert.setHeaderText("Por favor, seleccione que desea agregar:");
+
+        // Crear los botones de opción
+        ButtonType opcion1 = new ButtonType("Una aplicacion");
+        ButtonType opcion2 = new ButtonType("Una Web");
+
+        // Agregar los botones de opción al diálogo
+        alert.getButtonTypes().setAll(opcion1, opcion2);
+
+        // Mostrar el diálogo y esperar a que el usuario seleccione una opción
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // Verificar qué opción seleccionó el usuario y realizar la acción correspondiente
+        if (result.get() == opcion1)
+        {
+            btnAnadirApp();
+        } else if (result.get() == opcion2)
+        {
+            btnAnadirWeb();
+        }
+    }
+
+    @FXML
+    private void MenuItemCerrarApp(ActionEvent event)
+    {
+        // Close the stage
+        stage.close();
+    }
+
+    public void setStage(Stage stage)
+    {
+        this.stage = stage;
+    }
+
+    @FXML
+    private void menuEditarActualizar(ActionEvent event)
+    {
+        stage.show();
+    }
+
+    @FXML
+    private void MenuEditarEliminarTodo(ActionEvent event)
+    {
+        for (String s : nombresApp)
+        {
+            ArrayList<AccesoDirecto> a = claseLogica.leerAccesosDirecto(s, 1);
+            for (AccesoDirecto b : a)
+            {
+                int id = b.getId();
+                claseLogica.eliminarAccesoDirecto(id, s);
+            }
+
+        }
+        for (String s : nombresWeb)
+        {
+            ArrayList<AccesoDirecto> a = claseLogica.leerAccesosDirecto(s, 2);
+            for (AccesoDirecto b : a)
+            {
+                int id = b.getId();
+                claseLogica.eliminarAccesoDirecto(id, s);
+            }
+        }
+
+    }
+
+    @FXML
+    private void crearBtnBox(ActionEvent event)
+    {
+        TextInputDialog dialogoNombre = new TextInputDialog();
+        dialogoNombre.setTitle("Crear botón");
+        dialogoNombre.setHeaderText(null);
+        dialogoNombre.setContentText("Ingresa un nombre para el botón:");
+
+        Optional<String> resultadoNombre = dialogoNombre.showAndWait();
+        if (resultadoNombre.isPresent())
+        {
+            String nombreBtn = resultadoNombre.get();
+
+            Button nuevoBtn = new Button(nombreBtn);
+            nuevoBtn.setMinHeight(btnBoxCategorias.getHeight());
+            nuevoBtn.setMinWidth(btnBoxCategorias.getWidth());
+            // Configura el estilo de tu botón si lo deseas
+            nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
+            nuevoBtn.setOnAction((ActionEvent event1) ->
+            {
+                PanelApp.getTabs().clear();
+                borderPanel.setCenter(PanelApp);
+                obtenerLosComponentesDeLaBaseDeDatos(3, nuevoBtn.getText());
+            });
+
+            // Agrega el botón al VBox
+            PanelCategorias.getChildren().add(nuevoBtn);
+
+            // Guarda el VBox actualizado en tu lógica o donde sea necesario
+            claseLogica.guardarVBox(nuevoBtn.getText(), nombreBtn);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Botón creado y añadido al VBox");
+            alert.showAndWait();
+
+            //Instancio la clase
+            CrearTabla ct = new CrearTabla();
+            ct.setTabla(nombreBtn);
+            ct.start(nuevoStage);
+        }
+    }
+
+    private void actualizarVBOX()
+    {
+        ArrayList<String> categoriasPersonalizadas = claseLogica.leerVBOX();
+
+        for (String cp : categoriasPersonalizadas)
+        {
+            Button nuevoBtn = new Button(cp);
+            nuevoBtn.setMinHeight(btnBoxCategorias.getHeight());
+            nuevoBtn.setMinWidth(btnBoxCategorias.getWidth());
+            nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
+            nuevoBtn.setOnAction((ActionEvent event) ->
+            {
+                PanelApp.getTabs().clear();
+                borderPanel.setCenter(PanelApp);
+                obtenerLosComponentesDeLaBaseDeDatos(3, nuevoBtn.getText());
+            });
+
+            // Agrega el botón al VBox
+            PanelCategorias.getChildren().add(nuevoBtn);
+        }
+    }
+
 }
