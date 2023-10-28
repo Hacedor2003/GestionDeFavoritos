@@ -114,7 +114,7 @@ public class AplicacionesController implements Initializable {
                 panelConBotones = loadPage();
                 panelConBotones.setContent(boton);
                 panelConBotones.setTabla(tabla);
-                panelConBotones.setId(leerAccesosDirecto.get(i).getId());
+                panelConBotones.setNombre(leerAccesosDirecto.get(i).getNombre());
                 contenido.getChildren().add(panelConBotones.getRoot());
                 AnchorPane TabPanel = new AnchorPane();
                 TabPanel.getChildren().clear();

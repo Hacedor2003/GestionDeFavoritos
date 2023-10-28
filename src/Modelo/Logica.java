@@ -141,15 +141,15 @@ public class Logica {
         return null;
     }
 
-    public boolean eliminarAccesoDirecto(int id, String tabla)
+    public boolean eliminarAccesoDirecto(String nombre, String tabla)
     {
-        String sql = "DELETE FROM " + tabla + " WHERE id = ?";
+        String sql = "DELETE FROM " + tabla + " WHERE nombreTablas = ?";
 
         try
         {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setString(1, nombre);
             ps.execute();
             return true;
         } catch (Exception e)
@@ -158,7 +158,7 @@ public class Logica {
             // Crea una pantalla emergente con el error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Occured");
-            alert.setHeaderText("Ooops, algo salió mal!");
+            alert.setHeaderText("En eliminarAccesoDirecto de " + getClass());
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             return false;

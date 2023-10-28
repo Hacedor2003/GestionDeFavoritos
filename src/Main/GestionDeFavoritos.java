@@ -11,7 +11,10 @@ import javafx.stage.Stage;
 /**
  * @author Hacedor
  */
+
+
 public class GestionDeFavoritos extends Application {
+    private Stage stage;    
 
     @Override
     public void start(Stage stage) throws Exception
@@ -21,6 +24,7 @@ public class GestionDeFavoritos extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        setStage(stage);
 
         HomeController controller = loader.getController();
         controller.setStage(stage);
@@ -30,5 +34,17 @@ public class GestionDeFavoritos extends Application {
     {
         launch(args);
     }
+
+    public Stage getStage()
+    {
+        return stage;
+    }
+
+    public void setStage(Stage stage)
+    {
+        this.stage = stage;
+    }
+    
+    
 
 }

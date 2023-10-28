@@ -26,17 +26,17 @@ public class PanelParaBtnController implements Initializable {
     @FXML
     private Button btnObjetivo;
 
-    private int id;
+    private String nombre;
     private String tabla;
 
-    public int getId()
+    public String getNombre()
     {
-        return id;
+        return nombre;
     }
 
-    public void setId(int id)
+    public void setNombre(String nombre)
     {
-        this.id = id;
+        this.nombre = nombre;
     }
 
     public String getTabla()
@@ -59,7 +59,7 @@ public class PanelParaBtnController implements Initializable {
     private void BtnParaBorrar(ActionEvent event)
     {
         Logica claseLogica = new Logica();
-        claseLogica.eliminarAccesoDirecto(id, tabla);
+        claseLogica.eliminarAccesoDirecto(nombre, tabla);
     }
 
     public void setContent(Button b)

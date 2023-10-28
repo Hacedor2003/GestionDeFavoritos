@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.HomeController">
+<BorderPane fx:id="borderPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.HomeController">
    <left>
       <VBox fx:id="PanelCategorias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="522.0" prefWidth="130.0" style="-fx-background-color: #0d1824;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Home" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Home" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnBoxCategorias" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Aplicaciones" textFill="WHITE">
+            <Button fx:id="btnBoxCategorias" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Aplicaciones" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Paginas Web" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Paginas Web" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onAction="#crearBtnBox" onMouseClicked="#btnAnadir" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Añadir" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Flotante" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -32,11 +34,12 @@
       </VBox>
    </left>
    <top>
-      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" style="-fx-background-color: #0d1824;" styleClass="MenuBar" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
          <menus>
             <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
-                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" text="Agregar:" />
+                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" style="-fx-text-fill: #000;" text="Agregar:" />
+                  <MenuItem mnemonicParsing="false" onAction="#anadirCategoria" text="Anadir Categoria" />
                   <MenuItem mnemonicParsing="false" onAction="#menuArchivoEliminarCategoria" text="Eliminar Categoria" />
                   <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />
                </items>
@@ -66,14 +69,23 @@
                </items>
             </Menu>
          </menus>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </padding>
       </MenuBar>
    </top>
    <center>
-      <TabPane fx:id="PanelApp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="PanelApp" blendMode="MULTIPLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0d1824;" styleClass="MenuBar" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
          <tabs>
             <Tab fx:id="tabPanelAppBuscar" text="Buscar">
                <content>
-                  <AnchorPane fx:id="PanelTabPanel1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <AnchorPane fx:id="PanelTabPanel1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="546.0" style="-fx-background-color: #0d1824;" styleClass="button">
                      <children>
                         <Pane fx:id="PaneBtn" layoutY="2.0" prefHeight="70.0" prefWidth="610.0">
                            <children>
@@ -88,6 +100,9 @@
                </content>
             </Tab>
          </tabs>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
       </TabPane>
    </center>
 </BorderPane>

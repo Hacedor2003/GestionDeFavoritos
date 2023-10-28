@@ -1,9 +1,6 @@
 package Controlador;
 
-import Modelo.AccesoDirecto;
-import Modelo.Boton;
-import Modelo.CrearTabla;
-import Modelo.Logica;
+import Modelo.*;
 import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -106,20 +103,26 @@ public class HomeController implements Initializable {
 
     private Stage stage;
     Stage nuevoStage = new Stage();
+    private ArrayList<String> listaTodasTablas;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        listaTodasTablas = claseLogica.obtenerTablas(4);
+
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
         actualizarVBOX();
+        
+        menuArchivo.setStyle("/Archivos/home.css");
     }
-
+    
     @FXML
     private void btnhome(MouseEvent event)
     {
         borderPanel.setCenter(PanelApp);
         PanelApp.getTabs().clear();
+        PanelApp.getTabs().add(tabPanelAppBuscar);
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
     }
@@ -136,7 +139,6 @@ public class HomeController implements Initializable {
         loadPage("PaginasWeb");
     }
 
-    @FXML
     private void btnAnadir(MouseEvent event)
     {
         System.out.println("Implementacion");
@@ -164,10 +166,11 @@ public class HomeController implements Initializable {
     Logica claseLogica = new Logica();
     ArrayList<String> nombresApp = claseLogica.obtenerTablas(1);
     ArrayList<String> nombresWeb = claseLogica.obtenerTablas(2);
+    
     //Fin
 
     //Crear los botontes en el panelTab 
-    private void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
+     void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
     {
         Tab tab1 = new Tab();
         Tab tab2 = new Tab();
@@ -204,7 +207,7 @@ public class HomeController implements Initializable {
                 PanelApp.getTabs().add(tab2);
                 tab2.setOnSelectionChanged(event ->
                 {
-                    this.indicador = 3;
+                    this.indicador = 1;
                 });
                 break;
         }
@@ -261,7 +264,7 @@ public class HomeController implements Initializable {
                         panelConBotones = loadPage();
                         panelConBotones.setContent(boton);
                         panelConBotones.setTabla(s);
-                        panelConBotones.setId(leerAccesosDirecto.get(i).getId());
+                        panelConBotones.setNombre(leerAccesosDirecto.get(i).getNombre());
                         contenido.getChildren().add(panelConBotones.getRoot());
                         AnchorPane TabPanel = new AnchorPane();
                         TabPanel.getChildren().clear();
@@ -277,7 +280,7 @@ public class HomeController implements Initializable {
                         encontrado = true;
                         if (encontrado)
                         {
-                            claseLogica.eliminarAccesoDirecto(Integer.parseInt(boton.getId()), s);
+                            claseLogica.eliminarAccesoDirecto(boton.getText(), s);
                         }
                     }
                 }
@@ -554,8 +557,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void btnBuscar(ActionEvent event)
-    {
-        Logica claseLogica = new Logica();
+    {        
         Boton btn = new Boton();
         String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(), indicador);
         for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla, indicador).size(); i++)
@@ -744,70 +746,16 @@ public class HomeController implements Initializable {
     @FXML
     private void MenuEditarEliminarTodo(ActionEvent event)
     {
+
         for (String s : nombresApp)
         {
             ArrayList<AccesoDirecto> a = claseLogica.leerAccesosDirecto(s, 1);
             for (AccesoDirecto b : a)
             {
-                int id = b.getId();
-                claseLogica.eliminarAccesoDirecto(id, s);
+                String nombre = b.getNombre();
+                claseLogica.eliminarAccesoDirecto(nombre, s);
             }
 
-        }
-        for (String s : nombresWeb)
-        {
-            ArrayList<AccesoDirecto> a = claseLogica.leerAccesosDirecto(s, 2);
-            for (AccesoDirecto b : a)
-            {
-                int id = b.getId();
-                claseLogica.eliminarAccesoDirecto(id, s);
-            }
-        }
-
-    }
-
-    double width = 130.4;
-    double height = 42.4;
-
-    @FXML
-
-    private void crearBtnBox(ActionEvent event)
-    {
-        TextInputDialog dialogoNombre = new TextInputDialog();
-        dialogoNombre.setTitle("Crear botón");
-        dialogoNombre.setHeaderText(null);
-        dialogoNombre.setContentText("Ingresa un nombre para el botón:");
-
-        Optional<String> resultadoNombre = dialogoNombre.showAndWait();
-        if (resultadoNombre.isPresent())
-        {
-            String nombreBtn = resultadoNombre.get();
-
-            Button nuevoBtn = new Button(nombreBtn);
-            nuevoBtn.setMinHeight(width);
-            nuevoBtn.setMinWidth(height);
-            // Configura el estilo de tu botón si lo deseas
-            nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
-            nuevoBtn.setOnAction((ActionEvent event1) ->
-            {
-                PanelApp.getTabs().clear();
-                borderPanel.setCenter(PanelApp);
-                obtenerLosComponentesDeLaBaseDeDatos(3, nuevoBtn.getText());
-            });
-
-            // Agrega el botón al VBox
-            PanelCategorias.getChildren().add(nuevoBtn);
-
-            // Guarda el VBox actualizado en tu lógica o donde sea necesario
-            claseLogica.guardarVBox(nuevoBtn.getText(), nombreBtn);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Botón creado y añadido al VBox");
-            alert.showAndWait();
-
-            //Instancio la clase
-            CrearTabla ct = new CrearTabla();
-            ct.setTabla(nombreBtn);
-            ct.start(nuevoStage);
         }
     }
 
@@ -858,9 +806,7 @@ public class HomeController implements Initializable {
     @FXML
     private void menuArchivoEliminarCategoria(ActionEvent event)
     {
-        ArrayList<String> listaTablas = claseLogica.obtenerTablas(4);
-        String nombreBtn = "";
-        ObservableList<String> opciones = FXCollections.observableArrayList(listaTablas);
+        ObservableList<String> opciones = FXCollections.observableArrayList(listaTodasTablas);
         ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
         dialogo.setTitle("Eliminar Categoria");
         dialogo.setHeaderText(null);
@@ -873,7 +819,72 @@ public class HomeController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Categoria " + resultado.get() + " Eliminada");
             alert.showAndWait();
+            eliminarCategoriasPersonalizadas(resultado.get());
         }
+    }
+
+    double width = 130.4;
+    double height = 42.4;
+
+    @FXML
+    private void anadirCategoria(ActionEvent event)
+    {
+        TextInputDialog dialogoNombre = new TextInputDialog();
+        dialogoNombre.setTitle("Crear botón");
+        dialogoNombre.setHeaderText(null);
+        dialogoNombre.setContentText("Ingresa un nombre para la nueva Categoria:");
+
+        Optional<String> resultadoNombre = dialogoNombre.showAndWait();
+        if (resultadoNombre.isPresent())
+        {
+            String nombreBtn = resultadoNombre.get();
+
+            Button nuevoBtn = new Button(nombreBtn);
+            nuevoBtn.setMinHeight(height);
+            nuevoBtn.setMinWidth(width);
+            // Configura el estilo de tu botón si lo deseas
+            nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
+            nuevoBtn.setOnAction((ActionEvent event1) ->
+            {
+                PanelApp.getTabs().clear();
+                borderPanel.setCenter(PanelApp);
+                obtenerLosComponentesDeLaBaseDeDatos(3, nuevoBtn.getText());
+            });
+
+            // Agrega el botón al VBox
+            PanelCategorias.getChildren().add(nuevoBtn);
+
+            // Guarda el VBox actualizado en tu lógica o donde sea necesario
+            claseLogica.guardarVBox(nuevoBtn.getText(), nombreBtn);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Botón creado y añadido al VBox");
+            alert.showAndWait();
+
+            //Instancio la clase
+            CrearTabla ct = new CrearTabla();
+            ct.setTabla(nombreBtn);
+            ct.start(nuevoStage);
+        }
+    }
+
+    private void eliminarCategoriasPersonalizadas(String tabla)
+    {
+        for (String s : listaTodasTablas)
+        {
+            if (s.equals(tabla))
+            {
+                claseLogica.eliminarAccesoDirecto(tabla, "configuracion");
+            }
+        }
+    }
+
+    @FXML
+    private void btnFlotante(MouseEvent event)
+    {
+        stage.hide();
+        botonFlotante nfm = new botonFlotante();
+        Stage ventana = new Stage();
+        nfm.start(ventana);
     }
 
 }

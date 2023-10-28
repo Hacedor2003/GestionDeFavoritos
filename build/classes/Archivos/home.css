@@ -1,7 +1,9 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-
+.button{
+    border-bottom-color: #ff2d29;
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 2px 0px;    
+}
+.button:hover{
+    -fx-background-color: #ff2d29;
 }
