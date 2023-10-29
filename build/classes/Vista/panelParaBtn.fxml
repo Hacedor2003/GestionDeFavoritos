@@ -3,13 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Button fx:id="btnBase" mnemonicParsing="false" stylesheets="@../Archivos/panelparabtn.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
-   <graphic>
-      <HBox fx:id="PanelDondeEstaTodo">
-         <children>
-            <Button fx:id="btnObjetivo" mnemonicParsing="false" />
-            <Button fx:id="btnParaCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#BtnParaBorrar" />
-         </children>
-      </HBox>
-   </graphic>
-</Button>
+<Pane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="panel" stylesheets="@../Archivos/panelparabtn.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
+   <children>
+      <Button fx:id="btnBase" layoutX="8.0" layoutY="5.0" mnemonicParsing="false" stylesheets="@../Archivos/panelparabtn.css">
+         <graphic>
+            <HBox fx:id="PanelDondeEstaTodo">
+               <children>
+                  <Button fx:id="btnObjetivo" mnemonicParsing="false" text="Pruebaaaaaa" />
+                  <Button fx:id="btnParaCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#BtnParaBorrar" />
+               </children>
+            </HBox>
+         </graphic>
+      </Button>
+   </children>
+</Pane>

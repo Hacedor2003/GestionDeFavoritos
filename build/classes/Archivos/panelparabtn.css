@@ -1,36 +1,56 @@
-.button{    
+.button{
     -fx-background-color: transparent;
     -fx-background-radius: 10px;
     -fx-background-insets: 0;
     -fx-background-size: cover;
     -fx-border-color: blue;
-    -fx-text-fill: while; 
+    -fx-text-fill: while;
 }
 .button:hover {
     -fx-background-color: #000066;
-    -fx-text-fill: while;    
+    -fx-text-fill: while;
 }
 #btnObjetivo{
-    -fx-background-color: white;
-    -fx-border-color: red;
-    -fx-border-width: 0px;
+    -fx-padding:8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #e34313 0% , #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50% , radius 100% , #d96e3a ,#c54e2c );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size:1.1em;
 }
 #btnObjetivo:hover{
-    -fx-background-color: blueviolet;
+    -fx-background-color:linear-gradient(from 0% 93% to 0% 100% , #a34313 0% , #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50% , radius 100% , #ea7f4b ,#c54e2c );
+}
+#btnObjetivo:pressed{
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
 #btnParaCancelar{
     -fx-background-color: #990000;
     -fx-border-width: 1;
-    -fx-border-radius:50px;
-    -fx-background-radius: 50px;
+    -fx-border-radius:8;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+    -fx-background-radius: 8;
 }
 #btnParaCancelar:hover{
     -fx-background-color: red;
 }
+#btnParaCancelar:pressed{
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
 #btnBase{
     -fx-border-width: 2px;
     -fx-border-radius:10px;
-    -fx-padding:2;    
+    -fx-padding:2;
 }
 #btnBase:hover{
     -fx-background-color: blueviolet;
@@ -38,3 +58,4 @@
 .panel{
     -fx-background-color: black;
 }
+

@@ -30,6 +30,8 @@ public class PanelParaBtnController implements Initializable {
     private String tabla;
     @FXML
     private Button btnBase;
+    @FXML
+    private Pane panel;
 
     public String getNombre()
     {

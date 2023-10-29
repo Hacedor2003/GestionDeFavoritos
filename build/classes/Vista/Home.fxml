@@ -38,7 +38,7 @@
          <menus>
             <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
-                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" style="-fx-text-fill: #000;" text="Agregar Acceso Directo" />
+                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" text="Agregar Acceso Directo" />
                   <MenuItem mnemonicParsing="false" onAction="#anadirCategoria" text="Anadir Categoria" />
                   <MenuItem mnemonicParsing="false" onAction="#menuArchivoEliminarCategoria" text="Eliminar Categoria" />
                   <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />
