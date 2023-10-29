@@ -28,6 +28,8 @@ public class PanelParaBtnController implements Initializable {
 
     private String nombre;
     private String tabla;
+    @FXML
+    private Button btnBase;
 
     public String getNombre()
     {
@@ -79,7 +81,12 @@ public class PanelParaBtnController implements Initializable {
 
     public Node getRoot()
     {
-        return PanelDondeEstaTodo; // Reemplaza "root" con el nombre de la variable que contiene el nodo raíz del panel
+        return btnBase; // Reemplaza "root" con el nombre de la variable que contiene el nodo raíz del panel
+    }
+
+    private void imprimirPrueba(ActionEvent event)
+    {
+        System.out.println("Prueba");
     }
 
 }

@@ -1,5 +1,6 @@
-package Controlador;
+package Modelo;
 
+import Controlador.PanelParaBtnController;
 import Modelo.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -20,8 +22,10 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -29,13 +33,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.swing.filechooser.FileSystemView;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -47,85 +50,76 @@ public class botonFlotante extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
     private Stage NuevoStage;
-
-    private TabPane PanelApp;
-    private HBox root;
+    private VBox root;
     private Logica claseLogica;
-    private AnchorPane PanelReservado;
     private int indicador;
-    ArrayList<String> nombresApp = claseLogica.obtenerTablas(1);
+    private Accordion acordeon;
+    private TitledPane pestana;
+    ArrayList<String> nombresApp;
 
     @Override
     public void start(Stage stage)
     {
-        root = new HBox();
+        root = new VBox();
         claseLogica = new Logica();
-
-        //Boton Flotante
-        Button btn = new Button();
-        btn.setText("Gestion De Accesos Directos");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event)
-            {
-                System.out.println("Hello World!");
-            }
-        });
-
-        //Boron para Arrastrar
-        Button btnArrast = new Button("Arrastrar");
-        btnArrast.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event)
-            {
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-            }
-        });
-
-        //Boton para mostrar los accesos directos
-        Button btnMostrar = new Button("Mostrar");
-        btnMostrar.setOnMousePressed(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event)
-            {
-                Accordion acordeon = new Accordion();
-                TitledPane categoria = new TitledPane("Prueba", acordeon);
-                root.getChildren().clear();
-                root.getChildren().addAll(acordeon, categoria);
-                actualizarRoot();
-            }
-        });
+        nombresApp = claseLogica.obtenerTablas(indicador);
+        acordeon = new Accordion();
+        pestana = new TitledPane();
+        pestana.setText("Abreme");
 
         //Panel Base        
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-        root.getChildren().add(btn);
+        ScrollPane scrollPane = crearPanelFlotante();
+        scrollPane.setFitToWidth(true);  // Ajustar el ancho del ScrollPane al ancho del contenedor padre
+        pestana.setContent(scrollPane);
+        acordeon.getPanes().add(pestana);
+        root.getChildren().clear();
+        root.getChildren().add(acordeon); // Añadimos el ScrollPane en lugar del contenido directamente  
         actualizarRoot();
-        btnArrast.setMinWidth(btnArrast.USE_PREF_SIZE);
-        btnMostrar.setMinWidth(btnMostrar.USE_PREF_SIZE);
+
+        root.setOnMouseDragged((MouseEvent event) ->
+        {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem closeMenuItem = new MenuItem("Cerrar aplicación");
+        closeMenuItem.setOnAction(event ->
+        {
+            stage.close();
+        });
+        contextMenu.getItems().add(closeMenuItem);
+        root.setOnContextMenuRequested(event ->
+        {
+            contextMenu.show(root, event.getScreenX(), event.getScreenY());
+        });
+        root.setOnMouseClicked(event ->
+        {
+            contextMenu.hide();
+        });
+
+        acordeon.expandedPaneProperty().addListener((observable, oldPane, newPane) ->
+        {
+            if (newPane != null)
+            {
+                // Se ha abierto una nueva pestaña, ajusta el VBox al contenido
+                root.requestLayout();
+
+                // Muestra un Alert
+                Platform.runLater(() ->
+                {
+                    stage.setHeight(200);
+                });
+            } else
+            {
+                stage.setHeight(50);
+            }
+        });
 
         Scene scene = new Scene(root);
 
         stage.initStyle(StageStyle.DECORATED.UNDECORATED);
-
-        //Se configura mostrar los botones
-        root.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event)
-            {
-                root.getChildren().clear();
-                root.getChildren().add(btnArrast);
-                root.getChildren().add(btnMostrar);
-                actualizarRoot();
-            }
-        });
-
-        root.setOnMouseExited(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event)
-            {
-                root.getChildren().clear();
-                root.getChildren().add(btn);
-                actualizarRoot();
-            }
-        });
 
         setNuevoStage(stage);
         stage.setScene(scene);
@@ -153,40 +147,41 @@ public class botonFlotante extends Application {
 
     public void actualizarRoot()
     {
-        root.setMinSize(root.USE_COMPUTED_SIZE, root.USE_COMPUTED_SIZE);
+        // Agregar estilo al VBox
+        root.setStyle("-fx-background-color: transparent; -fx-padding: 10px;");
+
+        // Agregar estilo al Accordion
+        acordeon.setStyle("-fx-background-color: #ffffff;");
+
+        // Agregar estilo al TitledPane
+        pestana.setStyle("-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px;");
+
         root.setPrefSize(root.USE_COMPUTED_SIZE, root.USE_COMPUTED_SIZE);
-        root.setMaxSize(root.USE_COMPUTED_SIZE, root.USE_COMPUTED_SIZE);
+
     }
 
-    private TitledPane anadirCategoria()
+    private VBox anadirCategoria()
     {
         //Inicializar
-        String nombreCategoria = "";
-        ArrayList<String> categorias;
-        VBox contenido = new VBox(); // Contenedor para los elementos de la pestana        
+        VBox contenido = new VBox(); // Contenedor para los elementos de la pestana
+        contenido.setFillWidth(true);  // Permitir que el VBox se expanda para llenar el espacio disponible
 
         //Busca el nombre de todas las Categorias
-        ArrayList<String> tablasBuscar = claseLogica.obtenerTablas(4);
+        ArrayList<String> tablasBuscar = claseLogica.obtenerTablas(indicador);
         for (String s : tablasBuscar)
         {
-            nombreCategoria = s;
-        }
-        categorias = new ArrayList<>();
-        categorias.add(nombreCategoria);
-        TitledPane pestana = new TitledPane();
+            TitledPane pestana = new TitledPane();
 
-        for (String s : categorias)
-        {
             pestana.setText(s);
 
             Boton btn = new Boton();
             PanelParaBtnController panelConBotones;
-            ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, 3);
+            ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
             try
             {
                 for (int i = 0; i < leerAccesosDirecto.size(); i++)
                 {
-                    Button boton = btn.inicializarBotonDeLasPestañas(i, s, 4);
+                    Button boton = btn.inicializarBotonDeLasPestañas(i, s, indicador);
                     boolean encontre = compararBtn(boton, 3);
                     boolean encontrado = false;
                     if (!encontre)
@@ -200,7 +195,7 @@ public class botonFlotante extends Application {
                         AnchorPane panel = new AnchorPane();
                         panel.getChildren().clear();
                         panel.getChildren().add(contenido);
-                        pestana.setContent(PanelReservado); // Establecer el contenido del Tab 
+                        pestana.setContent(panel); // Establecer el contenido del Tab 
                     } else
                     {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -224,11 +219,9 @@ public class botonFlotante extends Application {
                 alert.setContentText(ex.getMessage());
                 alert.showAndWait();
             }
-
         }
-        contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido de la pestana       
-        pestana.setContent(contenido); // Establecer el contenido de la pestana    
-        return pestana;
+        contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido de la pestana    
+        return contenido;
     }
 
     private boolean compararBtn(Button boton, int indicador)
@@ -421,7 +414,7 @@ public class botonFlotante extends Application {
                     {
                         try
                         {
-                            claseLogica.registrarAccesoDirecto(ad, titulo, 1);
+                            claseLogica.registrarAccesoDirecto(ad, titulo, indicador);
                             encontrado = true;
                             break;
                         } catch (Exception ex)
@@ -437,7 +430,7 @@ public class botonFlotante extends Application {
                 }
                 if (!encontrado)
                 {
-                    claseLogica.registrarAccesoDirecto(ad, "otros", 1);
+                    claseLogica.registrarAccesoDirecto(ad, "otros", indicador);
                 }
             } else
             {
@@ -468,6 +461,26 @@ public class botonFlotante extends Application {
         }
 
         return null;
+    }
+
+    public ScrollPane crearPanelFlotante()
+    {
+        VBox contenido = anadirCategoria();
+        contenido.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event)
+            {
+                double newHeight = event.getY();
+                contenido.setPrefHeight(newHeight);
+            }
+        });
+        ScrollPane scrollPane = new ScrollPane(contenido); // Creamos un ScrollPane con el contenido
+        scrollPane.setFitToWidth(true); // Ajustamos el ancho del ScrollPane al ancho del contenedor padre
+        return scrollPane;
+    }
+
+    public void setIndicador(int indicador)
+    {
+        this.indicador = indicador;
     }
 
 }

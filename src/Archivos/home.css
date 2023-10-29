@@ -1,9 +1,50 @@
-.button{
-    border-bottom-color: #ff2d29;
+#btnCategoriaHome {
+    border-top-color: #ff2d29;
     -fx-background-color: transparent;
-    -fx-border-color: white;
-    -fx-border-width: 0px 0px 2px 0px;    
+    -fx-border-color: blue;
+    -fx-text-fill: blue;
 }
-.button:hover{
-    -fx-background-color: #ff2d29;
+
+#btnCategoriaHome:hover {
+    -fx-background-color: blueviolet;
+    -fx-text-fill: #dedede;
+}
+
+.menu-bar{
+    -fx-background-color: #0d1824 ;
+    -fx-border-color:  #f0cd90;
+}
+
+.menu-bar .label {
+    -fx-text-fill: #dedede;
+}
+
+.tab-pane *.tab-header-area *.tab-header-background {
+    -fx-background-color:transparent;
+    -fx-font-fill: red;
+    -fx-text-fill: #dedede;
+}
+
+.tab {
+    -fx-font-family: Arial;
+    -fx-font-size: 18;
+    -fx-background-color:blue ;
+    -fx-font-fill: red;
+    -fx-text-fill: #dedede;
+}
+.tab .label{
+    -fx-font-fill: red;
+    -fx-text-fill: #dedede;
+}
+
+.tab:selected {
+    -fx-font-family: Arial;
+    -fx-font-size: 18;
+    -fx-font-fill: red;
+    -fx-background-color:#000066 ;
+    -fx-text-fill: #dedede;
+}
+.tab:selected .label{
+    -fx-font-fill: red;
+    -fx-text-fill: #dedede;
 }

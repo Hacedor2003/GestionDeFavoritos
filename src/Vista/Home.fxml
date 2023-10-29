@@ -10,22 +10,22 @@
    <left>
       <VBox fx:id="PanelCategorias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="522.0" prefWidth="130.0" style="-fx-background-color: #0d1824;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Home" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 2px 2px 0px 2px;" stylesheets="@../Archivos/home.css" text="Home" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnBoxCategorias" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Aplicaciones" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 0px 2px 0px 2px;" stylesheets="@../Archivos/home.css" text="Aplicaciones" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Paginas Web" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 0px 2px 0px 2px0px 2px 0px 2px;" stylesheets="@../Archivos/home.css" text="Paginas Web" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/home.css" text="Flotante" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 0px 2px 2px 2px;" stylesheets="@../Archivos/home.css" text="Flotante" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -34,11 +34,11 @@
       </VBox>
    </left>
    <top>
-      <MenuBar fx:id="menuBar" style="-fx-background-color: #0d1824;" styleClass="MenuBar" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
          <menus>
             <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
-                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" style="-fx-text-fill: #000;" text="Agregar:" />
+                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" style="-fx-text-fill: #000;" text="Agregar Acceso Directo" />
                   <MenuItem mnemonicParsing="false" onAction="#anadirCategoria" text="Anadir Categoria" />
                   <MenuItem mnemonicParsing="false" onAction="#menuArchivoEliminarCategoria" text="Eliminar Categoria" />
                   <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />

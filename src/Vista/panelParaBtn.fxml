@@ -3,9 +3,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="PanelDondeEstaTodo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
+
+<Pane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="panel" stylesheets="@../Archivos/panelparabtn.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnParaCancelar" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnParaBorrar" />
-      <Button fx:id="btnObjetivo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" />
+      <Button fx:id="btnBase" layoutX="8.0" layoutY="5.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="52.0" stylesheets="@../Archivos/panelparabtn.css">
+         <graphic>
+            <HBox fx:id="PanelDondeEstaTodo">
+               <children>
+                  <Button fx:id="btnObjetivo" mnemonicParsing="false" prefHeight="20.0" prefWidth="22.0" />
+                  <Button fx:id="btnParaCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#BtnParaBorrar" />
+               </children>
+            </HBox>
+         </graphic>
+      </Button>
    </children>
-</HBox>
+</Pane>

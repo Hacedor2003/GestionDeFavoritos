@@ -1,7 +1,40 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-
+.button{    
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-background-size: cover;
+    -fx-border-color: blue;
+    -fx-text-fill: while; 
+}
+.button:hover {
+    -fx-background-color: #000066;
+    -fx-text-fill: while;    
+}
+#btnObjetivo{
+    -fx-background-color: white;
+    -fx-border-color: red;
+    -fx-border-width: 0px;
+}
+#btnObjetivo:hover{
+    -fx-background-color: blueviolet;
+}
+#btnParaCancelar{
+    -fx-background-color: #990000;
+    -fx-border-width: 1;
+    -fx-border-radius:50px;
+    -fx-background-radius: 50px;
+}
+#btnParaCancelar:hover{
+    -fx-background-color: red;
+}
+#btnBase{
+    -fx-border-width: 2px;
+    -fx-border-radius:10px;
+    -fx-padding:2;    
+}
+#btnBase:hover{
+    -fx-background-color: blueviolet;
+}
+.panel{
+    -fx-background-color: black;
 }

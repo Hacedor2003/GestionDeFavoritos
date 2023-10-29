@@ -81,7 +81,6 @@ public class HomeController implements Initializable {
     private MenuItem menuAyudaAcerca;
     @FXML
     private VBox PanelCategorias;
-    @FXML
     private Button btnBoxCategorias;
     @FXML
     private TabPane PanelApp;
@@ -101,9 +100,11 @@ public class HomeController implements Initializable {
 
     private int indicador = 1;
 
-    private Stage stage;
+    protected Stage stage;
     Stage nuevoStage = new Stage();
     private ArrayList<String> listaTodasTablas;
+    @FXML
+    private Button btnCategoriaHome;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -113,10 +114,8 @@ public class HomeController implements Initializable {
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
         actualizarVBOX();
-        
-        menuArchivo.setStyle("/Archivos/home.css");
     }
-    
+
     @FXML
     private void btnhome(MouseEvent event)
     {
@@ -166,11 +165,10 @@ public class HomeController implements Initializable {
     Logica claseLogica = new Logica();
     ArrayList<String> nombresApp = claseLogica.obtenerTablas(1);
     ArrayList<String> nombresWeb = claseLogica.obtenerTablas(2);
-    
-    //Fin
 
+    //Fin
     //Crear los botontes en el panelTab 
-     void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
+    void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
     {
         Tab tab1 = new Tab();
         Tab tab2 = new Tab();
@@ -376,7 +374,7 @@ public class HomeController implements Initializable {
             System.out.println(ex.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Occured");
-            alert.setHeaderText("Ooops, algo salió mal!");
+            alert.setHeaderText("Error en loadPage en" + getClass());
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
@@ -557,7 +555,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void btnBuscar(ActionEvent event)
-    {        
+    {
         Boton btn = new Boton();
         String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(), indicador);
         for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla, indicador).size(); i++)
@@ -881,10 +879,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnFlotante(MouseEvent event)
     {
-        stage.hide();
-        botonFlotante nfm = new botonFlotante();
-        Stage ventana = new Stage();
-        nfm.start(ventana);
+        loadPage("panelFlotante");
     }
 
 }

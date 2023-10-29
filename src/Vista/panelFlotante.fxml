@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="panelBase" prefHeight="274.0" prefWidth="400.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelFlotanteController">
+    <stylesheets>
+        <URL value="@/Archivos/panelflotante.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="149.0" layoutY="31.0" text="Que Desea Ver?" />
+      <RadioButton fx:id="radioApp" layoutX="105.0" layoutY="74.0" mnemonicParsing="false" onAction="#onAplicaciones" text="Aplicaciones" />
+      <RadioButton fx:id="radioWeb" layoutX="105.0" layoutY="119.0" mnemonicParsing="false" onAction="#onWeb" text="Web" />
+      <Button fx:id="idBtnEnviar" layoutX="131.0" layoutY="163.0" mnemonicParsing="false" onAction="#btnEnviar" text="Abrir Panel Flotante" />
+   </children>
+</AnchorPane>
