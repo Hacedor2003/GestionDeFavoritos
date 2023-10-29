@@ -1,9 +1,0 @@
-.ventana {
-    -fx-background-color: #FFFFFF; /* Color de fondo de la ventana */
-}
-
-.resize-rect {
-    -fx-fill: transparent;
-    -fx-stroke: transparent;
-     /* Cambiar el cursor al pasar por el rectángulo de redimensionamiento */
-}

@@ -1,0 +1,21 @@
+#btnCrear{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(to bottom, #ffffff 60%, #060000 40%);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0, 0, 1);
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+
+#btnCrear:hover{
+    -fx-background-color: linear-gradient(to bottom, #060000 60%, #ffffff 40%);
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#btnCrear:pressed{
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+

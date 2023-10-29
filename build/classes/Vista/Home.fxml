@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -81,13 +82,13 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane fx:id="PanelApp" blendMode="MULTIPLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0d1824;" styleClass="MenuBar" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
+      <TabPane fx:id="PanelApp" blendMode="MULTIPLY" style="-fx-background-color: #0d1824;" styleClass="MenuBar" stylesheets="@../Archivos/home.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
-            <Tab fx:id="tabPanelAppBuscar" text="Buscar">
+            <Tab fx:id="tabPanelAppBuscar" closable="false">
                <content>
                   <AnchorPane fx:id="PanelTabPanel1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="546.0" style="-fx-background-color: #0d1824;" styleClass="button">
                      <children>
-                        <Pane fx:id="PaneBtn" layoutY="2.0" prefHeight="70.0" prefWidth="610.0">
+                        <Pane fx:id="PaneBtn" prefHeight="70.0" prefWidth="610.0">
                            <children>
                               <TextField fx:id="TextField" layoutX="88.0" layoutY="18.0" />
                               <Label layoutX="24.0" layoutY="22.0" text="Buscar:" />
@@ -98,6 +99,13 @@
                      </children>
                   </AnchorPane>
                </content>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Archivos/icons8-search-24.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Tab>
          </tabs>
          <cursor>

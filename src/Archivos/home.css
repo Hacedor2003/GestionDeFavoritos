@@ -18,32 +18,47 @@
     -fx-text-fill: #dedede;
 }
 
-.tab-pane *.tab-header-area *.tab-header-background {
-    -fx-background-color:transparent;
-    -fx-font-fill: red;
-    -fx-text-fill: #dedede;
+#PanelApp{
+    -fx-tab-min-height: 3em;
+    -fx-tab-max-height: 5em;
+
+    -fx-tab-min-width: 0.5em;
+    -fx-tab-max-width: 0.5em;
+
 }
 
-.tab {
-    -fx-font-family: Arial;
-    -fx-font-size: 18;
-    -fx-background-color:blue ;
-    -fx-font-fill: red;
-    -fx-text-fill: #dedede;
+.tab .tab-label{
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-text-fill: #0d1824;
 }
-.tab .label{
-    -fx-font-fill: red;
-    -fx-text-fill: #dedede;
+.tab{
+    -fx-background-color: #FFFFFF;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
+    -fx-padding: 0 30 0 30;
+}
+.tab:selected{
+    -fx-background-color: transparent;
+    -fx-background-insets:0;
+    -fx-background-radius:0;
+    -fx-border-width:5 0 0 0;
+    -fx-border-color: blue;
+    -fx-text-fill: #0d1824;
+}
+.tab:focused{
+    -fx-focus-color:transparent;
+}
+.tab-pane *.tab-header-background{
+    -fx-background-color: transparent;
+}
+.tab-pane:top *.tab-header-area{
+    -fx-background-insets: 0 0 0 10;
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
+}
+.tab:selected .focus-indicator{
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
 }
 
-.tab:selected {
-    -fx-font-family: Arial;
-    -fx-font-size: 18;
-    -fx-font-fill: red;
-    -fx-background-color:#000066 ;
-    -fx-text-fill: #dedede;
-}
-.tab:selected .label{
-    -fx-font-fill: red;
-    -fx-text-fill: #dedede;
-}
+

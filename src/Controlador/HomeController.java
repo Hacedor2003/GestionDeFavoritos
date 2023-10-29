@@ -36,6 +36,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -188,6 +189,9 @@ public class HomeController implements Initializable {
         switch (indicador)
         {
             case 1:
+                tab1.setText("");
+                ImageView iv = new ImageView("/Archivos/icons8-windows-client-24.png");
+                tab1.setGraphic(iv);
                 PanelApp.getTabs().add(tab1);
                 tab1.setOnSelectionChanged(event ->
                 {
@@ -195,6 +199,9 @@ public class HomeController implements Initializable {
                 });
                 break;
             case 2:
+                tab2.setText("");
+                ImageView iv2 = new ImageView("/Archivos/icons8-web-16.png");
+                tab2.setGraphic(iv2);
                 PanelApp.getTabs().add(tab2);
                 tab2.setOnSelectionChanged(event ->
                 {
@@ -330,6 +337,9 @@ public class HomeController implements Initializable {
     private Button obtenerBtnCrearAccesoDirecto()
     {
         Button btnCrear = new Button("Crear");
+        btnCrear.setId("btnCrear");
+        btnCrear.getStylesheets().add("/Archivos/btncrear.css");
+        btnCrear.getStyleClass().add("btnCrear");
         try
         {
             btnCrear.setOnAction(new EventHandler<ActionEvent>() {
@@ -433,6 +443,7 @@ public class HomeController implements Initializable {
 
         VBox root = new VBox(10, direccionLabel, urlFieldDireccion, nombreLabel, urlFieldNombre, saveButton, cancelButton);
         Scene scene = new Scene(root, 300, 200);
+
         ventana.setScene(scene);
         ventana.showAndWait();
     }

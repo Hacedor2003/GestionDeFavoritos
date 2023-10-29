@@ -33,6 +33,7 @@
     -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
 #btnParaCancelar{
+    -fx-padding:8 15 15 15;
     -fx-background-color: #990000;
     -fx-border-width: 1;
     -fx-border-radius:8;
