@@ -4,11 +4,11 @@
     -fx-background-insets: 0;
     -fx-background-size: cover;
     -fx-border-color: blue;
-    -fx-text-fill: while;
+    -fx-text-fill: white;
 }
 .button:hover {
     -fx-background-color: #000066;
-    -fx-text-fill: while;
+    -fx-text-fill: white;
 }
 #btnObjetivo{
     -fx-padding:8 15 15 15;

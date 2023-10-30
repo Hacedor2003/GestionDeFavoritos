@@ -336,7 +336,7 @@ public class HomeController implements Initializable {
     //Se crea el btn para anadir accesos directos
     private Button obtenerBtnCrearAccesoDirecto()
     {
-        Button btnCrear = new Button("Crear");
+        Button btnCrear = new Button("Añadir Acceso Directo");
         btnCrear.setId("btnCrear");
         btnCrear.getStylesheets().add("/Archivos/btncrear.css");
         btnCrear.getStyleClass().add("btnCrear");

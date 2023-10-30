@@ -1,7 +1,7 @@
 package Main;
 
 import Controlador.HomeController;
-    import javafx.application.Application;
+import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,10 +11,9 @@ import javafx.stage.Stage;
 /**
  * @author Hacedor
  */
-
-
 public class GestionDeFavoritos extends Application {
-    private Stage stage;    
+
+    private Stage stage;
 
     @Override
     public void start(Stage stage) throws Exception
@@ -44,7 +43,5 @@ public class GestionDeFavoritos extends Application {
     {
         this.stage = stage;
     }
-    
-    
 
 }
