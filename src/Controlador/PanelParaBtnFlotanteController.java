@@ -32,7 +32,6 @@ public class PanelParaBtnFlotanteController implements Initializable {
                 // Se ha abierto una nueva pestaña, ajusta el VBox al contenido
                 PanelDondeEstaTodo.requestLayout();
             }
-            System.out.println("Prueba");
         });
     }    
 }

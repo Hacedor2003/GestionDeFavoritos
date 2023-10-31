@@ -85,10 +85,4 @@ public class PanelParaBtnController implements Initializable {
     {
         return btnBase; // Reemplaza "root" con el nombre de la variable que contiene el nodo raíz del panel
     }
-
-    private void imprimirPrueba(ActionEvent event)
-    {
-        System.out.println("Prueba");
-    }
-
 }

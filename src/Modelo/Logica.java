@@ -12,20 +12,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 
-/**
- *
- * @author Hacedor
- */
 public class Logica {
 
-    Conexion cn = new Conexion();
-    Connection con;
-    PreparedStatement ps;
-    ResultSet rs;
+    static Conexion cn = new Conexion();
+    static Connection con;
+    static PreparedStatement ps;
+    static ResultSet rs;
 
-    public boolean registrarAccesoDirecto(AccesoDirecto ac, String tabla, int condicion)
+    //Metodo para registrar el acceso directo en un tabla de la base de datos
+    public static boolean registrarAccesoDirecto(AccesoDirecto ac, String tabla, int condicion)
     {
         String sql;
         if (condicion == 1)
@@ -58,7 +54,7 @@ public class Logica {
 
         } catch (SQLException | IOException e)
         {
-            JOptionPane.showMessageDialog(null, e.toString());
+            Auxiliares.alerta(e.getMessage(), "Clase Logica", "registrarAccesoDirecto");
             return false; // Agregar un return false en caso de error
         } finally
         {
@@ -67,15 +63,16 @@ public class Logica {
                 con.close();
             } catch (SQLException e)
             {
-                System.out.println(e.toString());
+                Auxiliares.alerta(e.getMessage(), "Clase Logica", "registrarAccesoDirecto");
             }
         }
         return true;
     }
 
-    public ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla, int condicion)
+    //Metodo que devuelve una lista de los accesos directos de una tabla
+    public static ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla, int condicion)
     {
-        ArrayList<AccesoDirecto> listaAd = new ArrayList<AccesoDirecto>();
+        ArrayList<AccesoDirecto> listaAd = new ArrayList<>();
         String sql = "SELECT * FROM " + tabla;
 
         try
@@ -102,12 +99,13 @@ public class Logica {
             rs.close();
         } catch (SQLException | IOException e)
         {
-            System.out.println(e.toString());
+            Auxiliares.alerta(e.getMessage(), "Clase Logica", "leerAccesosDirecto");
         }
         return listaAd;
     }
 
-    public String buscarAccesoDirecto(String nombre, int condicion)
+    //metodo que busca un acceso directo en la base de datos
+    public static String buscarAccesoDirecto(String nombre, int condicion)
     {
         ArrayList<String> tabla = obtenerTablas(condicion);
         for (String s : tabla)
@@ -126,7 +124,7 @@ public class Logica {
                 rs.close();
             } catch (SQLException e)
             {
-                System.out.println(e.toString());
+                Auxiliares.alerta(e.getMessage(), "Clase Logica", "buscarAccesoDirecto");
             } finally
             {
                 try
@@ -134,14 +132,15 @@ public class Logica {
                     con.close();
                 } catch (SQLException ex)
                 {
-                    System.out.println(ex.toString());
+                    Auxiliares.alerta(ex.getMessage(), "Clase Logica", "buscarAccesoDirecto");
                 }
             }
         }
         return null;
     }
 
-    public boolean eliminarAccesoDirecto(String nombre, String tabla)
+    //Metodo que elimina el acceso directo de la tabla
+    public static boolean eliminarAccesoDirecto(String nombre, String tabla)
     {
         String sql = "DELETE FROM " + tabla + " WHERE nombreTablas = ?";
 
@@ -152,15 +151,9 @@ public class Logica {
             ps.setString(1, nombre);
             ps.execute();
             return true;
-        } catch (Exception e)
+        } catch (SQLException e)
         {
-            System.out.println(e.toString());
-            // Crea una pantalla emergente con el error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Occured");
-            alert.setHeaderText("En eliminarAccesoDirecto de " + getClass());
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            Auxiliares.alerta(e.getMessage(), "Clase Logica", "eliminarAccesoDirecto");
             return false;
         } finally
         {
@@ -169,12 +162,13 @@ public class Logica {
                 con.close();
             } catch (SQLException ex)
             {
-                System.out.println(ex.toString());
+                Auxiliares.alerta(ex.getMessage(), "Clase Logica", "eliminarAccesoDirecto");
             }
         }
     }
 
-    public boolean eliminarCategoria(String tabla)
+    //metodo que elimina una categoria
+    public static boolean eliminarCategoria(String tabla)
     {
         String sql = "DROP TABLE `gestiondeaccesosdirectos`.`" + tabla + "`";
 
@@ -184,15 +178,9 @@ public class Logica {
             ps = con.prepareStatement(sql);
             ps.execute();
             return true;
-        } catch (Exception e)
+        } catch (SQLException e)
         {
-            System.out.println(e.toString());
-            // Crea una pantalla emergente con el error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Occured");
-            alert.setHeaderText("Del metodo eliminarCategoria de" + getClass());
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            Auxiliares.alerta(e.getMessage(), "Clase Logica", "eliminarCategoria");
             return false;
         } finally
         {
@@ -201,12 +189,13 @@ public class Logica {
                 con.close();
             } catch (SQLException ex)
             {
-                System.out.println(ex.toString());
+                Auxiliares.alerta(ex.getMessage(), "Clase Logica", "eliminarCategoria");
             }
         }
     }
 
-    public ArrayList<String> obtenerTablas(int condicion)
+    //metodo para obtener tablas
+    public static ArrayList<String> obtenerTablas(int condicion)
     {
         ArrayList<String> nombresDeBD = new ArrayList<>();
         try (Connection conn = cn.getConnection())
@@ -222,19 +211,22 @@ public class Logica {
                 String tableName = tables.getString("TABLE_NAME");
                 switch (condicion)
                 {
-                    case 1:
+                    case 1 ->
+                    {
                         if (tableName.equalsIgnoreCase("programas") || tableName.equalsIgnoreCase("otros") || tableName.equalsIgnoreCase("juegos"))
                         {
                             nombresDeBD.add(tableName);
                         }
-                        break;
-                    case 2:
+                    }
+                    case 2 ->
+                    {
                         if (tableName.equalsIgnoreCase("web"))
                         {
                             nombresDeBD.add(tableName);
                         }
-                        break;
-                    case 3:
+                    }
+                    case 3 ->
+                    {
                         if (tableName.equalsIgnoreCase("configuracion"))
                         {
                             String sql = "SELECT * FROM " + tableName;
@@ -245,21 +237,21 @@ public class Logica {
                                 nombresDeBD.add(rs.getString("nombreTablas"));
                             }
                         }
-                        break;
+                    }
 
-                    default:
+                    default ->
                         nombresDeBD.add(tableName);
-                        break;
                 }
             }
         } catch (SQLException e)
         {
-            System.out.println("Error: " + e.getMessage());
+            Auxiliares.alerta(e.getMessage(), "Clase Logica", "obtenerTablas");
         }
         return nombresDeBD;
     }
 
-    public void guardarVBox(String nombreTabla, String nombre)
+    //metodo para guardar las categorias
+    public static void guardarVBox(String nombreTabla, String nombre)
     {
         String url = "jdbc:mysql://localhost:3306/gestiondeaccesosdirectos?serverTimezone = UTC";
         String user = "root";
@@ -275,12 +267,12 @@ public class Logica {
             alert.showAndWait();
         } catch (SQLException e)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Ha ocurrido un error al crear la tabla: " + e.getMessage());
-            alert.showAndWait();
+            Auxiliares.alerta(e.getMessage(), "Clase Logica", "Ha ocurrido un error al crear la tabla: ");
         }
     }
 
-    public ArrayList<String> leerVBOX()
+    //metodo que devuelve las categorias
+    public static ArrayList<String> leerVBOX()
     {
         ArrayList<String> tablasComparar3 = obtenerTablas(3);
 

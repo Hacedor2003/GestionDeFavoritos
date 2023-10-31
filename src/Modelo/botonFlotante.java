@@ -1,7 +1,6 @@
 package Modelo;
 
 import Controlador.PanelParaBtnController;
-import Modelo.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -62,7 +60,7 @@ public class botonFlotante extends Application {
     {
         root = new VBox();
         claseLogica = new Logica();
-        nombresApp = claseLogica.obtenerTablas(indicador);
+        nombresApp = Logica.obtenerTablas(indicador);
         acordeon = new Accordion();
         pestana = new TitledPane();
         pestana.setText("Abreme");
@@ -127,9 +125,6 @@ public class botonFlotante extends Application {
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args)
     {
         launch(args);
@@ -156,7 +151,7 @@ public class botonFlotante extends Application {
         // Agregar estilo al TitledPane
         pestana.setStyle("-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px;");
 
-        root.setPrefSize(root.USE_COMPUTED_SIZE, root.USE_COMPUTED_SIZE);
+        root.setPrefSize(VBox.USE_COMPUTED_SIZE, VBox.USE_COMPUTED_SIZE);
 
     }
 
@@ -167,7 +162,7 @@ public class botonFlotante extends Application {
         contenido.setFillWidth(true);  // Permitir que el VBox se expanda para llenar el espacio disponible
 
         //Busca el nombre de todas las Categorias
-        ArrayList<String> tablasBuscar = claseLogica.obtenerTablas(indicador);
+        ArrayList<String> tablasBuscar = Logica.obtenerTablas(indicador);
         for (String s : tablasBuscar)
         {
             TitledPane pestana = new TitledPane();
@@ -176,12 +171,12 @@ public class botonFlotante extends Application {
 
             Boton btn = new Boton();
             PanelParaBtnController panelConBotones;
-            ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
+            ArrayList<AccesoDirecto> leerAccesosDirecto = Logica.leerAccesosDirecto(s, indicador);
             try
             {
                 for (int i = 0; i < leerAccesosDirecto.size(); i++)
                 {
-                    Button boton = btn.inicializarBotonDeLasPestañas(i, s, indicador);
+                    Button boton = Boton.inicializarBotonDeLasPestañas(i, s, indicador);
                     boolean encontre = compararBtn(boton, 3);
                     boolean encontrado = false;
                     if (!encontre)
@@ -212,12 +207,7 @@ public class botonFlotante extends Application {
                 }
             } catch (Exception ex)
             {
-                // Crea una pantalla emergente con el error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Occured");
-                alert.setHeaderText("En el metodo AnadirTab de la clase " + getClass());
-                alert.setContentText(ex.getMessage());
-                alert.showAndWait();
+                Auxiliares.alerta(ex.getMessage(), "botonFlotante", "anadirCategoria");
             }
         }
         contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido de la pestana    
@@ -229,14 +219,14 @@ public class botonFlotante extends Application {
         String comparar = boton.getText();
         int contador = 0;
 
-        ArrayList<String> tabla = claseLogica.obtenerTablas(indicador);
+        ArrayList<String> tabla = Logica.obtenerTablas(indicador);
         for (String s : tabla)
         {
-            ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
+            ArrayList<AccesoDirecto> leerAccesosDirecto = Logica.leerAccesosDirecto(s, indicador);
             Boton btn = new Boton();
             for (int index = 0; index < leerAccesosDirecto.size(); index++)
             {
-                Button boton2 = btn.inicializarBotonDeLasPestañas(index, s, indicador);
+                Button boton2 = Boton.inicializarBotonDeLasPestañas(index, s, indicador);
                 if (comparar.equals(boton2.getText()))
                 {
                     contador++;
@@ -258,12 +248,7 @@ public class botonFlotante extends Application {
             panelContolador = loader.getController();
         } catch (IOException ex)
         {
-            System.out.println(ex.getMessage());
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Occured");
-            alert.setHeaderText("Ooops, algo salió mal!");
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
+            Auxiliares.alerta(ex.getMessage(), "botonFlotante", "loadPage");
         }
 
         return panelContolador;
@@ -274,28 +259,19 @@ public class botonFlotante extends Application {
         Button btnCrear = new Button("Crear");
         try
         {
-            btnCrear.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event)
+            btnCrear.setOnAction((ActionEvent event) ->
+            {
+                if (indicador == 1)
                 {
-                    if (indicador == 1)
-                    {
-                        btnAnadirApp();
-                    } else
-                    {
-                        btnAnadirWeb();
-                    }
+                    btnAnadirApp();
+                } else
+                {
+                    btnAnadirWeb();
                 }
             });
         } catch (Exception ex)
         {
-            // Crea una pantalla emergente con el error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Occured");
-            alert.setHeaderText("Ooops, algo salió mal!");
-            alert.setContentText(ex.getMessage());
-
-            alert.showAndWait();
+            Auxiliares.alerta(ex.getMessage(), "botonFlotante", "obtenerBtnCrearAccesoDirecto");
         }
 
         return btnCrear;
@@ -364,17 +340,11 @@ public class botonFlotante extends Application {
 
             try
             {
-                claseLogica.registrarAccesoDirecto(ad, titulo, 2);
+                Logica.registrarAccesoDirecto(ad, titulo, 2);
 
             } catch (Exception ex)
             {
-                // Crea una pantalla emergente con el error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Occured");
-                alert.setHeaderText("En el metodo obtenerDirectoArchivo en " + getClass());
-                alert.setContentText(ex.getMessage());
-
-                alert.showAndWait();
+                Auxiliares.alerta(ex.getMessage(), "botonFlotante", "guardarWeb");
             }
         }
     }
@@ -414,7 +384,7 @@ public class botonFlotante extends Application {
                     {
                         try
                         {
-                            claseLogica.registrarAccesoDirecto(ad, titulo, indicador);
+                            Logica.registrarAccesoDirecto(ad, titulo, indicador);
                             encontrado = true;
                             break;
                         } catch (Exception ex)
@@ -430,14 +400,11 @@ public class botonFlotante extends Application {
                 }
                 if (!encontrado)
                 {
-                    claseLogica.registrarAccesoDirecto(ad, "otros", indicador);
+                    Logica.registrarAccesoDirecto(ad, "otros", indicador);
                 }
             } else
             {
-                // Manejar el caso en que no se pudo obtener el icono del archivo
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("No se pudo obtener el icono del archivo");
-                alert.showAndWait();
+                Auxiliares.alerta("No se pudo obtener el icono del archivo", "botonFlotante", "getFileIcon");
             }
         }
     }
@@ -466,12 +433,10 @@ public class botonFlotante extends Application {
     public ScrollPane crearPanelFlotante()
     {
         VBox contenido = anadirCategoria();
-        contenido.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event)
-            {
-                double newHeight = event.getY();
-                contenido.setPrefHeight(newHeight);
-            }
+        contenido.setOnMouseDragged((MouseEvent event) ->
+        {
+            double newHeight = event.getY();
+            contenido.setPrefHeight(newHeight);
         });
         ScrollPane scrollPane = new ScrollPane(contenido); // Creamos un ScrollPane con el contenido
         scrollPane.setFitToWidth(true); // Ajustamos el ancho del ScrollPane al ancho del contenedor padre

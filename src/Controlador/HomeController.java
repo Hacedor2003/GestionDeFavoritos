@@ -1,9 +1,9 @@
 package Controlador;
 
 import Modelo.*;
+import static Modelo.Auxiliares.*;
+import static Modelo.Logica.*;
 import java.awt.Desktop;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -13,21 +13,16 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -35,16 +30,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.swing.filechooser.FileSystemView;
 
 public class HomeController implements Initializable {
 
@@ -110,8 +102,7 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        listaTodasTablas = claseLogica.obtenerTablas(4);
-
+        listaTodasTablas = obtenerTablas(4);
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
         actualizarVBOX();
@@ -125,6 +116,59 @@ public class HomeController implements Initializable {
         PanelApp.getTabs().add(tabPanelAppBuscar);
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
+    }
+
+    void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
+    {
+        Tab tab1 = new Tab();
+        Tab tab2 = new Tab();
+        try
+        {
+            if (indicador == 1)
+            {
+                tab1 = anadirTab(nombre, indicador);
+            } else
+            {
+                tab2 = anadirTab(nombre, indicador);
+            }
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        switch (indicador)
+        {
+            case 1 ->
+            {
+                tab1.setText("");
+                ImageView iv = new ImageView("/Archivos/icons8-windows-client-24.png");
+                tab1.setGraphic(iv);
+                PanelApp.getTabs().add(tab1);
+                tab1.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 1;
+                });
+            }
+            case 2 ->
+            {
+                tab2.setText("");
+                ImageView iv2 = new ImageView("/Archivos/icons8-web-16.png");
+                tab2.setGraphic(iv2);
+                PanelApp.getTabs().add(tab2);
+                tab2.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 2;
+                });
+            }
+            default ->
+            {
+                PanelApp.getTabs().add(tab2);
+                tab2.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 1;
+                });
+            }
+        }
+
     }
 
     @FXML
@@ -153,426 +197,24 @@ public class HomeController implements Initializable {
             root = FXMLLoader.load(getClass().getResource("/Vista/" + page + ".fxml")); ///Vista/Home.fxml
         } catch (IOException ex)
         {
-            System.out.println(ex.getMessage());
+            alerta(ex.getMessage(), "HomeController", "loadPage");
         }
         borderPanel.setCenter(root);
     }
 
-    //Inicializacion Auxiliar                                
-    static int index = 0;
-    int indice = 0;
-    ArrayList<Button> listaBtnCategorias = new ArrayList<>();
-    Boton boton = new Boton();
-    Logica claseLogica = new Logica();
-    ArrayList<String> nombresApp = claseLogica.obtenerTablas(1);
-    ArrayList<String> nombresWeb = claseLogica.obtenerTablas(2);
+    //Inicializacion Auxiliar 
+    ArrayList<String> nombresApp = obtenerTablas(1);
+    ArrayList<String> nombresWeb = obtenerTablas(2);
 
     //Fin
     //Crear los botontes en el panelTab 
-    void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
-    {
-        Tab tab1 = new Tab();
-        Tab tab2 = new Tab();
-        try
-        {
-            if (indicador == 1)
-            {
-                tab1 = anadirTab(indicador, nombre);
-            } else
-            {
-                tab2 = anadirTab(indicador, nombre);
-            }
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        switch (indicador)
-        {
-            case 1:
-                tab1.setText("");
-                ImageView iv = new ImageView("/Archivos/icons8-windows-client-24.png");
-                tab1.setGraphic(iv);
-                PanelApp.getTabs().add(tab1);
-                tab1.setOnSelectionChanged(event ->
-                {
-                    this.indicador = 1;
-                });
-                break;
-            case 2:
-                tab2.setText("");
-                ImageView iv2 = new ImageView("/Archivos/icons8-web-16.png");
-                tab2.setGraphic(iv2);
-                PanelApp.getTabs().add(tab2);
-                tab2.setOnSelectionChanged(event ->
-                {
-                    this.indicador = 2;
-                });
-                break;
-            default:
-                PanelApp.getTabs().add(tab2);
-                tab2.setOnSelectionChanged(event ->
-                {
-                    this.indicador = 1;
-                });
-                break;
-        }
-
-    }
-
-    //Se crean los tab para guardar los accesos directos
-    private Tab anadirTab(int indicador, String nombre)
-    {
-        String nombreTabla = "";
-        ArrayList<String> tabla;
-        if (indicador == 3)
-        {
-            ArrayList<String> tablasBuscar = claseLogica.obtenerTablas(indicador);
-            for (String s : tablasBuscar)
-            {
-                if (s.equals(nombre))
-                {
-                    nombreTabla = s;
-                }
-            }
-            tabla = new ArrayList<>();
-            tabla.add(nombreTabla);
-        } else
-        {
-            tabla = claseLogica.obtenerTablas(indicador);
-        }
-
-        Tab tabNuevo = new Tab();   //Tab para guardar los Accesos directos
-        VBox contenido = new VBox(); // Contenedor para los elementos del Tab
-        String nombreTab = null;
-        if (!nombre.equals(""))
-        {
-            nombreTab = nombre;
-        } else
-        {
-            nombreTab = (indicador == 1) ? "Aplicaciones" : "Web";
-        }
-        tabNuevo.setText(nombreTab);
-        for (String s : tabla)
-        {
-            Boton btn = new Boton();
-            PanelParaBtnController panelConBotones;
-            ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
-            try
-            {
-                for (int i = 0; i < leerAccesosDirecto.size(); i++)
-                {
-                    Button boton = btn.inicializarBotonDeLasPestañas(i, s, indicador);
-                    boolean encontre = compararBtn(boton, indicador);
-                    boolean encontrado = false;
-                    if (!encontre)
-                    {
-                        panelConBotones = loadPage();
-                        panelConBotones.setContent(boton);
-                        panelConBotones.setTabla(s);
-                        panelConBotones.setNombre(leerAccesosDirecto.get(i).getNombre());
-                        contenido.getChildren().add(panelConBotones.getRoot());
-                        AnchorPane TabPanel = new AnchorPane();
-                        TabPanel.getChildren().clear();
-                        TabPanel.getChildren().add(contenido);
-                        tabNuevo.setContent(PanelTabPanel); // Establecer el contenido del Tab 
-                    } else
-                    {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error Occured");
-                        alert.setHeaderText("Existe una coincidencia");
-                        alert.setContentText("Por Favor use otro nombre que no sea: " + boton.getText());
-                        alert.showAndWait();
-                        encontrado = true;
-                        if (encontrado)
-                        {
-                            claseLogica.eliminarAccesoDirecto(boton.getText(), s);
-                        }
-                    }
-                }
-            } catch (Exception ex)
-            {
-                // Crea una pantalla emergente con el error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Occured");
-                alert.setHeaderText("En el metodo AnadirTab de la clase " + getClass());
-                alert.setContentText(ex.getMessage());
-                alert.showAndWait();
-            }
-
-        }
-        contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido del Tab
-        tabNuevo.setContent(contenido); // Establecer el contenido del Tab            
-        return tabNuevo;
-    }
-
-    //Metodos Auxiliares
-    //Se empareja el nombre del icono correspondiente
-    private String emparajarBtnIcono(String nombre)
-    {
-        ArrayList<String> iconos = new ArrayList<>();
-        iconos.add(0, "icons8-anonymous-mask-48.png");
-        iconos.add(1, "icons8-game-controller-48.png");
-        iconos.add(2, "icons8-folder-48.png");
-        iconos.add(3, "icons8-video-48.png");
-        String icon = null;
-
-        icon = switch (nombre)
-        {
-            case "programas" ->
-                iconos.get(0);
-            case "juegos" ->
-                iconos.get(1);
-            case "redessociales" ->
-                iconos.get(3);
-            case "otros" ->
-                iconos.get(2);
-            default ->
-                iconos.get(0);
-        };
-
-        return icon;
-    }
-
-    //Se crea el btn para anadir accesos directos
-    private Button obtenerBtnCrearAccesoDirecto()
-    {
-        Button btnCrear = new Button("Añadir Acceso Directo");
-        btnCrear.setId("btnCrear");
-        btnCrear.getStylesheets().add("/Archivos/btncrear.css");
-        btnCrear.getStyleClass().add("btnCrear");
-        try
-        {
-            btnCrear.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event)
-                {
-                    if (indicador == 1)
-                    {
-                        btnAnadirApp();
-                    } else
-                    {
-                        btnAnadirWeb();
-                    }
-                }
-            });
-        } catch (Exception ex)
-        {
-            // Crea una pantalla emergente con el error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Occured");
-            alert.setHeaderText("Ooops, algo salió mal!");
-            alert.setContentText(ex.getMessage());
-
-            alert.showAndWait();
-        }
-
-        return btnCrear;
-    }
-
-    //Se crea el panel para colocar el boton
-    private PanelParaBtnController loadPage()
-    {
-        PanelParaBtnController panelContolador = null;
-
-        try
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vista/panelParaBtn.fxml"));
-            Parent root = loader.load();
-            panelContolador = loader.getController();
-        } catch (IOException ex)
-        {
-            System.out.println(ex.getMessage());
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Occured");
-            alert.setHeaderText("Error en loadPage en" + getClass());
-            alert.setContentText(ex.getMessage());
-            alert.showAndWait();
-        }
-
-        return panelContolador;
-    }
-
-    //Fin
-    //Agregar Accesos Directos
-    //Inicializacion    
-    FileChooser fileChooser = new FileChooser();
-
-    //btn para agregar a la bd de aplicaciones
-    private void btnAnadirApp()
-    {
-        String nombreBtn = "";
-        ObservableList<String> opciones = FXCollections.observableArrayList(nombresApp);
-        ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle("Título del cuadro de diálogo");
-        dialogo.setHeaderText(null);
-        dialogo.setContentText("Selecciona una opción:");
-
-        Optional<String> resultado = dialogo.showAndWait();
-        if (resultado.isPresent())
-        {
-            nombreBtn = resultado.get();
-            obtenerDirectorioArchivo(nombreBtn);
-        }
-    }
-
-    //btn para agregar a la bd de web
-    private void btnAnadirWeb()
-    {
-        Stage ventana = new Stage();
-        Label direccionLabel = new Label("Dirección de la pagina Web:");
-        Label nombreLabel = new Label("Nombre del Acceso directo:");
-        TextField urlFieldDireccion = new TextField();
-        TextField urlFieldNombre = new TextField();
-        Button saveButton = new Button("Guardar");
-        Button cancelButton = new Button("Cancelar");
-
-        saveButton.setOnAction(e ->
-        {
-            String direccion = urlFieldDireccion.getText();
-            String nombre = urlFieldNombre.getText();
-
-            guardarWeb("web", direccion, nombre);
-
-            ventana.close();
-        });
-
-        cancelButton.setOnAction(e ->
-        {
-            ventana.close();
-        });
-
-        VBox root = new VBox(10, direccionLabel, urlFieldDireccion, nombreLabel, urlFieldNombre, saveButton, cancelButton);
-        Scene scene = new Scene(root, 300, 200);
-
-        ventana.setScene(scene);
-        ventana.showAndWait();
-    }
-
-    //Metodo para configurar la forma de guardar la web
-    private void guardarWeb(String titulo, String direccion, String nombre)
-    {
-        // Si se selecciona un archivo
-        if (nombre != null)
-        {
-            String name = nombre;
-            String path = direccion;
-
-            AccesoDirecto ad = new AccesoDirecto();
-            ad.setNombre(name);
-            ad.setDireccion(path);
-
-            try
-            {
-                claseLogica.registrarAccesoDirecto(ad, titulo, 2);
-
-            } catch (Exception ex)
-            {
-                // Crea una pantalla emergente con el error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Occured");
-                alert.setHeaderText("En el metodo obtenerDirectoArchivo en " + getClass());
-                alert.setContentText(ex.getMessage());
-
-                alert.showAndWait();
-            }
-        }
-    }
-
-    //Metodo para configurar la forma de guardar el btn
-    private void obtenerDirectorioArchivo(String titulo)
-    {
-        // Crea un FileChooser
-        FileChooser fileChooser = new FileChooser();
-
-        // Abre la ventana de selección de archivo
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-        // Si se selecciona un archivo
-        if (selectedFile != null)
-        {
-            String name = selectedFile.getName();
-            String path = selectedFile.getAbsolutePath();
-
-            AccesoDirecto ad = new AccesoDirecto();
-            ad.setNombre(name);
-            ad.setDireccion(path);
-
-            // Obtener el icono del archivo seleccionado
-            Image imagen = getFileIcon(path);
-            if (imagen != null)
-            {
-                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imagen, null);
-                ad.setIcon(bufferedImage);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Logrado");
-                alert.showAndWait();
-
-                boolean encontrado = false;
-                for (String nombreBD : nombresApp)
-                {
-                    if (titulo.equals(nombreBD))
-                    {
-                        try
-                        {
-                            claseLogica.registrarAccesoDirecto(ad, titulo, 1);
-                            encontrado = true;
-                            break;
-                        } catch (Exception ex)
-                        {
-                            // Crea una pantalla emergente con el error
-                            alert.setTitle("Error Occured");
-                            alert.setHeaderText("Ooops, algo salió mal!");
-                            alert.setContentText(ex.getMessage());
-
-                            alert.showAndWait();
-                        }
-                    }
-                }
-                if (!encontrado)
-                {
-                    claseLogica.registrarAccesoDirecto(ad, "otros", 1);
-                }
-            } else
-            {
-                // Manejar el caso en que no se pudo obtener el icono del archivo
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("No se pudo obtener el icono del archivo");
-                alert.showAndWait();
-            }
-        }
-    }
-
-    // Método para conseguir el icono del botón capturado
-    private Image getFileIcon(String filePath)
-    {
-        File file = new File(filePath);
-        if (file.exists())
-        {
-            // Obtener el icono del archivo utilizando el FileView de FileSystemView
-            FileSystemView fileView = FileSystemView.getFileSystemView();
-            javax.swing.Icon icon = fileView.getSystemIcon(file);
-
-            // Convertir el icono a JavaFX Image
-            BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D graphics = bufferedImage.createGraphics();
-            icon.paintIcon(null, graphics, 0, 0);
-            graphics.dispose();
-
-            return SwingFXUtils.toFXImage(bufferedImage, null);
-        }
-
-        return null;
-    }
-
     @FXML
     private void btnBuscar(ActionEvent event)
     {
-        Boton btn = new Boton();
-        String tabla = claseLogica.buscarAccesoDirecto(TextField.getText(), indicador);
-        for (int i = 0; i < claseLogica.leerAccesosDirecto(tabla, indicador).size(); i++)
+        String tabla = buscarAccesoDirecto(TextField.getText(), indicador);
+        for (int i = 0; i < leerAccesosDirecto(tabla, indicador).size(); i++)
         {
-            PaneAccesosDirectos.getChildren().add(btn.inicializarBotonDeLasPestañas(i, tabla, indicador));
-
+            PaneAccesosDirectos.getChildren().add(Boton.inicializarBotonDeLasPestañas(i, tabla, indicador));
         }
     }
 
@@ -594,22 +236,12 @@ public class HomeController implements Initializable {
 
     private void MenuItemSoloNombreArchivos(ActionEvent event)
     {
-        // Crea una pantalla emergente con el error
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Occured");
-        alert.setHeaderText("En el metodo MenuItemSoloNombreArchivos de la clase " + getClass());
-        alert.setContentText("Implementacion");
-        alert.showAndWait();
+        alerta("Implementacion", "HomeController", "MenuItemSoloNombreArchivos");
     }
 
     private void MenuItemIconos(ActionEvent event)
     {
-        // Crea una pantalla emergente con el error
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Occured");
-        alert.setHeaderText("En el metodo MenuItemIconos de la clase " + getClass());
-        alert.setContentText("Implementacion");
-        alert.showAndWait();
+        alerta("Implementacion", "HomeController", "MenuItemIconos");
     }
 
     @FXML
@@ -623,10 +255,12 @@ public class HomeController implements Initializable {
 
         // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
         updateNodeLanguage(root, bundle);*/
+        alerta("Implementacion", "HomeController", "MenuItemIdioma");
     }
 
     private void updateNodeLanguage(Node node, ResourceBundle bundle)
     {
+        /*
         if (node instanceof Parent)
         {
             for (Node child : ((Parent) node).getChildrenUnmodifiable())
@@ -643,7 +277,9 @@ public class HomeController implements Initializable {
             {
                 labeled.setText(bundle.getString(key));
             }
-        }
+        } 
+         */
+        alerta("Implementacion", "HomeController", "updateNodeLanguage");
     }
 
     @FXML
@@ -663,8 +299,7 @@ public class HomeController implements Initializable {
                 // ...
             } catch (IOException e)
             {
-                // Manejo de errores en caso de que no se pueda abrir el archivo
-                e.printStackTrace();
+                alerta(e.getMessage(), "HomeController", "MenuItemCargarIniciarSistema");
             }
         });
     }
@@ -688,22 +323,13 @@ public class HomeController implements Initializable {
     @FXML
     private void MenuItemSitioWeb(ActionEvent event)
     {
-        // Crea una pantalla emergente con el error
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Error Occured");
-        alert.setHeaderText("En el metodo MenuItemIconos de la clase " + getClass());
-        alert.setContentText("Implementacion");
-        alert.showAndWait();
+        alerta("Implementacion", "HomeController", "MenuItemSitioWeb");
     }
 
     @FXML
     private void MenuItemAcercaDe(ActionEvent event)
     {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Acerca de");
-        alert.setHeaderText("Versión 1.0");
-        alert.setContentText("Autor: Bryan");
-        alert.showAndWait();
+        alerta("Implementacion", "HomeController", "MenuItemAcercaDe");
     }
 
     @FXML
@@ -758,11 +384,11 @@ public class HomeController implements Initializable {
 
         for (String s : nombresApp)
         {
-            ArrayList<AccesoDirecto> a = claseLogica.leerAccesosDirecto(s, 1);
+            ArrayList<AccesoDirecto> a = leerAccesosDirecto(s, 1);
             for (AccesoDirecto b : a)
             {
                 String nombre = b.getNombre();
-                claseLogica.eliminarAccesoDirecto(nombre, s);
+                eliminarAccesoDirecto(nombre, s);
             }
 
         }
@@ -770,7 +396,7 @@ public class HomeController implements Initializable {
 
     private void actualizarVBOX()
     {
-        ArrayList<String> categoriasPersonalizadas = claseLogica.leerVBOX();
+        ArrayList<String> categoriasPersonalizadas = leerVBOX();
 
         for (String cp : categoriasPersonalizadas)
         {
@@ -790,28 +416,6 @@ public class HomeController implements Initializable {
         }
     }
 
-    private boolean compararBtn(Button boton, int indicador)
-    {
-        String comparar = boton.getText();
-        int contador = 0;
-
-        ArrayList<String> tabla = claseLogica.obtenerTablas(indicador);
-        for (String s : tabla)
-        {
-            ArrayList<AccesoDirecto> leerAccesosDirecto = claseLogica.leerAccesosDirecto(s, indicador);
-            Boton btn = new Boton();
-            for (int index = 0; index < leerAccesosDirecto.size(); index++)
-            {
-                Button boton2 = btn.inicializarBotonDeLasPestañas(index, s, indicador);
-                if (comparar.equals(boton2.getText()))
-                {
-                    contador++;
-                }
-            }
-        }
-        return (contador > 1);
-    }
-
     @FXML
     private void menuArchivoEliminarCategoria(ActionEvent event)
     {
@@ -824,7 +428,7 @@ public class HomeController implements Initializable {
         Optional<String> resultado = dialogo.showAndWait();
         if (resultado.isPresent())
         {
-            claseLogica.eliminarCategoria(resultado.get());
+            eliminarCategoria(resultado.get());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Categoria " + resultado.get() + " Eliminada");
             alert.showAndWait();
@@ -864,7 +468,7 @@ public class HomeController implements Initializable {
             PanelCategorias.getChildren().add(nuevoBtn);
 
             // Guarda el VBox actualizado en tu lógica o donde sea necesario
-            claseLogica.guardarVBox(nuevoBtn.getText(), nombreBtn);
+            guardarVBox(nuevoBtn.getText(), nombreBtn);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Botón creado y añadido al VBox");
             alert.showAndWait();
@@ -873,17 +477,6 @@ public class HomeController implements Initializable {
             CrearTabla ct = new CrearTabla();
             ct.setTabla(nombreBtn);
             ct.start(nuevoStage);
-        }
-    }
-
-    private void eliminarCategoriasPersonalizadas(String tabla)
-    {
-        for (String s : listaTodasTablas)
-        {
-            if (s.equals(tabla))
-            {
-                claseLogica.eliminarAccesoDirecto(tabla, "configuracion");
-            }
         }
     }
 

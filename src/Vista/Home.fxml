@@ -9,7 +9,7 @@
 
 <BorderPane fx:id="borderPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.HomeController">
    <left>
-      <VBox fx:id="PanelCategorias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="522.0" prefWidth="130.0" style="-fx-background-color: #0d1824;" BorderPane.alignment="CENTER">
+      <VBox fx:id="PanelCategorias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="522.0" prefWidth="130.0" style="-fx-background-color: #0d1824;" stylesheets="@../Archivos/panelparabtn.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 2px 2px 0px 2px;" stylesheets="@../Archivos/home.css" text="Home" textFill="WHITE">
                <font>

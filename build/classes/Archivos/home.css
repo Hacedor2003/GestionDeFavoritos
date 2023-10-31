@@ -7,7 +7,7 @@
 
 #btnCategoriaHome:hover {
     -fx-background-color: blueviolet;
-    -fx-text-fill: #dedede;
+    -fx-text-fill: white;
 }
 
 .menu-bar{
@@ -30,7 +30,7 @@
 .tab .tab-label{
     -fx-background-color: transparent;
     -fx-alignment: center;
-    -fx-text-fill: #0d1824;
+    -fx-text-fill: black;
 }
 .tab{
     -fx-background-color: #FFFFFF;
@@ -44,7 +44,7 @@
     -fx-background-radius:0;
     -fx-border-width:5 0 0 0;
     -fx-border-color: blue;
-    -fx-text-fill: #0d1824;
+    -fx-text-fill: white;
 }
 .tab:focused{
     -fx-focus-color:transparent;
@@ -59,6 +59,10 @@
 .tab:selected .focus-indicator{
     -fx-focus-color: transparent;
     -fx-border-color: transparent;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-tab-min-width: 100px;
+    -fx-rotate: 0;
 }
 
 

@@ -9,8 +9,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
@@ -20,17 +18,16 @@ import javafx.scene.text.TextAlignment;
 
 public class Boton {
 
-    public Button inicializarBotonDeLasPestañas(int index, String tabla, int indicacion)
+    public static Button inicializarBotonDeLasPestañas(int index, String tabla, int indicacion)
     {
         //Declaracion de variables
-        Logica claseLogica = new Logica();
         Button nuevoBoton = new Button("Nuevo Botón");
         String nombre;
         String direccion;
         int id;
 
         //Creo un lista de la bd
-        ArrayList<AccesoDirecto> leerAccesosDirectos = claseLogica.leerAccesosDirecto(tabla, indicacion);
+        ArrayList<AccesoDirecto> leerAccesosDirectos = Logica.leerAccesosDirecto(tabla, indicacion);
 
         //Configuro el boton
         nuevoBoton.setContentDisplay(ContentDisplay.TOP);
@@ -66,14 +63,7 @@ public class Boton {
                 }
             } catch (IOException | URISyntaxException ex)
             {
-                System.out.println(ex.getMessage());
-                // Crea una pantalla emergente con el error
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Occured");
-                alert.setHeaderText("En el metodo inicializarElBtnDelasPestanas en " + getClass());
-                alert.setContentText(ex.getMessage());
-
-                alert.showAndWait();
+                Auxiliares.alerta(ex.getMessage(), "Boton", "inicilizarBtndelasPestanas");
             }
         });
 
