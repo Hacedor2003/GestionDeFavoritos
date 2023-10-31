@@ -11,22 +11,22 @@
    <left>
       <VBox fx:id="PanelCategorias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="522.0" prefWidth="130.0" style="-fx-background-color: #0d1824;" stylesheets="@../Archivos/panelparabtn.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 2px 2px 0px 2px;" stylesheets="@../Archivos/home.css" text="Home" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/panelparabtn.css" text="Home" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 0px 2px 0px 2px;" stylesheets="@../Archivos/home.css" text="Aplicaciones" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" text="Aplicaciones" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 0px 2px 0px 2px0px 2px 0px 2px;" stylesheets="@../Archivos/home.css" text="Paginas Web" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" text="Paginas Web" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="130.0" style="-fx-border-width: 0px 2px 2px 2px;" stylesheets="@../Archivos/home.css" text="Flotante" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="130.0" text="Flotante" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

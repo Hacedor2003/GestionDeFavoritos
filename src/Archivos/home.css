@@ -1,23 +1,22 @@
+*{
+    -fx-text-fill: whitel;    
+}
 #btnCategoriaHome {
     border-top-color: #ff2d29;
     -fx-background-color: transparent;
     -fx-border-color: blue;
     -fx-text-fill: blue;
 }
-
 #btnCategoriaHome:hover {
     -fx-background-color: blueviolet;
     -fx-text-fill: white;
 }
-
 .menu-bar{
     -fx-background-color: #0d1824 ;
 }
-
 .menu-bar .label {
     -fx-text-fill: #dedede;
 }
-
 #PanelApp{
     -fx-tab-min-height: 3em;
     -fx-tab-max-height: 5em;
@@ -26,7 +25,6 @@
     -fx-tab-max-width: 0.5em;
 
 }
-
 .tab .tab-label{
     -fx-background-color: transparent;
     -fx-alignment: center;
@@ -44,6 +42,9 @@
     -fx-background-radius:0;
     -fx-border-width:5 0 0 0;
     -fx-border-color: blue;
+    -fx-text-fill: white;
+}
+.tab:selected .tab-label{
     -fx-text-fill: white;
 }
 .tab:focused{

@@ -1,41 +1,27 @@
 package Modelo;
 
 import Controlador.PanelParaBtnController;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javax.swing.filechooser.FileSystemView;
 import javafx.scene.layout.VBox;
 
 /**
@@ -53,17 +39,15 @@ public class botonFlotante extends Application {
     private int indicador;
     private Accordion acordeon;
     private TitledPane pestana;
-    ArrayList<String> nombresApp;
 
     @Override
     public void start(Stage stage)
     {
         root = new VBox();
         claseLogica = new Logica();
-        nombresApp = Logica.obtenerTablas(indicador);
         acordeon = new Accordion();
         pestana = new TitledPane();
-        pestana.setText("Abreme");
+        pestana.setText("Abreme");        
 
         //Panel Base        
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -116,6 +100,8 @@ public class botonFlotante extends Application {
         });
 
         Scene scene = new Scene(root);
+        //Stilos
+        scene.getStylesheets().add("/Archivos/flotante.css");
 
         stage.initStyle(StageStyle.DECORATED.UNDECORATED);
 
@@ -210,7 +196,7 @@ public class botonFlotante extends Application {
                 Auxiliares.alerta(ex.getMessage(), "botonFlotante", "anadirCategoria");
             }
         }
-        contenido.getChildren().add(obtenerBtnCrearAccesoDirecto()); // Agregar el botón al contenido de la pestana    
+        contenido.getChildren().add(Auxiliares.obtenerBtnCrearAccesoDirecto("Auxiliares", indicador)); // Agregar el botón al contenido de la pestana    
         return contenido;
     }
 
@@ -252,182 +238,6 @@ public class botonFlotante extends Application {
         }
 
         return panelContolador;
-    }
-
-    private Button obtenerBtnCrearAccesoDirecto()
-    {
-        Button btnCrear = new Button("Crear");
-        try
-        {
-            btnCrear.setOnAction((ActionEvent event) ->
-            {
-                if (indicador == 1)
-                {
-                    btnAnadirApp();
-                } else
-                {
-                    btnAnadirWeb();
-                }
-            });
-        } catch (Exception ex)
-        {
-            Auxiliares.alerta(ex.getMessage(), "botonFlotante", "obtenerBtnCrearAccesoDirecto");
-        }
-
-        return btnCrear;
-    }
-
-    private void btnAnadirApp()
-    {
-        String nombreBtn = "";
-        ObservableList<String> opciones = FXCollections.observableArrayList(nombresApp);
-        ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle("Título del cuadro de diálogo");
-        dialogo.setHeaderText(null);
-        dialogo.setContentText("Selecciona una opción:");
-
-        Optional<String> resultado = dialogo.showAndWait();
-        if (resultado.isPresent())
-        {
-            nombreBtn = resultado.get();
-            obtenerDirectorioArchivo(nombreBtn);
-        }
-    }
-
-    //btn para agregar a la bd de web
-    private void btnAnadirWeb()
-    {
-        Stage ventana = new Stage();
-        Label direccionLabel = new Label("Dirección de la pagina Web:");
-        Label nombreLabel = new Label("Nombre del Acceso directo:");
-        TextField urlFieldDireccion = new TextField();
-        TextField urlFieldNombre = new TextField();
-        Button saveButton = new Button("Guardar");
-        Button cancelButton = new Button("Cancelar");
-
-        saveButton.setOnAction(e ->
-        {
-            String direccion = urlFieldDireccion.getText();
-            String nombre = urlFieldNombre.getText();
-
-            guardarWeb("web", direccion, nombre);
-
-            ventana.close();
-        });
-
-        cancelButton.setOnAction(e ->
-        {
-            ventana.close();
-        });
-
-        VBox root = new VBox(10, direccionLabel, urlFieldDireccion, nombreLabel, urlFieldNombre, saveButton, cancelButton);
-        Scene scene = new Scene(root, 300, 200);
-        ventana.setScene(scene);
-        ventana.showAndWait();
-    }
-
-    private void guardarWeb(String titulo, String direccion, String nombre)
-    {
-        // Si se selecciona un archivo
-        if (nombre != null)
-        {
-            String name = nombre;
-            String path = direccion;
-
-            AccesoDirecto ad = new AccesoDirecto();
-            ad.setNombre(name);
-            ad.setDireccion(path);
-
-            try
-            {
-                Logica.registrarAccesoDirecto(ad, titulo, 2);
-
-            } catch (Exception ex)
-            {
-                Auxiliares.alerta(ex.getMessage(), "botonFlotante", "guardarWeb");
-            }
-        }
-    }
-
-    private void obtenerDirectorioArchivo(String titulo)
-    {
-        // Crea un FileChooser
-        FileChooser fileChooser = new FileChooser();
-
-        // Abre la ventana de selección de archivo
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-        // Si se selecciona un archivo
-        if (selectedFile != null)
-        {
-            String name = selectedFile.getName();
-            String path = selectedFile.getAbsolutePath();
-
-            AccesoDirecto ad = new AccesoDirecto();
-            ad.setNombre(name);
-            ad.setDireccion(path);
-
-            // Obtener el icono del archivo seleccionado
-            Image imagen = getFileIcon(path);
-            if (imagen != null)
-            {
-                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imagen, null);
-                ad.setIcon(bufferedImage);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Logrado");
-                alert.showAndWait();
-
-                boolean encontrado = false;
-                for (String nombreBD : nombresApp)
-                {
-                    if (titulo.equals(nombreBD))
-                    {
-                        try
-                        {
-                            Logica.registrarAccesoDirecto(ad, titulo, indicador);
-                            encontrado = true;
-                            break;
-                        } catch (Exception ex)
-                        {
-                            // Crea una pantalla emergente con el error
-                            alert.setTitle("Error Occured");
-                            alert.setHeaderText("Ooops, algo salió mal!");
-                            alert.setContentText(ex.getMessage());
-
-                            alert.showAndWait();
-                        }
-                    }
-                }
-                if (!encontrado)
-                {
-                    Logica.registrarAccesoDirecto(ad, "otros", indicador);
-                }
-            } else
-            {
-                Auxiliares.alerta("No se pudo obtener el icono del archivo", "botonFlotante", "getFileIcon");
-            }
-        }
-    }
-
-    private Image getFileIcon(String filePath)
-    {
-        File file = new File(filePath);
-        if (file.exists())
-        {
-            // Obtener el icono del archivo utilizando el FileView de FileSystemView
-            FileSystemView fileView = FileSystemView.getFileSystemView();
-            javax.swing.Icon icon = fileView.getSystemIcon(file);
-
-            // Convertir el icono a JavaFX Image
-            BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D graphics = bufferedImage.createGraphics();
-            icon.paintIcon(null, graphics, 0, 0);
-            graphics.dispose();
-
-            return SwingFXUtils.toFXImage(bufferedImage, null);
-        }
-
-        return null;
     }
 
     public ScrollPane crearPanelFlotante()

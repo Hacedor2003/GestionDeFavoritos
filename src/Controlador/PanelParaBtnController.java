@@ -62,8 +62,7 @@ public class PanelParaBtnController implements Initializable {
     @FXML
     private void BtnParaBorrar(ActionEvent event)
     {
-        Logica claseLogica = new Logica();
-        claseLogica.eliminarAccesoDirecto(nombre, tabla);
+        Logica.eliminarAccesoDirecto(nombre, tabla);
     }
 
     public void setContent(Button b)
@@ -75,7 +74,7 @@ public class PanelParaBtnController implements Initializable {
         btnObjetivo.setGraphic(b.getGraphic());
 
         ImageView imageView = new ImageView();
-        imageView.setImage(new Image("/archivos/icons8-cancel-16.png"));
+        imageView.setImage(new Image("/archivos/icons8-cancel-24.png"));
         btnParaCancelar.setGraphic(imageView);
 
         btnParaCancelar.setMinHeight(btnObjetivo.getHeight());

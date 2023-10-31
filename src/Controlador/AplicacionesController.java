@@ -79,7 +79,6 @@ public class AplicacionesController implements Initializable {
             obtenerDirectorioArchivo(resultado.get(), "AplicacioneController");
         }
     }
-
     @FXML
     private void btnBuscar(ActionEvent event)
     {

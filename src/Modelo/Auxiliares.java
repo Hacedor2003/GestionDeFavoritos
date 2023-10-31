@@ -20,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -51,7 +50,7 @@ public class Auxiliares {
     {
         ArrayList<String> iconos = new ArrayList<>();
         iconos.add(0, "icons8-windows-client-24.png");
-        iconos.add(1, "icons8-web-16.png");
+        iconos.add(1, "icons8-web-24.png");
         String icon = null;
 
         icon = switch (nombre)
@@ -179,6 +178,9 @@ public class Auxiliares {
     {
         // Crea un FileChooser
         FileChooser fileChooser = new FileChooser();
+        // Agregar filtro para archivos .exe
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos ejecutables (*.exe)", "*.exe");
+        fileChooser.getExtensionFilters().add(extFilter);
 
         // Abre la ventana de selección de archivo
         File selectedFile = fileChooser.showOpenDialog(null);
