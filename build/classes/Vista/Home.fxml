@@ -42,7 +42,7 @@
    <top>
       <MenuBar fx:id="menuBar" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
          <menus>
-            <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
+            <Menu id="menuBox" fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
                   <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" text="Agregar Acceso Directo" />
                   <MenuItem mnemonicParsing="false" onAction="#anadirCategoria" text="Anadir Categoria" />
@@ -50,25 +50,25 @@
                   <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Editar">
+            <Menu id="menuBox" mnemonicParsing="false" text="Editar">
                <items>
                   <MenuItem fx:id="menuEditarActualizar" mnemonicParsing="false" onAction="#menuEditarActualizar" text="Actualizar" />
                   <MenuItem fx:id="menuEditarEliminartodo" mnemonicParsing="false" onAction="#MenuEditarEliminarTodo" text="Eliminar todo" />
                </items>
             </Menu>
-            <Menu fx:id="menuVer" mnemonicParsing="false" text="Ver">
+            <Menu id="menuBox" fx:id="menuVer" mnemonicParsing="false" text="Ver">
                <items>
                   <MenuItem fx:id="menuVerSiempreEncima" mnemonicParsing="false" onAction="#MenuItemSiempreEncima" text="Siempre Encima" />
                   <MenuItem fx:id="menuVerIdioma" mnemonicParsing="false" onAction="#MenuItemIdioma" text="menuVerIdioma" />
                </items>
             </Menu>
-            <Menu fx:id="menuConfiguracion" mnemonicParsing="false" text="Configuracion">
+            <Menu id="menuBox" fx:id="menuConfiguracion" mnemonicParsing="false" text="Configuracion">
                <items>
                   <MenuItem fx:id="menuConfigCargarIniciar" mnemonicParsing="false" onAction="#MenuItemCargarIniciarSistema" text="Cargar al Iniciar Sistema" />
                   <MenuItem fx:id="menuConfigIniMini" mnemonicParsing="false" onAction="#MenuItemIniciarMinimizado" text="Iniciar Minimizado" />
                </items>
             </Menu>
-            <Menu fx:id="menuAyuda" mnemonicParsing="false" text="Ayuda">
+            <Menu id="menuBox" fx:id="menuAyuda" mnemonicParsing="false" text="Ayuda">
                <items>
                   <MenuItem fx:id="menuAyudaSitioWeb" mnemonicParsing="false" onAction="#MenuItemSitioWeb" text="Sitio Web" />
                   <MenuItem fx:id="menuAyudaAcerca" mnemonicParsing="false" onAction="#MenuItemAcercaDe" text="Acerca De" />

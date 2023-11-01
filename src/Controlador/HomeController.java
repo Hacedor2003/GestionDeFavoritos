@@ -1,5 +1,6 @@
 package Controlador;
 
+import static Controlador.CarpetasController.btnAnadirBd;
 import Modelo.*;
 import static Modelo.Auxiliares.*;
 import static Modelo.Logica.*;
@@ -341,9 +342,10 @@ public class HomeController implements Initializable {
         // Crear los botones de opción
         ButtonType opcion1 = new ButtonType("Una aplicacion");
         ButtonType opcion2 = new ButtonType("Una Web");
+        ButtonType opcion3 = new ButtonType("Una Carpeta");
 
         // Agregar los botones de opción al diálogo
-        alert.getButtonTypes().setAll(opcion1, opcion2);
+        alert.getButtonTypes().setAll(opcion1, opcion2,opcion3);
 
         // Mostrar el diálogo y esperar a que el usuario seleccione una opción
         Optional<ButtonType> result = alert.showAndWait();
@@ -355,6 +357,9 @@ public class HomeController implements Initializable {
         } else if (result.get() == opcion2)
         {
             btnAnadirWeb();
+        } else if (result.get() == opcion1)
+        {
+            btnAnadirBd();
         }
     }
 

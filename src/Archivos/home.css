@@ -1,5 +1,5 @@
 *{
-    -fx-text-fill: whitel;    
+    -fx-text-fill: white;
 }
 #btnCategoriaHome {
     border-top-color: #ff2d29;
@@ -14,9 +14,29 @@
 .menu-bar{
     -fx-background-color: #0d1824 ;
 }
+#menuBox:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+}
 .menu-bar .label {
     -fx-text-fill: #dedede;
 }
+.menu-item .label{
+    -fx-text-fill: white;
+}
+.menu-item {
+    -fx-background-color:  #0d1824;
+    -fx-border-color:  #0d1824;
+}
+.menu-item:hover {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+}
+
 #PanelApp{
     -fx-tab-min-height: 3em;
     -fx-tab-max-height: 5em;

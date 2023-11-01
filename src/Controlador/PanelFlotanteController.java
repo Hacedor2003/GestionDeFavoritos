@@ -45,6 +45,7 @@ public class PanelFlotanteController implements Initializable {
         listaTablas.add("Carpetas");
         listaTablas.add("Todo");
         opcion.getItems().addAll(listaTablas);
+        opcion.setValue("Seleccione una opcion");
     }
 
     @FXML

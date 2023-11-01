@@ -26,3 +26,30 @@
     -fx-padding: 10 15 13 15;
     -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
+
+.choice-box{
+     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+     -fx-text-fill: white;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: #0d1824;
+}
+
+.choice-box .menu-item:focused {
+     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: white;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: black;
+}

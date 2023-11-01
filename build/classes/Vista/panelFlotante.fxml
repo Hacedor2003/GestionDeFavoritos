@@ -9,8 +9,8 @@
         <URL value="@/Archivos/panelflotante.css" />
     </stylesheets>
    <children>
-      <Label layoutX="149.0" layoutY="31.0" text="Que Desea Ver?" />
-      <Button fx:id="idBtnEnviar" layoutX="131.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnEnviar" text="Abrir Panel Flotante" />
-      <ChoiceBox fx:id="opcion" layoutX="116.0" layoutY="78.0" prefWidth="150.0" />
+      <Label layoutX="158.0" layoutY="30.0" text="Que Desea Ver?" />
+      <Button fx:id="idBtnEnviar" layoutX="125.0" layoutY="205.0" mnemonicParsing="false" onAction="#btnEnviar" prefHeight="26.0" prefWidth="150.0" text="Abrir Panel Flotante" />
+      <ChoiceBox fx:id="opcion" layoutX="125.0" layoutY="90.0" prefWidth="150.0" stylesheets="@../Archivos/panelflotante.css" />
    </children>
 </AnchorPane>
