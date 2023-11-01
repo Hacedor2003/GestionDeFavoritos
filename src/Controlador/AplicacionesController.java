@@ -84,7 +84,7 @@ public class AplicacionesController implements Initializable {
     {
         String tabla = Logica.buscarAccesoDirecto(TextField.getText(), 1);
         PaneAccesosDirectos.getChildren().clear(); // borrar los botones existentes
-        for (int i = 0; i < Logica.leerAccesosDirecto(tabla, 1).size(); i++)
+        for (int i = 0; i < Logica.leerAccesosDirecto(tabla).size(); i++)
         {
             PaneAccesosDirectos.getChildren().add(Boton.inicializarBotonDeLasPestañas(i, tabla, 1));
         }

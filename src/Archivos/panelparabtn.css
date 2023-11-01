@@ -3,7 +3,7 @@
 }
 
 .button{
-    -fx-background-color: transparent;
+    -fx-background-color: blueviolet;
     -fx-background-radius: 10px;
     -fx-background-insets: 0;
     -fx-background-size: cover;

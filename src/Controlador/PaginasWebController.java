@@ -79,7 +79,7 @@ public class PaginasWebController implements Initializable {
     private void btnBuscar(ActionEvent event)
     {
         String tabla = buscarAccesoDirecto(TextField.getText(), 2);
-        for (int i = 0; i < leerAccesosDirecto(tabla, 2).size(); i++)
+        for (int i = 0; i < leerAccesosDirecto(tabla).size(); i++)
         {
             PaneAccesosDirectos.getChildren().add(Boton.inicializarBotonDeLasPestañas(i, tabla, 2));
         }

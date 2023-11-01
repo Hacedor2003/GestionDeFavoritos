@@ -6,13 +6,13 @@ package Controlador;
 
 import Modelo.botonFlotante;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -26,32 +26,32 @@ public class PanelFlotanteController implements Initializable {
     @FXML
     private AnchorPane panelBase;
     @FXML
-    private RadioButton radioApp;
-    @FXML
-    private RadioButton radioWeb;
-    @FXML
     private Button idBtnEnviar;
 
     private int indicador;
     private Stage stage;
+    @FXML
+    private ChoiceBox<String> opcion;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         stage = new Stage();
-        
-        ToggleGroup toggleGroup = new ToggleGroup();
-        radioApp.setToggleGroup(toggleGroup);
-        radioWeb.setToggleGroup(toggleGroup);
+        ArrayList<String> listaTablas = new ArrayList<>();
+        listaTablas.add("Aplicaciones");
+        listaTablas.add("Web");
+        listaTablas.add("Personalizadas");
+        listaTablas.add("Carpetas");
+        listaTablas.add("Todo");
+        opcion.getItems().addAll(listaTablas);
+
     }
 
-    @FXML
     private void onAplicaciones(ActionEvent event)
     {
         indicador = 1;
     }
 
-    @FXML
     private void onWeb(ActionEvent event)
     {
         indicador = 2;
@@ -61,7 +61,7 @@ public class PanelFlotanteController implements Initializable {
     private void btnEnviar(ActionEvent event)
     {
         botonFlotante bf = new botonFlotante();
-        bf.setIndicador(indicador);
+        bf.setIndicador(compararOpciones());
         bf.start(stage);
     }
 
@@ -70,4 +70,35 @@ public class PanelFlotanteController implements Initializable {
         this.stage = stage;
     }
 
+    private int compararOpciones()
+    {
+        String selection = opcion.getValue();
+        int numero = 6;
+
+        switch (selection)
+        {
+            case "Aplicaciones" ->
+            {
+                numero = 1;
+            }
+            case "Web" ->
+            {
+                numero = 2;
+            }
+            case "Personalizadas" ->
+            {
+                numero = 3;
+            }
+            case "Carpetas" ->
+            {
+                numero = 4;
+            }
+            case "Todo" ->
+            {
+                numero = 5;
+            }
+        }
+
+        return numero;
+    }
 }
