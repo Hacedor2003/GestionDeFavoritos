@@ -27,7 +27,7 @@ public class Boton {
         int id;
 
         //Creo un lista de la bd
-        ArrayList<AccesoDirecto> leerAccesosDirectos = Logica.leerAccesosDirecto(tabla);
+        ArrayList<AccesoDirecto> leerAccesosDirectos = Logica.leerAccesosDirecto(tabla, indicacion);
 
         //Configuro el boton
         nuevoBoton.setContentDisplay(ContentDisplay.TOP);

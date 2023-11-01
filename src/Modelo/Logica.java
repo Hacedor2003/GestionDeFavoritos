@@ -70,7 +70,7 @@ public class Logica {
     }
 
     //Metodo que devuelve una lista de los accesos directos de una tabla
-    public static ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla)
+    public static ArrayList<AccesoDirecto> leerAccesosDirecto(String tabla, int condicion)
     {
         ArrayList<AccesoDirecto> listaAd = new ArrayList<>();
         String sql = "SELECT * FROM " + tabla;
@@ -86,18 +86,20 @@ public class Logica {
                 BufferedImage buffImg = null;
                 cd.setNombre(rs.getString("nombre"));
                 cd.setDireccion(rs.getString("direccion"));
-                byte[] imageBytes = rs.getBytes("icono");
-                // Crear un objeto BufferedImage a partir de los bytes
-                BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
-                cd.setIcon(image);
+                if (condicion != 2)
+                {
+                    byte[] imageBytes = rs.getBytes("icono");
+                    // Crear un objeto BufferedImage a partir de los bytes
+                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
+                    cd.setIcon(image);
+                }
                 cd.setId(rs.getInt("id"));
                 listaAd.add(cd);
             }
             rs.close();
         } catch (SQLException | IOException e)
         {
-            //Auxiliares.alerta(e.getMessage(), "Clase Logica", "leerAccesosDirecto");
-            System.out.println(e.getMessage());
+            Auxiliares.alerta(e.getMessage(), "Clase Logica", "leerAccesosDirecto");
         }
         return listaAd;
     }
@@ -140,7 +142,7 @@ public class Logica {
     //Metodo que elimina el acceso directo de la tabla
     public static boolean eliminarAccesoDirecto(String nombre, String tabla)
     {
-        String sql = "DELETE FROM " + tabla + " WHERE nombre = ?";
+        String sql = "DELETE FROM " + tabla + " WHERE nombreTablas = ?";
 
         try
         {
@@ -232,31 +234,10 @@ public class Logica {
                             rs = ps.executeQuery();
                             while (rs.next())
                             {
-                                nombresDeBD.add(rs.getString("nombre"));
+                                nombresDeBD.add(rs.getString("nombreTablas"));
                             }
                         }
                     }
-                    case 4 ->
-                    {
-                        if (tableName.equalsIgnoreCase("carpeta"))
-                        {
-                            nombresDeBD.add(tableName);
-                        }
-                    }
-                    case 5 ->
-                    {
-                        if (tableName.equalsIgnoreCase("todo"))
-                        {
-                           String sql = "SELECT * FROM " + tableName;
-                            ps = con.prepareStatement(sql);
-                            rs = ps.executeQuery();
-                            while (rs.next())
-                            {
-                                nombresDeBD.add(rs.getString("nombre"));
-                            }
-                        }
-                    }
-                    
 
                     default ->
                         nombresDeBD.add(tableName);

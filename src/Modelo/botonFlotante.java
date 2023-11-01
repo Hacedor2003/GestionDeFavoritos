@@ -47,7 +47,7 @@ public class botonFlotante extends Application {
         claseLogica = new Logica();
         acordeon = new Accordion();
         pestana = new TitledPane();
-        pestana.setText("Abreme");
+        pestana.setText("Abreme");        
 
         //Panel Base        
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -59,7 +59,7 @@ public class botonFlotante extends Application {
         root.getChildren().add(acordeon); // Añadimos el ScrollPane en lugar del contenido directamente  
         actualizarRoot();
 
-        pestana.setOnMouseDragged((MouseEvent event) ->
+        root.setOnMouseDragged((MouseEvent event) ->
         {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
@@ -72,11 +72,11 @@ public class botonFlotante extends Application {
             stage.close();
         });
         contextMenu.getItems().add(closeMenuItem);
-        pestana.setOnContextMenuRequested(event ->
+        root.setOnContextMenuRequested(event ->
         {
             contextMenu.show(root, event.getScreenX(), event.getScreenY());
         });
-        pestana.setOnMouseClicked(event ->
+        root.setOnMouseClicked(event ->
         {
             contextMenu.hide();
         });
@@ -85,6 +85,9 @@ public class botonFlotante extends Application {
         {
             if (newPane != null)
             {
+                // Se ha abierto una nueva pestaña, ajusta el VBox al contenido
+                root.requestLayout();
+
                 // Muestra un Alert
                 Platform.runLater(() ->
                 {
@@ -92,7 +95,7 @@ public class botonFlotante extends Application {
                 });
             } else
             {
-                stage.setHeight(37);
+                stage.setHeight(50);
             }
         });
 
@@ -125,6 +128,15 @@ public class botonFlotante extends Application {
 
     public void actualizarRoot()
     {
+        // Agregar estilo al VBox
+        root.setStyle("-fx-background-color: transparent; -fx-padding: 10px;");
+
+        // Agregar estilo al Accordion
+        acordeon.setStyle("-fx-background-color: #ffffff;");
+
+        // Agregar estilo al TitledPane
+        pestana.setStyle("-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px;");
+
         root.setPrefSize(VBox.USE_COMPUTED_SIZE, VBox.USE_COMPUTED_SIZE);
 
     }
@@ -145,7 +157,7 @@ public class botonFlotante extends Application {
 
             Boton btn = new Boton();
             PanelParaBtnController panelConBotones;
-            ArrayList<AccesoDirecto> leerAccesosDirecto = Logica.leerAccesosDirecto(s);
+            ArrayList<AccesoDirecto> leerAccesosDirecto = Logica.leerAccesosDirecto(s, indicador);
             try
             {
                 for (int i = 0; i < leerAccesosDirecto.size(); i++)
@@ -196,7 +208,7 @@ public class botonFlotante extends Application {
         ArrayList<String> tabla = Logica.obtenerTablas(indicador);
         for (String s : tabla)
         {
-            ArrayList<AccesoDirecto> leerAccesosDirecto = Logica.leerAccesosDirecto(s);
+            ArrayList<AccesoDirecto> leerAccesosDirecto = Logica.leerAccesosDirecto(s, indicador);
             Boton btn = new Boton();
             for (int index = 0; index < leerAccesosDirecto.size(); index++)
             {
@@ -231,6 +243,11 @@ public class botonFlotante extends Application {
     public ScrollPane crearPanelFlotante()
     {
         VBox contenido = anadirCategoria();
+        contenido.setOnMouseDragged((MouseEvent event) ->
+        {
+            double newHeight = event.getY();
+            contenido.setPrefHeight(newHeight);
+        });
         ScrollPane scrollPane = new ScrollPane(contenido); // Creamos un ScrollPane con el contenido
         scrollPane.setFitToWidth(true); // Ajustamos el ancho del ScrollPane al ancho del contenedor padre
         return scrollPane;
