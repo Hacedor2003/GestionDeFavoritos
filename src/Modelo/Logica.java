@@ -99,7 +99,7 @@ public class Logica {
             rs.close();
         } catch (SQLException | IOException e)
         {
-            Auxiliares.alerta(e.getMessage(), "Clase Logica", "leerAccesosDirecto");
+           // Auxiliares.alerta(e.getMessage(), "Clase Logica", "leerAccesosDirecto");
         }
         return listaAd;
     }
@@ -124,7 +124,7 @@ public class Logica {
                 rs.close();
             } catch (SQLException e)
             {
-                Auxiliares.alerta(e.getMessage(), "Clase Logica", "buscarAccesoDirecto");
+                //Auxiliares.alerta(e.getMessage(), "Clase Logica", "buscarAccesoDirecto");
             } finally
             {
                 try
@@ -132,7 +132,7 @@ public class Logica {
                     con.close();
                 } catch (SQLException ex)
                 {
-                    Auxiliares.alerta(ex.getMessage(), "Clase Logica", "buscarAccesoDirecto");
+                    //Auxiliares.alerta(ex.getMessage(), "Clase Logica", "buscarAccesoDirecto");
                 }
             }
         }
@@ -142,7 +142,7 @@ public class Logica {
     //Metodo que elimina el acceso directo de la tabla
     public static boolean eliminarAccesoDirecto(String nombre, String tabla)
     {
-        String sql = "DELETE FROM " + tabla + " WHERE nombreTablas = ?";
+        String sql = "DELETE FROM " + tabla + " WHERE nombre = ?";
 
         try
         {
@@ -234,7 +234,27 @@ public class Logica {
                             rs = ps.executeQuery();
                             while (rs.next())
                             {
-                                nombresDeBD.add(rs.getString("nombreTablas"));
+                                nombresDeBD.add(rs.getString("nombre"));
+                            }
+                        }
+                    }
+                    case 4 ->
+                    {
+                        if (tableName.equalsIgnoreCase("carpeta"))
+                        {
+                            nombresDeBD.add(tableName);
+                        }
+                    }
+                    case 5 ->
+                    {
+                        if (tableName.equalsIgnoreCase("todo"))
+                        {
+                            String sql = "SELECT * FROM " + tableName;
+                            ps = con.prepareStatement(sql);
+                            rs = ps.executeQuery();
+                            while (rs.next())
+                            {
+                                nombresDeBD.add(rs.getString("nombre"));
                             }
                         }
                     }
@@ -245,7 +265,7 @@ public class Logica {
             }
         } catch (SQLException e)
         {
-            Auxiliares.alerta(e.getMessage(), "Clase Logica", "obtenerTablas");
+            //Auxiliares.alerta(e.getMessage(), "Clase Logica", "obtenerTablas");
         }
         return nombresDeBD;
     }

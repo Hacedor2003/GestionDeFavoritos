@@ -46,6 +46,9 @@ public class Boton {
             Image fxImage = SwingFXUtils.toFXImage(buffImg, null);
             nuevoBoton.setGraphic(new ImageView(fxImage));
         }
+        else {
+            nuevoBoton.setGraphic(new ImageView("/Archivos/icons8-web-24 (1).png"));
+        }
 
         nuevoBoton.setText(nombre);
         nuevoBoton.setId(id + "");

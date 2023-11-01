@@ -1,5 +1,6 @@
 package Modelo;
 
+import static Controlador.CarpetasController.btnAnadirBd;
 import Controlador.PanelParaBtnController;
 import static Modelo.Logica.obtenerTablas;
 import java.awt.Graphics2D;
@@ -51,6 +52,7 @@ public class Auxiliares {
         ArrayList<String> iconos = new ArrayList<>();
         iconos.add(0, "icons8-windows-client-24.png");
         iconos.add(1, "icons8-web-24.png");
+        iconos.add(2, "icons8-folder-24.png");
         String icon = null;
 
         icon = switch (nombre)
@@ -59,6 +61,8 @@ public class Auxiliares {
                 iconos.get(0);
             case "web" ->
                 iconos.get(1);
+            case "carpeta" ->
+                iconos.get(2);
             default ->
                 iconos.get(0);
         };
@@ -80,6 +84,9 @@ public class Auxiliares {
                 if (indicador == 1)
                 {
                     btnAnadirApp();
+                } else if (indicador == 4)
+                {
+                    btnAnadirBd();
                 } else
                 {
                     btnAnadirWeb();

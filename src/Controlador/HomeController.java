@@ -102,9 +102,10 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        listaTodasTablas = obtenerTablas(4);
+        //listaTodasTablas = obtenerTablas(5);
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
+        obtenerLosComponentesDeLaBaseDeDatos(4, "");
         actualizarVBOX();
     }
 
@@ -116,53 +117,52 @@ public class HomeController implements Initializable {
         PanelApp.getTabs().add(tabPanelAppBuscar);
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
+        obtenerLosComponentesDeLaBaseDeDatos(4, "");
     }
 
     void obtenerLosComponentesDeLaBaseDeDatos(int indicador, String nombre)
     {
-        Tab tab1 = new Tab();
-        Tab tab2 = new Tab();
-        try
-        {
-            if (indicador == 1)
-            {
-                tab1 = anadirTab(nombre, indicador);
-            } else
-            {
-                tab2 = anadirTab(nombre, indicador);
-            }
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+        Tab tab = anadirTab(nombre, indicador);
+
         switch (indicador)
         {
             case 1 ->
             {
-                tab1.setText("");
+                tab.setText("");
                 ImageView iv = new ImageView("/Archivos/icons8-windows-client-24.png");
-                tab1.setGraphic(iv);
-                PanelApp.getTabs().add(tab1);
-                tab1.setOnSelectionChanged(event ->
+                tab.setGraphic(iv);
+                PanelApp.getTabs().add(tab);
+                tab.setOnSelectionChanged(event ->
                 {
                     this.indicador = 1;
                 });
             }
             case 2 ->
             {
-                tab2.setText("");
-                ImageView iv2 = new ImageView("/Archivos/icons8-web-16.png");
-                tab2.setGraphic(iv2);
-                PanelApp.getTabs().add(tab2);
-                tab2.setOnSelectionChanged(event ->
+                tab.setText("");
+                ImageView iv2 = new ImageView("/Archivos/icons8-web-24.png");
+                tab.setGraphic(iv2);
+                PanelApp.getTabs().add(tab);
+                tab.setOnSelectionChanged(event ->
                 {
                     this.indicador = 2;
                 });
             }
+            case 4 ->
+            {
+                tab.setText("");
+                ImageView iv2 = new ImageView("/Archivos/icons8-folder-24.png");
+                tab.setGraphic(iv2);
+                PanelApp.getTabs().add(tab);
+                tab.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 4;
+                });
+            }
             default ->
             {
-                PanelApp.getTabs().add(tab2);
-                tab2.setOnSelectionChanged(event ->
+                PanelApp.getTabs().add(tab);
+                tab.setOnSelectionChanged(event ->
                 {
                     this.indicador = 1;
                 });
@@ -181,11 +181,6 @@ public class HomeController implements Initializable {
     private void btnPaginasWeb(MouseEvent event)
     {
         loadPage("PaginasWeb");
-    }
-
-    private void btnAnadir(MouseEvent event)
-    {
-        System.out.println("Implementacion");
     }
 
     private void loadPage(String page)
@@ -211,10 +206,13 @@ public class HomeController implements Initializable {
     @FXML
     private void btnBuscar(ActionEvent event)
     {
-        String tabla = buscarAccesoDirecto(TextField.getText(), indicador);
-        for (int i = 0; i < leerAccesosDirecto(tabla, indicador).size(); i++)
+        for(int j = 0 ; j < 5 ; j++){
+        String tabla = buscarAccesoDirecto(TextField.getText(), j);
+        for (int i = 0; i < leerAccesosDirecto(tabla, j).size(); i++)
         {
-            PaneAccesosDirectos.getChildren().add(Boton.inicializarBotonDeLasPestañas(i, tabla, indicador));
+            PaneAccesosDirectos.getChildren().clear();
+            PaneAccesosDirectos.getChildren().add(Boton.inicializarBotonDeLasPestañas(i, tabla, j));
+        }
         }
     }
 
@@ -484,6 +482,12 @@ public class HomeController implements Initializable {
     private void btnFlotante(MouseEvent event)
     {
         loadPage("panelFlotante");
+    }
+
+    @FXML
+    private void btnCarpetas(MouseEvent event)
+    {
+        loadPage("Carpetas");
     }
 
 }

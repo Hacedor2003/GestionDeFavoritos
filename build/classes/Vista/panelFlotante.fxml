@@ -10,8 +10,7 @@
     </stylesheets>
    <children>
       <Label layoutX="149.0" layoutY="31.0" text="Que Desea Ver?" />
-      <RadioButton fx:id="radioApp" layoutX="105.0" layoutY="74.0" mnemonicParsing="false" onAction="#onAplicaciones" text="Aplicaciones" />
-      <RadioButton fx:id="radioWeb" layoutX="105.0" layoutY="119.0" mnemonicParsing="false" onAction="#onWeb" text="Web" />
-      <Button fx:id="idBtnEnviar" layoutX="131.0" layoutY="163.0" mnemonicParsing="false" onAction="#btnEnviar" text="Abrir Panel Flotante" />
+      <Button fx:id="idBtnEnviar" layoutX="131.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnEnviar" text="Abrir Panel Flotante" />
+      <ChoiceBox fx:id="opcion" layoutX="116.0" layoutY="78.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
