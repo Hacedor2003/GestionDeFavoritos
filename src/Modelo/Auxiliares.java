@@ -73,7 +73,7 @@ public class Auxiliares {
     //Se crea el btn para anadir accesos directos
     public static Button obtenerBtnCrearAccesoDirecto(String tituloClase, int indicador)
     {
-        Button btnCrear = new Button("Añadir Acceso Directo");
+        Button btnCrear = new Button("Añadir");
         btnCrear.setId("btnCrear");
         btnCrear.getStylesheets().add("/Archivos/btncrear.css");
         btnCrear.getStyleClass().add("btnCrear");
@@ -329,8 +329,9 @@ public class Auxiliares {
             {
                 for (int i = 0; i < leerAccesosDirecto.size(); i++)
                 {
-                    Button boton = Boton.inicializarBotonDeLasPestañas(i, s, indicador);
+                    Button boton = Boton.inicializarBotonDeLasPestañas(i, s, indicador);                    
                     panelConBotones = getPlantillaAccesoDirecto();
+                    panelConBotones.setIndicacion(2);
                     panelConBotones.setContent(boton);
                     panelConBotones.setTabla(s);
                     panelConBotones.setNombre(leerAccesosDirecto.get(i).getNombre());

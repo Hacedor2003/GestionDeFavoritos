@@ -8,7 +8,7 @@
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: white;
+    -fx-background-color: black;
 }
 
 .titled-pane {
@@ -30,8 +30,7 @@
 }
 
 .titled-pane:focused > .title {
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #1C146E 0%, #09052F 100%), #0008F9, #1A3487, radial-gradient(center 50% 50%, radius 100%, #3529C2, #081584);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0, 0, 10);
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #1C146E 0%, #09052F 100%), #0008F9, #1A3487, radial-gradient(center 50% 50%, radius 100%, #3529C2, #081584);    
     -fx-border-color: #ffffff;
 }
 
@@ -41,7 +40,6 @@
         #1A3487,
         radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
 }
-
 
 .titled-pane > .content > .scroll-pane > .content {
     -fx-background-color: transparent;

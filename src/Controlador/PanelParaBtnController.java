@@ -76,8 +76,6 @@ public class PanelParaBtnController implements Initializable {
         this.indicacion = indicacion;
     }
     
-    
-
     public void setContent(Button b)
     {
         btnObjetivo.setText(b.getText());
@@ -91,9 +89,11 @@ public class PanelParaBtnController implements Initializable {
         imageView.setImage(new Image("/archivos/icons8-cancel-24.png"));        
         btnParaCancelar.setGraphic(imageView);
 
-        btnParaCancelar.setMinHeight(btnObjetivo.getHeight());
+        btnParaCancelar.setMinHeight(btnObjetivo.getHeight());           
         } else {
             PanelDondeEstaTodo.getChildren().remove(btnParaCancelar);
+            btnObjetivo.setStyle("-fx-background-radius: 8;");   
+            PanelDondeEstaTodo.setStyle("-fx-border-color:black;");
         }
     }
 

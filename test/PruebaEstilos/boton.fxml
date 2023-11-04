@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="258.0" prefWidth="418.0" style="-fx-background-color: white;" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+    <stylesheets>
+        <URL value="@boton.css" />
+    </stylesheets>
+   <children>
+      <HBox id="boton" layoutX="179.0" layoutY="124.0" prefHeight="100.0" prefWidth="200.0" stylesheets="@boton.css" />
+   </children>
+</AnchorPane>

@@ -103,6 +103,7 @@ public class botonFlotante extends Application {
         setNuevoStage(stage);
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
+        stage.setWidth(150);
         stage.setHeight(37);
         stage.show();
     }

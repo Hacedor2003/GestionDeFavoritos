@@ -2,22 +2,22 @@
     -fx-background-color: #0d1824;
 }
 
-.button{
-    -fx-background-color: transparent;
-    -fx-background-radius: 10px;
-    -fx-background-insets: 0;
+#PanelDondeEstaTodo{
+    -fx-background-color: black;
+    -fx-background-radius: 5px;
+    -fx-alignment: center;
     -fx-background-size: cover;
-    -fx-border-color: blue;
-    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-border-color: linear-gradient(from 0% 93% to 0% 100% , #6E141B 0% , #2F0505 100%),#F90000,#871A1A,radial-gradient(center 50% 50% , radius 100% , #C22929 ,#840808 );
+    -fx-border-radius: 5px;
 }
-.button:hover {
-    -fx-background-color: #000066;
-    -fx-text-fill: white;
+#PanelDondeEstaTodo:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #842828 0% , #4A1212 100%),#F90000,#871A1A,radial-gradient(center 50% 50% , radius 100% , #F93B3B ,#CB0E0E );
 }
 #btnObjetivo{
     -fx-padding:8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
+    -fx-background-radius: 8 0 0 8;
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
         #0008F9,
         #1A3487,
@@ -43,10 +43,9 @@
         #871A1A,
         radial-gradient(center 50% 50% , radius 100% , #C22929 ,#840808 );
     -fx-border-width: 1;
-    -fx-border-radius:8;
+    -fx-background-radius: 0 8 8 0;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
-    -fx-background-radius: 8;
 }
 #btnParaCancelar:hover{
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #842828 0% , #4A1212 100%),
@@ -62,9 +61,6 @@
     -fx-border-width: 2px;
     -fx-border-radius:10px;
     -fx-padding:2;
-}
-#btnBase:hover{
-    -fx-background-color: blueviolet;
 }
 .panel{
     -fx-background-color: black;
