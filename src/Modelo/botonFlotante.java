@@ -3,14 +3,12 @@ package Modelo;
 import Controlador.PanelParaBtnController;
 import java.io.IOException;
 import java.util.ArrayList;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -36,11 +34,9 @@ public class botonFlotante extends Application {
     private double yOffset = 0;
     private Stage NuevoStage;
     private VBox root;
-    private Logica claseLogica;
     private int indicador;
     private Accordion acordeon;
     private TitledPane pestana;
-    private double altura;
 
     @Override
     public void start(Stage stage)
@@ -48,7 +44,6 @@ public class botonFlotante extends Application {
         root = new VBox();
         acordeon = new Accordion();
         pestana = new TitledPane();
-        altura = 200;
 
         pestana.setText("Abreme");
 
@@ -146,7 +141,6 @@ public class botonFlotante extends Application {
 
             pestana.setText(s);
 
-            Boton btn = new Boton();
             PanelParaBtnController panelConBotones;
             ArrayList<AccesoDirecto> leerAccesosDirecto = Logica.leerAccesosDirecto(s, indicador);
             try
@@ -160,6 +154,7 @@ public class botonFlotante extends Application {
                     {
                         //Configurar los accesos directos
                         panelConBotones = loadPage();
+                        panelConBotones.setIndicacion(1);
                         panelConBotones.setContent(boton);
                         panelConBotones.setTabla(s);
                         panelConBotones.setNombre(leerAccesosDirecto.get(i).getNombre());

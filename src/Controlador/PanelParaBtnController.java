@@ -26,13 +26,14 @@ public class PanelParaBtnController implements Initializable {
     private Pane PanelDondeEstaTodo;
     @FXML
     private Button btnObjetivo;
-
-    private String nombre;
-    private String tabla;
     @FXML
     private Button btnBase;
     @FXML
     private Pane panel;
+
+    private String nombre;
+    private String tabla;
+    private int indicacion;
 
     public String getNombre()
     {
@@ -66,9 +67,16 @@ public class PanelParaBtnController implements Initializable {
         Platform.runLater(() ->
         {
             Logica.eliminarAccesoDirecto(nombre, tabla);
-             PanelDondeEstaTodo.getChildren().clear();
+            PanelDondeEstaTodo.getChildren().clear();
         });
     }
+
+    public void setIndicacion(int indicacion)
+    {
+        this.indicacion = indicacion;
+    }
+    
+    
 
     public void setContent(Button b)
     {
@@ -78,11 +86,15 @@ public class PanelParaBtnController implements Initializable {
         btnObjetivo.setOnAction(b.getOnAction());
         btnObjetivo.setGraphic(b.getGraphic());
 
+        if (indicacion == 2){
         ImageView imageView = new ImageView();
-        imageView.setImage(new Image("/archivos/icons8-cancel-24.png"));
+        imageView.setImage(new Image("/archivos/icons8-cancel-24.png"));        
         btnParaCancelar.setGraphic(imageView);
 
         btnParaCancelar.setMinHeight(btnObjetivo.getHeight());
+        } else {
+            PanelDondeEstaTodo.getChildren().remove(btnParaCancelar);
+        }
     }
 
     public Node getRoot()

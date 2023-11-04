@@ -4,15 +4,15 @@
 }
 
 .scroll-pane {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 
 .titled-pane {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 
 .titled-pane > .title {
@@ -42,11 +42,7 @@
         radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
 }
 
-.titled-pane > .content {
-    -fx-background-color: black;
-    -fx-padding: 8;
-    -fx-border-color: #ffffff;
-}
+
 .titled-pane > .content > .scroll-pane > .content {
     -fx-background-color: transparent;
 }
