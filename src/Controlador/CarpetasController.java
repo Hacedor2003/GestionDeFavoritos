@@ -64,8 +64,7 @@ public class CarpetasController implements Initializable {
             try
             {
                 Tab tab = anadirTab(nombresAccD, 4);
-                Image img = new Image(Auxiliares.class.getResourceAsStream("/Archivos/" + icono));
-                tab.setGraphic(new javafx.scene.image.ImageView(img));
+                tab.setId("tabPanelCarpeta");
                 PanelApp.getTabs().add(tab); // Agregar el nuevo tab
             } catch (Exception e)
             {

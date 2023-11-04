@@ -31,7 +31,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -51,10 +50,6 @@ public class HomeController implements Initializable {
     private MenuItem menuArchivoAgrega;
     @FXML
     private MenuItem menuArchivoCerrar;
-    @FXML
-    private MenuItem menuEditarActualizar;
-    @FXML
-    private MenuItem menuEditarEliminartodo;
     @FXML
     private Menu menuVer;
     @FXML
@@ -130,8 +125,7 @@ public class HomeController implements Initializable {
             case 1 ->
             {
                 tab.setText("");
-                ImageView iv = new ImageView("/Archivos/icons8-windows-client-24.png");
-                tab.setGraphic(iv);
+                tab.setId("tabPanelApilacion");
                 PanelApp.getTabs().add(tab);
                 tab.setOnSelectionChanged(event ->
                 {
@@ -141,8 +135,7 @@ public class HomeController implements Initializable {
             case 2 ->
             {
                 tab.setText("");
-                ImageView iv2 = new ImageView("/Archivos/icons8-web-24.png");
-                tab.setGraphic(iv2);
+                tab.setId("tabPanelWeb");
                 PanelApp.getTabs().add(tab);
                 tab.setOnSelectionChanged(event ->
                 {
@@ -152,8 +145,7 @@ public class HomeController implements Initializable {
             case 4 ->
             {
                 tab.setText("");
-                ImageView iv2 = new ImageView("/Archivos/icons8-folder-24.png");
-                tab.setGraphic(iv2);
+                tab.setId("tabPanelCarpeta");
                 PanelApp.getTabs().add(tab);
                 tab.setOnSelectionChanged(event ->
                 {
@@ -200,20 +192,21 @@ public class HomeController implements Initializable {
 
     //Inicializacion Auxiliar 
     ArrayList<String> nombresApp = obtenerTablas(1);
-    ArrayList<String> nombresWeb = obtenerTablas(2);
+    ArrayList<String> nombreTodo = obtenerTablas(4);
 
     //Fin
     //Crear los botontes en el panelTab 
     @FXML
     private void btnBuscar(ActionEvent event)
     {
-        for(int j = 0 ; j < 5 ; j++){
-        String tabla = buscarAccesoDirecto(TextField.getText(), j);
-        for (int i = 0; i < leerAccesosDirecto(tabla, j).size(); i++)
+        for (int j = 0; j < 5; j++)
         {
-            PaneAccesosDirectos.getChildren().clear();
-            PaneAccesosDirectos.getChildren().add(Boton.inicializarBotonDeLasPestañas(i, tabla, j));
-        }
+            String tabla = buscarAccesoDirecto(TextField.getText(), j);
+            for (int i = 0; i < leerAccesosDirecto(tabla, j).size(); i++)
+            {
+                PaneAccesosDirectos.getChildren().clear();
+                PaneAccesosDirectos.getChildren().add(Boton.inicializarBotonDeLasPestañas(i, tabla, j));
+            }
         }
     }
 
@@ -231,16 +224,6 @@ public class HomeController implements Initializable {
             stage.setAlwaysOnTop(stage.isAlwaysOnTop());
             idSiempreEncima++;
         }
-    }
-
-    private void MenuItemSoloNombreArchivos(ActionEvent event)
-    {
-        alerta("Implementacion", "HomeController", "MenuItemSoloNombreArchivos");
-    }
-
-    private void MenuItemIconos(ActionEvent event)
-    {
-        alerta("Implementacion", "HomeController", "MenuItemIconos");
     }
 
     @FXML
@@ -328,7 +311,8 @@ public class HomeController implements Initializable {
     @FXML
     private void MenuItemAcercaDe(ActionEvent event)
     {
-        alerta("Implementacion", "HomeController", "MenuItemAcercaDe");
+        AcercaDeStage acercaDeStage = new AcercaDeStage();
+        acercaDeStage.show();
     }
 
     @FXML
@@ -345,7 +329,7 @@ public class HomeController implements Initializable {
         ButtonType opcion3 = new ButtonType("Una Carpeta");
 
         // Agregar los botones de opción al diálogo
-        alert.getButtonTypes().setAll(opcion1, opcion2,opcion3);
+        alert.getButtonTypes().setAll(opcion1, opcion2, opcion3);
 
         // Mostrar el diálogo y esperar a que el usuario seleccione una opción
         Optional<ButtonType> result = alert.showAndWait();
@@ -373,28 +357,6 @@ public class HomeController implements Initializable {
     public void setStage(Stage stage)
     {
         this.stage = stage;
-    }
-
-    @FXML
-    private void menuEditarActualizar(ActionEvent event)
-    {
-        stage.show();
-    }
-
-    @FXML
-    private void MenuEditarEliminarTodo(ActionEvent event)
-    {
-
-        for (String s : nombresApp)
-        {
-            ArrayList<AccesoDirecto> a = leerAccesosDirecto(s, 1);
-            for (AccesoDirecto b : a)
-            {
-                String nombre = b.getNombre();
-                eliminarAccesoDirecto(nombre, s);
-            }
-
-        }
     }
 
     private void actualizarVBOX()

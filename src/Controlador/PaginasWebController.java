@@ -7,7 +7,6 @@ package Controlador;
 import Modelo.*;
 import static Modelo.Auxiliares.alerta;
 import static Modelo.Auxiliares.anadirTab;
-import static Modelo.Auxiliares.emparajarBtnIcono;
 import static Modelo.Logica.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,7 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ArrayList;
-import javafx.scene.image.Image;
 
 /**
  * FXML Controller class
@@ -61,12 +59,10 @@ public class PaginasWebController implements Initializable {
         ArrayList<String> nombresBD = Logica.obtenerTablas(2);
         for (String nombresAccD : nombresBD)
         {
-            String icono = emparajarBtnIcono(nombresAccD);
             try
             {
                 Tab tab = anadirTab(nombresAccD, 2);
-                Image img = new Image(Auxiliares.class.getResourceAsStream("/Archivos/" + icono));
-                tab.setGraphic(new javafx.scene.image.ImageView(img));
+                tab.setId("tabPanelWeb");
                 PanelApp.getTabs().add(tab); // Agregar el nuevo tab
             } catch (Exception e)
             {

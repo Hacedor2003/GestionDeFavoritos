@@ -3,35 +3,34 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.HomeController">
+<BorderPane fx:id="borderPanel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.HomeController">
    <left>
-      <VBox fx:id="PanelCategorias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="522.0" prefWidth="130.0" style="-fx-background-color: #0d1824;" stylesheets="@../Archivos/panelparabtn.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="PanelCategorias" prefHeight="586.0" prefWidth="111.0" style="-fx-background-color: #0d1824;" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="130.0" stylesheets="@../Archivos/panelparabtn.css" text="Home" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="126.0" stylesheets="@../Archivos/home.css" text="Home" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="130.0" text="Aplicaciones" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="182.0" text="Aplicaciones" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="130.0" text="Paginas Web" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="150.0" text="Paginas Web" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onMouseClicked="#btnCarpetas" prefHeight="42.0" prefWidth="130.0" text="Carpetas" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onMouseClicked="#btnCarpetas" prefHeight="42.0" prefWidth="169.0" text="Carpetas" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="130.0" text="Flotante" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="178.0" text="Flotante" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -50,16 +49,10 @@
                   <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />
                </items>
             </Menu>
-            <Menu id="menuBox" mnemonicParsing="false" text="Editar">
-               <items>
-                  <MenuItem fx:id="menuEditarActualizar" mnemonicParsing="false" onAction="#menuEditarActualizar" text="Actualizar" />
-                  <MenuItem fx:id="menuEditarEliminartodo" mnemonicParsing="false" onAction="#MenuEditarEliminarTodo" text="Eliminar todo" />
-               </items>
-            </Menu>
             <Menu id="menuBox" fx:id="menuVer" mnemonicParsing="false" text="Ver">
                <items>
                   <MenuItem fx:id="menuVerSiempreEncima" mnemonicParsing="false" onAction="#MenuItemSiempreEncima" text="Siempre Encima" />
-                  <MenuItem fx:id="menuVerIdioma" mnemonicParsing="false" onAction="#MenuItemIdioma" text="menuVerIdioma" />
+                  <MenuItem fx:id="menuVerIdioma" mnemonicParsing="false" onAction="#MenuItemIdioma" text="Idioma" />
                </items>
             </Menu>
             <Menu id="menuBox" fx:id="menuConfiguracion" mnemonicParsing="false" text="Configuracion">
@@ -104,13 +97,6 @@
                      </children>
                   </AnchorPane>
                </content>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Archivos/icons8-search-24.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
             </Tab>
          </tabs>
          <cursor>

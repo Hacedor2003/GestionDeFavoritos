@@ -1,18 +1,10 @@
 *{
     -fx-text-fill: white;
 }
-#btnCategoriaHome {
-    border-top-color: #ff2d29;
-    -fx-background-color: transparent;
-    -fx-border-color: blue;
-    -fx-text-fill: blue;
-}
-#btnCategoriaHome:hover {
-    -fx-background-color: blueviolet;
-    -fx-text-fill: white;
-}
+
+
 .menu-bar{
-    -fx-background-color: #0d1824 ;
+    -fx-background-color: #0d1824 ;    
 }
 #menuBox:hover{
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
@@ -37,8 +29,8 @@
         radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
 }
 
-#PanelApp{
-    -fx-tab-min-height: 3em;
+.tab-pane{
+    -fx-tab-min-height: 5em;
     -fx-tab-max-height: 5em;
 
     -fx-tab-min-width: 0.5em;
@@ -56,12 +48,14 @@
     -fx-background-radius: 0.0;
     -fx-padding: 0 30 0 30;
 }
-.tab:selected{
-    -fx-background-color: transparent;
+.tab:selected{    
     -fx-background-insets:0;
     -fx-background-radius:0;
     -fx-border-width:5 0 0 0;
-    -fx-border-color: blue;
+    -fx-border-color: linear-gradient(from 0% 93% to 0% 100% , #28847A 0% , #124A4A 100%),
+        #00BDF9,
+        #1A7587,
+        radial-gradient(center 50% 50% , radius 100% , #3BD9F9 , #0ECBC4 );
     -fx-text-fill: white;
 }
 .tab:selected .tab-label{
@@ -86,4 +80,253 @@
     -fx-rotate: 0;
 }
 
+#btnCategoriaHome{
+    -fx-padding:8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size:1.1em;
+}
+#btnCategoriaHome:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+}
+#btnCategoriaHome:pressed{
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#btnCategoriaHome:focused{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #28847A 0% , #124A4A 100%),
+        #00BDF9,
+        #1A7587,
+        radial-gradient(center 50% 50% , radius 100% , #3BD9F9 , #0ECBC4 );
+}
 
+
+#tabPanelAppBuscar {
+    -fx-background-image: url('/Archivos/icons8-search-50.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+}
+#tabPanelAppBuscar:selected {
+    -fx-background-image: url('/Archivos/icons8-search.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#tabPanelAppBuscar:hover {    
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+}
+
+#tabPanelWeb {
+    -fx-background-image: url('/Archivos/icons8-web-50.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+}
+#tabPanelWeb:selected {
+    -fx-background-image: url('/Archivos/icons8-web.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#tabPanelWeb:hover {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+}
+
+
+#tabPanelCarpeta {
+    -fx-background-image: url('/Archivos/icons8-folder-50.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+}
+#tabPanelCarpeta:selected {
+    -fx-background-image: url('/Archivos/icons8-folder.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#tabPanelCarpeta:hover {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+}
+
+
+#tabPanelApilacion {
+    -fx-background-image: url('/Archivos/icons8-window-settings-50.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;-fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+}
+#tabPanelApilacion:selected {
+    -fx-background-image: url('/Archivos/icons8-window-settings.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#tabPanelApilacion:hover {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+}
+
+
+
+#tabPanelApilacionJuegos {
+    -fx-background-image: url('/Archivos/icons8-spades-50.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+}
+#tabPanelApilacionJuegos:selected {
+    -fx-background-image: url('/Archivos/icons8-spades.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#tabPanelApilacionJuegos:hover {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+}
+
+
+#tabPanelApilacionOtros {
+    -fx-background-image: url('/Archivos/icons8-apps-50.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+}
+#tabPanelApilacionOtros:selected {
+    -fx-background-image: url('/Archivos/icons8-apps.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#tabPanelApilacionOtros:hover {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+}
+
+#tabPanelApilacionProgramas {
+    -fx-background-image: url('/Archivos/icons8-software-50.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+}
+#tabPanelApilacionProgramas:selected {
+    -fx-background-image: url('/Archivos/icons8-software.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
+        #0008F9,
+        #1A3487,
+        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+#tabPanelApilacionProgramas:hover {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+}

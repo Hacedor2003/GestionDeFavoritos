@@ -16,7 +16,6 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -47,14 +46,18 @@ public class AplicacionesController implements Initializable {
     void actualizarTabPane()
     {        
         ArrayList<String> nombresBD = Logica.obtenerTablas(1);
+        int indicacion = 0;
+        ArrayList<String>listaIconos = new ArrayList<>();
+        listaIconos.add("tabPanelApilacionJuegos");
+        listaIconos.add("tabPanelApilacionOtros");
+        listaIconos.add("tabPanelApilacionProgramas");
         for (String nombresAccD : nombresBD)
         {
             String icono = emparajarBtnIcono(nombresAccD);
             try
             {
-                Tab tab = anadirTab(nombresAccD, 1);
-                Image img = new Image(Auxiliares.class.getResourceAsStream("/Archivos/" + icono));
-                tab.setGraphic(new javafx.scene.image.ImageView(img));
+                Tab tab = anadirTab(nombresAccD, 1);    
+                tab.setId(listaIconos.get(indicacion++));
                 PanelApp.getTabs().add(tab); // Agregar el nuevo tab
             } catch (Exception e)
             {

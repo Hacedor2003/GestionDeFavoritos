@@ -1,0 +1,59 @@
+Claro, aquí hay un ejemplo de cómo usar ChoiceBox en JavaFx que imprime por consola los valores escogidos:
+
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class ChoiceBoxExample extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        // Create a ChoiceBox
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+
+        // Add items to the ChoiceBox
+        choiceBox.getItems().addAll("Opción 1", "Opción 2", "Opción 3");
+
+        // Set the initial value of the ChoiceBox
+        choiceBox.setValue("Opción 1");
+
+        // Create a Button
+        Button button = new Button("Imprimir valor seleccionado");
+
+        // Add an action listener to the Button
+        button.setOnAction(event -> {
+            // Get the selected value from the ChoiceBox
+            String selectedValue = choiceBox.getValue();
+
+            // Print the selected value to the console
+            System.out.println(selectedValue);
+        });
+
+        // Create a VBox
+        VBox root = new VBox();
+
+        // Add the ChoiceBox and Button to the VBox
+        root.getChildren().addAll(choiceBox, button);
+
+        // Create a Scene
+        Scene scene = new Scene(root);
+
+        // Set the Scene on the Stage
+        stage.setScene(scene);
+
+        // Show the Stage
+        stage.show();
+    }
+}
+
+
+
+Cuando ejecute este programa, verá un ChoiceBox con tres opciones: "Opción 1", "Opción 2" y "Opción 3". El valor inicial del ChoiceBox se establece en "Opción 1". Cuando haga clic en el botón "Imprimir valor seleccionado", el valor seleccionado del ChoiceBox se imprimirá en la consola.

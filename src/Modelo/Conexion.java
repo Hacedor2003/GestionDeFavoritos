@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 import java.sql.Connection;
@@ -16,7 +12,7 @@ public class Conexion {
      Connection con;
      public Connection getConnection(){
          try{
-             String myBD = "jdbc:mysql://localhost:3306/gestiondeaccesosdirectos?serverTimezone = UTC";
+             String myBD = "jdbc:sqlite:D:/Proyectos/Proyectos_NetBeans/GestionDeFavoritos/src/Archivos/gestiondeAccesosDirectos.db";
              con = DriverManager.getConnection(myBD,"root","");
              return con;
          }catch(SQLException e){

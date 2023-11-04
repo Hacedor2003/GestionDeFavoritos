@@ -3,6 +3,7 @@ package Modelo;
 import Controlador.PanelParaBtnController;
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -39,16 +40,17 @@ public class botonFlotante extends Application {
     private int indicador;
     private Accordion acordeon;
     private TitledPane pestana;
+    private double altura;
 
     @Override
     public void start(Stage stage)
     {
         root = new VBox();
-        claseLogica = new Logica();
         acordeon = new Accordion();
         pestana = new TitledPane();
-        
-        pestana.setText("Abreme");        
+        altura = 200;
+
+        pestana.setText("Abreme");
 
         //Panel Base        
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -89,7 +91,7 @@ public class botonFlotante extends Application {
                 // Muestra un Alert
                 Platform.runLater(() ->
                 {
-                    stage.setHeight(200);
+                    stage.setHeight((oldPane != null) ? oldPane.getHeight() : 100);
                 });
             } else
             {
@@ -101,11 +103,12 @@ public class botonFlotante extends Application {
         //Stilos
         scene.getStylesheets().add("/Archivos/flotante.css");
 
-        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+        stage.initStyle(StageStyle.UNDECORATED);
 
         setNuevoStage(stage);
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
+        stage.setHeight(37);
         stage.show();
     }
 
@@ -167,15 +170,11 @@ public class botonFlotante extends Application {
                         pestana.setContent(panel); // Establecer el contenido del Tab 
                     } else
                     {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error Occured");
-                        alert.setHeaderText("Existe una coincidencia");
-                        alert.setContentText("Por Favor use otro nombre que no sea: " + boton.getText());
-                        alert.showAndWait();
+                        Auxiliares.alerta("Existe una coincidencia", "", "");
                         encontrado = true;
                         if (encontrado)
                         {
-                            claseLogica.eliminarAccesoDirecto(boton.getText(), s);
+                            Logica.eliminarAccesoDirecto(boton.getText(), s);
                         }
                     }
                 }
