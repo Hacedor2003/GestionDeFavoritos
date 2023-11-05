@@ -1,6 +1,7 @@
 package Modelo;
 
 
+import static Modelo.Auxiliares.resourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,7 +15,7 @@ public class AcercaDeStage extends Stage {
     public AcercaDeStage()
     {
         // Configura la ventana de "Acerca de"
-        setTitle("Acerca de");
+        setTitle(resourceBundle.getString("venta_acercaDe_tituloVentana"));
         setWidth(400);
         setHeight(300);
 
@@ -24,11 +25,11 @@ public class AcercaDeStage extends Stage {
         layout.setSpacing(10);
 
         // Agrega los elementos a mostrar en la ventana
-        Label titulo = new Label("Mi Aplicación");
+        Label titulo = new Label(resourceBundle.getString("venta_acercaDe_titulo"));
         titulo.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        Label version = new Label("Versión 1.0");
-        Label autor = new Label("Autor: Hacedor");
-        Label descripcion = new Label("Programa de Gestion de Accesos Directos");
+        Label version = new Label(resourceBundle.getString("venta_acercaDe_version"));
+        Label autor = new Label(resourceBundle.getString("venta_acercaDe_Autor"));
+        Label descripcion = new Label(resourceBundle.getString("venta_acercaDe_Descripcion"));
 
         // Agrega los elementos al layout
         layout.getChildren().addAll(titulo, version, autor, descripcion);

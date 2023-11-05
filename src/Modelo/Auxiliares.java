@@ -1,14 +1,15 @@
 package Modelo;
 
-import static Controlador.CarpetasController.btnAnadirBd;
 import Controlador.PanelParaBtnController;
 import static Modelo.Logica.obtenerTablas;
+import static Controlador.CarpetasController.btnAnadirCarpeta;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -31,22 +32,31 @@ import javax.swing.filechooser.FileSystemView;
 
 public class Auxiliares {
 
-    //Inicializacion
-    protected Stage stage;
+    //Inicializacion    
     static private ArrayList<String> listaTodasTablas;
     static ArrayList<String> nombresApp = Logica.obtenerTablas(1);
+    public static ResourceBundle resourceBundle = ResourceBundle.getBundle("Archivos/bundle");
 
-    //Metodo para mostrar un error 
+    /**
+     * Metodo para mostrar un error 
+     * mensaje:Mensaje a mostrar
+     * tituloVentana:Titulo de la ventana emergente Evento: evento donde se
+     * realizo el error
+     */
     public static void alerta(String mensaje, String tituloVentana, String evento)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+        alert.setTitle(resourceBundle.getString("alerta_error"));
         alert.setHeaderText(tituloVentana);
-        alert.setContentText("En el metodo:" + evento + "Error: " + mensaje);
+        alert.setContentText(evento + resourceBundle.getString("alerta_error") + "\n" + mensaje);
         alert.showAndWait();
     }
 
-    //Se empareja el nombre del icono correspondiente
+    /**
+     * Se empareja el nombre del icono correspondiente 
+     * nombre: aplicaciones ,
+     * web o carpeta nombre:la categoria del acceso directo
+     */
     public static String emparajarBtnIcono(String nombre)
     {
         ArrayList<String> iconos = new ArrayList<>();
@@ -70,10 +80,15 @@ public class Auxiliares {
         return icon;
     }
 
-    //Se crea el btn para anadir accesos directos
+    /**
+     * Se crea el btn para anadir accesos directos 
+     * tituloClase:Para mostrar en
+     * caso de error indicador: 1 = anadir App , 4 = Anadir Carpeta , otro =
+     * anadir Web
+     */
     public static Button obtenerBtnCrearAccesoDirecto(String tituloClase, int indicador)
     {
-        Button btnCrear = new Button("Añadir");
+        Button btnCrear = new Button(resourceBundle.getString("btn_Anadir"));
         btnCrear.setId("btnCrear");
         btnCrear.getStylesheets().add("/Archivos/btncrear.css");
         btnCrear.getStyleClass().add("btnCrear");
@@ -81,15 +96,14 @@ public class Auxiliares {
         {
             btnCrear.setOnAction((ActionEvent event) ->
             {
-                if (indicador == 1)
+                switch (indicador)
                 {
-                    btnAnadirApp();
-                } else if (indicador == 4)
-                {
-                    btnAnadirBd();
-                } else
-                {
-                    btnAnadirWeb();
+                    case 1 ->
+                        btnAnadirApp();
+                    case 4 ->
+                        btnAnadirCarpeta();
+                    default ->
+                        btnAnadirWeb();
                 }
             });
         } catch (Exception ex)
@@ -100,15 +114,17 @@ public class Auxiliares {
         return btnCrear;
     }
 
-    //btn para agregar a la base de datos de aplicaciones
+    /**
+     * Metodo para agregar a la base de datos de aplicaciones
+     */
     public static void btnAnadirApp()
     {
         String nombreBtn = "";
         ObservableList<String> opciones = FXCollections.observableArrayList(nombresApp);
         ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle("Título del cuadro de diálogo");
+        dialogo.setTitle(resourceBundle.getString("alerta_titulo_add_app"));
         dialogo.setHeaderText(null);
-        dialogo.setContentText("Selecciona una opción:");
+        dialogo.setContentText(resourceBundle.getString("alerta_opcion_add_app"));
 
         Optional<String> resultado = dialogo.showAndWait();
         if (resultado.isPresent())
@@ -118,16 +134,18 @@ public class Auxiliares {
         }
     }
 
-    //btn para agregar a la base de datos de web
+    /**
+     * Metodo para agregar a la base de datos de web
+     */
     public static void btnAnadirWeb()
     {
         Stage ventana = new Stage();
-        Label direccionLabel = new Label("Dirección de la pagina Web:");
-        Label nombreLabel = new Label("Nombre del Acceso directo:");
+        Label direccionLabel = new Label(resourceBundle.getString("alerta_direccion_add_web"));
+        Label nombreLabel = new Label(resourceBundle.getString("alerta_nombre_add_web"));
         TextField urlFieldDireccion = new TextField();
         TextField urlFieldNombre = new TextField();
-        Button saveButton = new Button("Guardar");
-        Button cancelButton = new Button("Cancelar");
+        Button saveButton = new Button(resourceBundle.getString("alerta_btn_guardar_web"));
+        Button cancelButton = new Button(resourceBundle.getString("alerta_btn_cancelar_web"));
 
         saveButton.setOnAction(e ->
         {
@@ -151,7 +169,12 @@ public class Auxiliares {
         ventana.showAndWait();
     }
 
-    //Metodo para configurar la forma de guardar la web
+    /**
+     * Metodo para configurar la forma de guardar la web 
+     * titulo:tabla donde
+     * guardarla direccion:direccion de la web nombre: nombre del acceso directo
+     * tituloClase: Titulo de la clase en caso de error
+     */
     public static void guardarWeb(String titulo, String direccion, String nombre, String tituloClase)
     {
         // Si se selecciona un archivo
@@ -170,7 +193,7 @@ public class Auxiliares {
 
                 if (!registrarAccesoDirecto)
                 {
-                    alerta("No se registro el acceso directo", "", "");
+                    alerta(resourceBundle.getString("alerta_cancelar_add_web"), "", "");
                 }
 
             } catch (Exception ex)
@@ -180,7 +203,12 @@ public class Auxiliares {
         }
     }
 
-    //Metodo para configurar la forma de guardar el btn
+    /**
+     * Metodo para configurar la forma de guardar el btn 
+     * titulo:Titulo de la
+     * tabla donde se va a guardar tituloClase: Titulo de la clase en caso de
+     * error
+     */
     public static void obtenerDirectorioArchivo(String titulo, String tituloClase)
     {
         // Crea un FileChooser
@@ -222,7 +250,7 @@ public class Auxiliares {
                             boolean registrarAccesoDirecto = Logica.registrarAccesoDirecto(ad, titulo, 1);
                             if (!registrarAccesoDirecto)
                             {
-                                alerta("No se registro el acceso directo", "", "");
+                                alerta(resourceBundle.getString("alerta_cancelar_add_web"), "", "");
                             }
                             encontrado = true;
                             break;
@@ -237,17 +265,20 @@ public class Auxiliares {
                     boolean registrarAccesoDirecto = Logica.registrarAccesoDirecto(ad, "otros", 1);
                     if (!registrarAccesoDirecto)
                     {
-                        alerta("No se registro el acceso directo", "", "");
+                        alerta(resourceBundle.getString("alerta_cancelar_add_web"), "", "");
                     }
                 }
             } else
             {
-                alerta("No se pudo obtener el icono del archivo", tituloClase, "obtenerDirectorioArchivo");
+                alerta(resourceBundle.getString("alerta_cancelar_add_web"), tituloClase, "obtenerDirectorioArchivo");
             }
         }
     }
 
-    // Método para conseguir el icono del botón capturado
+    /**
+     * Método para conseguir el icono del botón capturado 
+     * filePath:direccion de la aplicacion
+     */
     public static Image getFileIcon(String filePath)
     {
         File file = new File(filePath);
@@ -269,7 +300,11 @@ public class Auxiliares {
         return null;
     }
 
-    //Metodo para comprobar btn duplicados
+    /**
+     * Metodo para comprobar btn duplicados
+     * boton: boton con el que se va a comparar
+     * indicador: 1 = app , 2 = web , 4 = carpeta , 5 = todos
+     */
     public static boolean compararBtn(Button boton, int indicador)
     {
         String comparar = boton.getText();
@@ -292,7 +327,10 @@ public class Auxiliares {
         return (contador > 1);
     }
 
-    //Metodo para eliminar una categoria de la tabla para tablas personalizadas
+    /**
+     * Metodo para eliminar una categoria de la tabla para tablas personalizadas
+     * tabla = nombre de la tabla personalizada
+     */
     public static void eliminarCategoriasPersonalizadas(String tabla)
     {
         for (String s : listaTodasTablas)
@@ -304,7 +342,11 @@ public class Auxiliares {
         }
     }
 
-    //Se crean los tab para guardar los accesos directos
+    /**
+     * Se crean los tab para guardar los accesos directos
+     * tabla: tabla = "" obtendra el nombre de las tablas segun el indicador
+     * indicador: 1 = app , 2 = web , 4 carpetas
+     */
     static public Tab anadirTab(String tabla, int indicador)
     {
         AnchorPane PanelTabPanel = new AnchorPane();
@@ -329,7 +371,7 @@ public class Auxiliares {
             {
                 for (int i = 0; i < leerAccesosDirecto.size(); i++)
                 {
-                    Button boton = Boton.inicializarBotonDeLasPestañas(i, s, indicador);                    
+                    Button boton = Boton.inicializarBotonDeLasPestañas(i, s, indicador);
                     panelConBotones = getPlantillaAccesoDirecto();
                     panelConBotones.setIndicacion(2);
                     panelConBotones.setContent(boton);
@@ -353,7 +395,7 @@ public class Auxiliares {
         return tabNuevo;
     }
 
-    //Se crea el panel para colocar el boton
+    /**Se crea el panel para colocar el acceso directo*/
     static public PanelParaBtnController getPlantillaAccesoDirecto()
     {
         PanelParaBtnController panelContolador = null;

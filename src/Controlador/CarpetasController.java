@@ -77,7 +77,7 @@ public class CarpetasController implements Initializable {
     /**
      * Prueba
      */
-    public static void btnAnadirBd()
+    public static void btnAnadirCarpeta()
     {
         obtenerDirectorioCarpeta("carpeta", "CarpetasController");
     }

@@ -1,6 +1,6 @@
 package Controlador;
 
-import static Controlador.CarpetasController.btnAnadirBd;
+import static Controlador.CarpetasController.btnAnadirCarpeta;
 import Modelo.*;
 import static Modelo.Auxiliares.*;
 import static Modelo.Logica.*;
@@ -320,13 +320,13 @@ public class HomeController implements Initializable {
     {
         // Crear un nuevo diálogo de alerta
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Seleccionar opción");
-        alert.setHeaderText("Por favor, seleccione que desea agregar:");
+        alert.setTitle(resourceBundle.getString("categoria_personalizada_tipo"));
+        alert.setHeaderText(resourceBundle.getString("btn_flotante_categorias_elegir"));  
 
         // Crear los botones de opción
-        ButtonType opcion1 = new ButtonType("Una aplicacion");
-        ButtonType opcion2 = new ButtonType("Una Web");
-        ButtonType opcion3 = new ButtonType("Una Carpeta");
+        ButtonType opcion1 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo1"));
+        ButtonType opcion2 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo2"));
+        ButtonType opcion3 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo3"));
 
         // Agregar los botones de opción al diálogo
         alert.getButtonTypes().setAll(opcion1, opcion2, opcion3);
@@ -343,7 +343,7 @@ public class HomeController implements Initializable {
             btnAnadirWeb();
         } else if (result.get() == opcion1)
         {
-            btnAnadirBd();
+            btnAnadirCarpeta();
         }
     }
 
@@ -386,9 +386,9 @@ public class HomeController implements Initializable {
     {
         ObservableList<String> opciones = FXCollections.observableArrayList(listaTodasTablas);
         ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle("Eliminar Categoria");
+        dialogo.setTitle(resourceBundle.getString("categoria_personalizada_tipo3"));
         dialogo.setHeaderText(null);
-        dialogo.setContentText("Selecciona una opción:");
+        dialogo.setContentText(resourceBundle.getString("btn_flotante_categorias_elegir"));
 
         Optional<String> resultado = dialogo.showAndWait();
         if (resultado.isPresent())
@@ -408,9 +408,9 @@ public class HomeController implements Initializable {
     private void anadirCategoria(ActionEvent event)
     {
         TextInputDialog dialogoNombre = new TextInputDialog();
-        dialogoNombre.setTitle("Crear botón");
+        dialogoNombre.setTitle(resourceBundle.getString("categoria_personalizada_titulo_ventana"));
         dialogoNombre.setHeaderText(null);
-        dialogoNombre.setContentText("Ingresa un nombre para la nueva Categoria:");
+        dialogoNombre.setContentText(resourceBundle.getString("categoria_personalizada_titulo"));
 
         Optional<String> resultadoNombre = dialogoNombre.showAndWait();
         if (resultadoNombre.isPresent())
@@ -434,14 +434,14 @@ public class HomeController implements Initializable {
 
             // Guarda el VBox actualizado en tu lógica o donde sea necesario
             guardarVBox(nuevoBtn.getText(), nombreBtn);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Botón creado y añadido al VBox");
-            alert.showAndWait();
 
             //Instancio la clase
             CrearTabla ct = new CrearTabla();
             ct.setTabla(nombreBtn);
             ct.start(nuevoStage);
+        }
+        else {
+            alerta(resourceBundle.getString("categoria_personalizada_btn_crear_error2"), "", "");
         }
     }
 

@@ -44,19 +44,32 @@
 }
 .tab{
     -fx-background-color: #FFFFFF;
-    -fx-background-insets: 0.0;
-    -fx-background-radius: 0.0;
-    -fx-padding: 0 30 0 30;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding:8 30 15 30;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
 .tab:selected{    
-    -fx-background-insets:0;
-    -fx-background-radius:0;
-    -fx-border-width:5 0 0 0;
-    -fx-border-color: linear-gradient(from 0% 93% to 0% 100% , #28847A 0% , #124A4A 100%),
-        #00BDF9,
-        #1A7587,
-        radial-gradient(center 50% 50% , radius 100% , #3BD9F9 , #0ECBC4 );
-    -fx-text-fill: white;
+   -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
+   -fx-padding: 10 30 13 30;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
+.tab:hover {    
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
 }
 .tab:selected .tab-label{
     -fx-text-fill: white;
@@ -111,222 +124,52 @@
 
 
 #tabPanelAppBuscar {
-    -fx-background-image: url('/Archivos/icons8-search-50.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding:8 30 15 30;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+    -fx-background-image: url('/Archivos/search-50.png');    
 }
 #tabPanelAppBuscar:selected {
-    -fx-background-image: url('/Archivos/icons8-search.gif');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
-   -fx-padding: 10 30 13 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
-}
-#tabPanelAppBuscar:hover {    
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
+    -fx-background-image: url('/Archivos/search_animado.gif');    
 }
 
 #tabPanelWeb {
     -fx-background-image: url('/Archivos/icons8-web-50.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding:8 30 15 30;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
 #tabPanelWeb:selected {
     -fx-background-image: url('/Archivos/icons8-web.gif');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
-   -fx-padding: 10 30 13 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
-#tabPanelWeb:hover {
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
-}
-
 
 #tabPanelCarpeta {
     -fx-background-image: url('/Archivos/icons8-folder-50.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding:8 30 15 30;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
 #tabPanelCarpeta:selected {
     -fx-background-image: url('/Archivos/icons8-folder.gif');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
-   -fx-padding: 10 30 13 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
-#tabPanelCarpeta:hover {
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
-}
-
 
 #tabPanelApilacion {
     -fx-background-image: url('/Archivos/icons8-window-settings-50.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;-fx-padding:8 30 15 30;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
 #tabPanelApilacion:selected {
     -fx-background-image: url('/Archivos/icons8-window-settings.gif');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
-   -fx-padding: 10 30 13 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
-}
-#tabPanelApilacion:hover {
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
 }
 
 
 
 #tabPanelApilacionJuegos {
     -fx-background-image: url('/Archivos/icons8-spades-50.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding:8 30 15 30;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
 #tabPanelApilacionJuegos:selected {
     -fx-background-image: url('/Archivos/icons8-spades.gif');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
-   -fx-padding: 10 30 13 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
-#tabPanelApilacionJuegos:hover {
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
-}
-
 
 #tabPanelApilacionOtros {
     -fx-background-image: url('/Archivos/icons8-apps-50.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding:8 30 15 30;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
 #tabPanelApilacionOtros:selected {
     -fx-background-image: url('/Archivos/icons8-apps.gif');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
-   -fx-padding: 10 30 13 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
-}
-#tabPanelApilacionOtros:hover {
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
 }
 
 #tabPanelApilacionProgramas {
     -fx-background-image: url('/Archivos/icons8-software-50.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding:8 30 15 30;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
 #tabPanelApilacionProgramas:selected {
     -fx-background-image: url('/Archivos/icons8-software.gif');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
-   -fx-padding: 10 30 13 30;
-    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
-}
-#tabPanelApilacionProgramas:hover {
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
-        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#6D6E88 );
 }

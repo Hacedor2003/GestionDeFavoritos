@@ -1,6 +1,7 @@
 package Modelo;
 
 import Controlador.PanelParaBtnController;
+import static Modelo.Auxiliares.resourceBundle;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.application.Application;
@@ -45,7 +46,7 @@ public class botonFlotante extends Application {
         acordeon = new Accordion();
         pestana = new TitledPane();
 
-        pestana.setText("Abreme");
+        pestana.setText(resourceBundle.getString("btn_flotante_pestana"));
 
         //Panel Base        
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -64,7 +65,7 @@ public class botonFlotante extends Application {
         });
 
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem closeMenuItem = new MenuItem("Cerrar aplicación");
+        MenuItem closeMenuItem = new MenuItem(resourceBundle.getString("btn_flotante_pestana_cerrar"));
         closeMenuItem.setOnAction(event ->
         {
             stage.close();

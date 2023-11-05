@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import static Modelo.Auxiliares.resourceBundle;
 
 /**
  * FXML Controller class
@@ -39,13 +40,13 @@ public class PanelFlotanteController implements Initializable {
         stage = new Stage();
 
         ArrayList<String> listaTablas = new ArrayList<>();
-        listaTablas.add("Aplicaciones");
-        listaTablas.add("Web");
-        listaTablas.add("Personalizadas");
-        listaTablas.add("Carpetas");
-        listaTablas.add("Todo");
+        listaTablas.add(resourceBundle.getString("btn_flotante_categoria_app"));
+        listaTablas.add(resourceBundle.getString("btn_flotante_categoria_web"));
+        listaTablas.add(resourceBundle.getString("btn_flotante_categorias_personalizadas"));
+        listaTablas.add(resourceBundle.getString("btn_flotante_categorias_carpetas"));
+        listaTablas.add(resourceBundle.getString("btn_flotante_categorias_all"));
         opcion.getItems().addAll(listaTablas);
-        opcion.setValue("Seleccione una opcion");
+        opcion.setValue(resourceBundle.getString("btn_flotante_categorias_elegir"));  
     }
 
     @FXML
