@@ -2,20 +2,20 @@
     -fx-padding:8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
     -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #0F4713 0% , #042509 100%),
+        #048308,
+        #136220,
+        radial-gradient(center 50% 50% , radius 100% , #114D15 ,#054609 );
     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-font-size:1.1em;
 }
 #btnCrear:hover{
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #146E1A 0% , #052F0B 100%),
+        #00F907,
+        #1A872C,
+        radial-gradient(center 50% 50% , radius 100% , #29C233 ,#088410 );
     -fx-font-weight: bold;
 }
 #btnCrear:pressed{

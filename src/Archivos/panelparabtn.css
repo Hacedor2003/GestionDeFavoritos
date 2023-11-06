@@ -18,19 +18,19 @@
     -fx-padding:8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
     -fx-background-radius: 8 0 0 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #262636 0% , #262636 100%),
+        #434350,
+        #434350,
+        radial-gradient(center 50% 50% , radius 100% , #363646 ,#363646 );
     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
     -fx-font-weight: bold;
     -fx-font-size:1.1em;
 }
 #btnObjetivo:hover{
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #373750 0% , #373750 100%),
+        #515162,
+        #515162,
+        radial-gradient(center 50% 50% , radius 100% , #656287 ,#4F4D69 );
 }
 #btnObjetivo:pressed{
     -fx-padding: 10 15 13 15;

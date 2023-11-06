@@ -66,9 +66,9 @@
     -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
 .tab:hover {    
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
-        #6D6E88,
-        #ACADC8,
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #363646 0% , #2B2A36 100%),
+        #363646,
+        #363646,
         radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
 }
 .tab:selected .tab-label{
@@ -97,31 +97,59 @@
     -fx-padding:8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
     -fx-background-radius: 8;
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
     -fx-font-weight: bold;
     -fx-font-size:1.1em;
+    -fx-text-fill: black;
 }
 #btnCategoriaHome:hover{
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #302884 0% , #17124A 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #4A3BF9 ,#0E22CB );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #2C2C3A 0% , #19191F 100%),
+        #363641,
+        #363641,
+        radial-gradient(center 50% 50% , radius 100% , #363646 ,#24242F );
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size:1.1em;
 }
 #btnCategoriaHome:pressed{
     -fx-padding: 10 15 13 15;
     -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
 #btnCategoriaHome:focused{
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #28847A 0% , #124A4A 100%),
-        #00BDF9,
-        #1A7587,
-        radial-gradient(center 50% 50% , radius 100% , #3BD9F9 , #0ECBC4 );
+   -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+        #6D6E88,
+        #ACADC8,
+        radial-gradient(center 50% 50% , radius 100% , #ACADC8 ,#ACADC8 );
 }
 
+#btnBuscar{
+    -fx-padding:8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #0F4713 0% , #042509 100%),
+        #048308,
+        #136220,
+        radial-gradient(center 50% 50% , radius 100% , #114D15 ,#054609 );
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size:1.1em;
+}
+#btnBuscar:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #146E1A 0% , #052F0B 100%),
+        #00F907,
+        #1A872C,
+        radial-gradient(center 50% 50% , radius 100% , #29C233 ,#088410 );
+    -fx-font-weight: bold;
+}
+#btnBuscar:pressed{
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
+}
 
 #tabPanelAppBuscar {
     -fx-background-image: url('/Archivos/search-50.png');    

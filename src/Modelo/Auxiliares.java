@@ -8,10 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
@@ -35,13 +32,13 @@ public class Auxiliares {
     //Inicializacion    
     static private ArrayList<String> listaTodasTablas;
     static ArrayList<String> nombresApp = Logica.obtenerTablas(1);
-    public static ResourceBundle resourceBundle = ResourceBundle.getBundle("Archivos/bundle");
+    public static ResourceBundle resourceBundle = ResourceBundle.getBundle("Archivos/Home");    
 
     /**
-     * Metodo para mostrar un error 
-     * mensaje:Mensaje a mostrar
+     * Metodo para mostrar un error mensaje:Mensaje a mostrar
      * tituloVentana:Titulo de la ventana emergente Evento: evento donde se
      * realizo el error
+     * @param mensaje
      */
     public static void alerta(String mensaje, String tituloVentana, String evento)
     {
@@ -53,8 +50,7 @@ public class Auxiliares {
     }
 
     /**
-     * Se empareja el nombre del icono correspondiente 
-     * nombre: aplicaciones ,
+     * Se empareja el nombre del icono correspondiente nombre: aplicaciones ,
      * web o carpeta nombre:la categoria del acceso directo
      */
     public static String emparajarBtnIcono(String nombre)
@@ -81,8 +77,7 @@ public class Auxiliares {
     }
 
     /**
-     * Se crea el btn para anadir accesos directos 
-     * tituloClase:Para mostrar en
+     * Se crea el btn para anadir accesos directos tituloClase:Para mostrar en
      * caso de error indicador: 1 = anadir App , 4 = Anadir Carpeta , otro =
      * anadir Web
      */
@@ -119,19 +114,33 @@ public class Auxiliares {
      */
     public static void btnAnadirApp()
     {
-        String nombreBtn = "";
-        ObservableList<String> opciones = FXCollections.observableArrayList(nombresApp);
-        ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle(resourceBundle.getString("alerta_titulo_add_app"));
-        dialogo.setHeaderText(null);
-        dialogo.setContentText(resourceBundle.getString("alerta_opcion_add_app"));
+        Stage ventana = new Stage();
+        Label nombreLabel = new Label(resourceBundle.getString("alerta_nombre_add_app"));
+        TextField urlFieldNombre = new TextField();
+        urlFieldNombre.setMaxWidth(200);
+        Button addButton = new Button(resourceBundle.getString("alerta_btn_agregar"));
+        Button cancelButton = new Button(resourceBundle.getString("alerta_btn_cancelar"));
+        ChoiceBox<String> tipoAppChoiceBox = new ChoiceBox<>();
+        tipoAppChoiceBox.getItems().addAll("Programas", "Juegos", "Otros");
+        tipoAppChoiceBox.setValue("Programas");
 
-        Optional<String> resultado = dialogo.showAndWait();
-        if (resultado.isPresent())
+        addButton.setOnAction(e ->
         {
-            nombreBtn = resultado.get();
-            obtenerDirectorioArchivo(nombreBtn, "Auxiliares");
-        }
+            obtenerDirectorioArchivo(tipoAppChoiceBox.getValue(), "Auxiliares",urlFieldNombre.getText());
+            ventana.close();
+        });
+
+        cancelButton.setOnAction(e ->
+        {
+            ventana.close();
+        });
+
+        VBox root = new VBox(10, nombreLabel, urlFieldNombre, tipoAppChoiceBox, addButton, cancelButton);
+        Scene scene = new Scene(root, 300, 250);
+        scene.getStylesheets().add("/Archivos/AddApp.css");
+
+        ventana.setScene(scene);
+        ventana.showAndWait();
     }
 
     /**
@@ -144,8 +153,10 @@ public class Auxiliares {
         Label nombreLabel = new Label(resourceBundle.getString("alerta_nombre_add_web"));
         TextField urlFieldDireccion = new TextField();
         TextField urlFieldNombre = new TextField();
-        Button saveButton = new Button(resourceBundle.getString("alerta_btn_guardar_web"));
-        Button cancelButton = new Button(resourceBundle.getString("alerta_btn_cancelar_web"));
+        urlFieldDireccion.setMaxWidth(200);
+        urlFieldNombre.setMaxWidth(200);
+        Button saveButton = new Button(resourceBundle.getString("alerta_btn_guardar"));
+        Button cancelButton = new Button(resourceBundle.getString("alerta_btn_cancelar"));
 
         saveButton.setOnAction(e ->
         {
@@ -163,15 +174,15 @@ public class Auxiliares {
         });
 
         VBox root = new VBox(10, direccionLabel, urlFieldDireccion, nombreLabel, urlFieldNombre, saveButton, cancelButton);
-        Scene scene = new Scene(root, 300, 200);
+        Scene scene = new Scene(root, 300, 250);
+        scene.getStylesheets().add("/Archivos/AddApp.css");
 
         ventana.setScene(scene);
         ventana.showAndWait();
     }
 
     /**
-     * Metodo para configurar la forma de guardar la web 
-     * titulo:tabla donde
+     * Metodo para configurar la forma de guardar la web titulo:tabla donde
      * guardarla direccion:direccion de la web nombre: nombre del acceso directo
      * tituloClase: Titulo de la clase en caso de error
      */
@@ -204,12 +215,11 @@ public class Auxiliares {
     }
 
     /**
-     * Metodo para configurar la forma de guardar el btn 
-     * titulo:Titulo de la
+     * Metodo para configurar la forma de guardar el btn titulo:Titulo de la
      * tabla donde se va a guardar tituloClase: Titulo de la clase en caso de
      * error
      */
-    public static void obtenerDirectorioArchivo(String titulo, String tituloClase)
+    public static void obtenerDirectorioArchivo(String titulo, String tituloClase, String nombre)
     {
         // Crea un FileChooser
         FileChooser fileChooser = new FileChooser();
@@ -223,7 +233,14 @@ public class Auxiliares {
         // Si se selecciona un archivo
         if (selectedFile != null)
         {
-            String name = selectedFile.getName();
+            String name = "";
+            if (nombre.equals(""))
+            {
+                name = selectedFile.getName();
+            } else
+            {
+                name = nombre;
+            }
             String path = selectedFile.getAbsolutePath();
 
             AccesoDirecto ad = new AccesoDirecto();
@@ -276,8 +293,8 @@ public class Auxiliares {
     }
 
     /**
-     * Método para conseguir el icono del botón capturado 
-     * filePath:direccion de la aplicacion
+     * Método para conseguir el icono del botón capturado filePath:direccion de
+     * la aplicacion
      */
     public static Image getFileIcon(String filePath)
     {
@@ -301,9 +318,8 @@ public class Auxiliares {
     }
 
     /**
-     * Metodo para comprobar btn duplicados
-     * boton: boton con el que se va a comparar
-     * indicador: 1 = app , 2 = web , 4 = carpeta , 5 = todos
+     * Metodo para comprobar btn duplicados boton: boton con el que se va a
+     * comparar indicador: 1 = app , 2 = web , 4 = carpeta , 5 = todos
      */
     public static boolean compararBtn(Button boton, int indicador)
     {
@@ -328,24 +344,9 @@ public class Auxiliares {
     }
 
     /**
-     * Metodo para eliminar una categoria de la tabla para tablas personalizadas
-     * tabla = nombre de la tabla personalizada
-     */
-    public static void eliminarCategoriasPersonalizadas(String tabla)
-    {
-        for (String s : listaTodasTablas)
-        {
-            if (s.equals(tabla))
-            {
-                Logica.eliminarAccesoDirecto(tabla, "configuracion");
-            }
-        }
-    }
-
-    /**
-     * Se crean los tab para guardar los accesos directos
-     * tabla: tabla = "" obtendra el nombre de las tablas segun el indicador
-     * indicador: 1 = app , 2 = web , 4 carpetas
+     * Se crean los tab para guardar los accesos directos tabla: tabla = ""
+     * obtendra el nombre de las tablas segun el indicador indicador: 1 = app ,
+     * 2 = web , 4 carpetas
      */
     static public Tab anadirTab(String tabla, int indicador)
     {
@@ -395,7 +396,9 @@ public class Auxiliares {
         return tabNuevo;
     }
 
-    /**Se crea el panel para colocar el acceso directo*/
+    /**
+     * Se crea el panel para colocar el acceso directo
+     */
     static public PanelParaBtnController getPlantillaAccesoDirecto()
     {
         PanelParaBtnController panelContolador = null;

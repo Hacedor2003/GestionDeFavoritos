@@ -17,28 +17,28 @@ public class CrearBaseDeDatos {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-            statement.executeUpdate("drop table if exists carpeta");
-            statement.executeUpdate("create table carpeta (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
-            statement.executeUpdate("drop table if exists juegos");
-            statement.executeUpdate("create table juegos (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
-            statement.executeUpdate("drop table if exists otros");
-            statement.executeUpdate("create table otros (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
-            statement.executeUpdate("drop table if exists programas");
-            statement.executeUpdate("create table programas (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
-            statement.executeUpdate("drop table if exists web");
-            statement.executeUpdate("create table web (nombre varchar(300), direccion varchar(300),id integer primary key autoincrement)");
+            statement.executeUpdate("drop table if exists Carpeta");
+            statement.executeUpdate("create table Carpeta (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
+            statement.executeUpdate("drop table if exists Juegos");
+            statement.executeUpdate("create table Juegos (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
+            statement.executeUpdate("drop table if exists Otros");
+            statement.executeUpdate("create table Otros (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
+            statement.executeUpdate("drop table if exists Programas");
+            statement.executeUpdate("create table Programas (nombre varchar(300), direccion varchar(300), icono blob,id integer primary key autoincrement)");
+            statement.executeUpdate("drop table if exists Web");
+            statement.executeUpdate("create table Web (nombre varchar(300), direccion varchar(300),id integer primary key autoincrement)");
 
-            statement.executeUpdate("drop table if exists todo");
-            statement.executeUpdate("create table todo (nombre varchar(300))");
+            statement.executeUpdate("drop table if exists Todo");
+            statement.executeUpdate("create table Todo (nombre varchar(300))");
 
-            statement.executeUpdate("drop table if exists configuracion");
-            statement.executeUpdate("create table configuracion (nombre varchar(300))");
+            statement.executeUpdate("drop table if exists Configuracion");
+            statement.executeUpdate("create table Configuracion (nombre varchar(300))");
             
-            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('carpeta')");
-            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('juegos')");
-            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('otros')");
-            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('programas')");
-            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('web')");
+            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('Carpeta')");
+            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('Juegos')");
+            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('Otros')");
+            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('Programas')");
+            statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('Web')");
             
 
         } catch (SQLException e)

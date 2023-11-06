@@ -4,15 +4,11 @@ import Modelo.*;
 import static Modelo.Auxiliares.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -44,19 +40,18 @@ public class AplicacionesController implements Initializable {
     }
 
     void actualizarTabPane()
-    {        
+    {
         ArrayList<String> nombresBD = Logica.obtenerTablas(1);
         int indicacion = 0;
-        ArrayList<String>listaIconos = new ArrayList<>();
+        ArrayList<String> listaIconos = new ArrayList<>();
         listaIconos.add("tabPanelApilacionJuegos");
         listaIconos.add("tabPanelApilacionOtros");
         listaIconos.add("tabPanelApilacionProgramas");
         for (String nombresAccD : nombresBD)
         {
-            String icono = emparajarBtnIcono(nombresAccD);
             try
             {
-                Tab tab = anadirTab(nombresAccD, 1);    
+                Tab tab = anadirTab(nombresAccD, 1);
                 tab.setId(listaIconos.get(indicacion++));
                 PanelApp.getTabs().add(tab); // Agregar el nuevo tab
             } catch (Exception e)
@@ -66,22 +61,6 @@ public class AplicacionesController implements Initializable {
         }
     }
 
-    //btn para agregar a la bd
-    public void btnAnadirBd()
-    {
-        ArrayList<String> nombresBD = Logica.obtenerTablas(1);
-        ObservableList<String> opciones = FXCollections.observableArrayList(nombresBD);
-        ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle("Anadir Aplicacion");
-        dialogo.setHeaderText(null);
-        dialogo.setContentText("Selecciona una opción:");
-
-        Optional<String> resultado = dialogo.showAndWait();
-        if (resultado.isPresent())
-        {
-            obtenerDirectorioArchivo(resultado.get(), "AplicacioneController");
-        }
-    }
     @FXML
     private void btnBuscar(ActionEvent event)
     {

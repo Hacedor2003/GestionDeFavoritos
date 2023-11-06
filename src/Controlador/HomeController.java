@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -24,6 +25,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -102,7 +104,7 @@ public class HomeController implements Initializable {
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
         obtenerLosComponentesDeLaBaseDeDatos(4, "");
-        actualizarVBOX();
+        listaTodasTablas = obtenerTablas(3);
     }
 
     @FXML
@@ -140,6 +142,16 @@ public class HomeController implements Initializable {
                 tab.setOnSelectionChanged(event ->
                 {
                     this.indicador = 2;
+                });
+            }
+            case 3 ->
+            {
+                tab.setText("");
+                tab.setId("tabPanelPersonalizado");
+                PanelApp.getTabs().add(tab);
+                tab.setOnSelectionChanged(event ->
+                {
+                    this.indicador = 3;
                 });
             }
             case 4 ->
@@ -190,10 +202,6 @@ public class HomeController implements Initializable {
         borderPanel.setCenter(root);
     }
 
-    //Inicializacion Auxiliar 
-    ArrayList<String> nombresApp = obtenerTablas(1);
-    ArrayList<String> nombreTodo = obtenerTablas(4);
-
     //Fin
     //Crear los botontes en el panelTab 
     @FXML
@@ -228,21 +236,19 @@ public class HomeController implements Initializable {
 
     @FXML
     private void MenuItemIdioma(ActionEvent event)
-    {/*
+    {
         // Obtener el idioma seleccionado por el usuario
-        String idioma = "es"; // Por ejemplo, "es" para español o "en" para inglés
+        //String idioma = "es_ES"; // Por ejemplo, "es" para español o "en" para inglés
 
         // Cargar el archivo de propiedades correspondiente al idioma seleccionado
-        ResourceBundle bundle = ResourceBundle.getBundle("strings", new Locale(idioma));
+        ResourceBundle bundle = ResourceBundle.getBundle("Home");
 
         // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
-        updateNodeLanguage(root, bundle);*/
-        alerta("Implementacion", "HomeController", "MenuItemIdioma");
+        updateNodeLanguage(borderPanel, bundle);
     }
 
     private void updateNodeLanguage(Node node, ResourceBundle bundle)
     {
-        /*
         if (node instanceof Parent)
         {
             for (Node child : ((Parent) node).getChildrenUnmodifiable())
@@ -259,9 +265,7 @@ public class HomeController implements Initializable {
             {
                 labeled.setText(bundle.getString(key));
             }
-        } 
-         */
-        alerta("Implementacion", "HomeController", "updateNodeLanguage");
+        }
     }
 
     @FXML
@@ -321,7 +325,7 @@ public class HomeController implements Initializable {
         // Crear un nuevo diálogo de alerta
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(resourceBundle.getString("categoria_personalizada_tipo"));
-        alert.setHeaderText(resourceBundle.getString("btn_flotante_categorias_elegir"));  
+        alert.setHeaderText(resourceBundle.getString("btn_flotante_categorias_elegir"));
 
         // Crear los botones de opción
         ButtonType opcion1 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo1"));
@@ -329,7 +333,7 @@ public class HomeController implements Initializable {
         ButtonType opcion3 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo3"));
 
         // Agregar los botones de opción al diálogo
-        alert.getButtonTypes().setAll(opcion1, opcion2, opcion3);
+        alert.getButtonTypes().addAll(opcion1, opcion2, opcion3);
 
         // Mostrar el diálogo y esperar a que el usuario seleccione una opción
         Optional<ButtonType> result = alert.showAndWait();
@@ -341,9 +345,12 @@ public class HomeController implements Initializable {
         } else if (result.get() == opcion2)
         {
             btnAnadirWeb();
-        } else if (result.get() == opcion1)
+        } else if (result.get() == opcion3)
         {
             btnAnadirCarpeta();
+        } else
+        {
+            alert.close();
         }
     }
 
@@ -357,92 +364,6 @@ public class HomeController implements Initializable {
     public void setStage(Stage stage)
     {
         this.stage = stage;
-    }
-
-    private void actualizarVBOX()
-    {
-        ArrayList<String> categoriasPersonalizadas = leerVBOX();
-
-        for (String cp : categoriasPersonalizadas)
-        {
-            Button nuevoBtn = new Button(cp);
-            nuevoBtn.setMinHeight(height);
-            nuevoBtn.setMinWidth(width);
-            nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
-            nuevoBtn.setOnAction((ActionEvent event) ->
-            {
-                PanelApp.getTabs().clear();
-                borderPanel.setCenter(PanelApp);
-                obtenerLosComponentesDeLaBaseDeDatos(3, nuevoBtn.getText());
-            });
-
-            // Agrega el botón al VBox
-            PanelCategorias.getChildren().add(nuevoBtn);
-        }
-    }
-
-    @FXML
-    private void menuArchivoEliminarCategoria(ActionEvent event)
-    {
-        ObservableList<String> opciones = FXCollections.observableArrayList(listaTodasTablas);
-        ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
-        dialogo.setTitle(resourceBundle.getString("categoria_personalizada_tipo3"));
-        dialogo.setHeaderText(null);
-        dialogo.setContentText(resourceBundle.getString("btn_flotante_categorias_elegir"));
-
-        Optional<String> resultado = dialogo.showAndWait();
-        if (resultado.isPresent())
-        {
-            eliminarCategoria(resultado.get());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Categoria " + resultado.get() + " Eliminada");
-            alert.showAndWait();
-            eliminarCategoriasPersonalizadas(resultado.get());
-        }
-    }
-
-    double width = 130.4;
-    double height = 42.4;
-
-    @FXML
-    private void anadirCategoria(ActionEvent event)
-    {
-        TextInputDialog dialogoNombre = new TextInputDialog();
-        dialogoNombre.setTitle(resourceBundle.getString("categoria_personalizada_titulo_ventana"));
-        dialogoNombre.setHeaderText(null);
-        dialogoNombre.setContentText(resourceBundle.getString("categoria_personalizada_titulo"));
-
-        Optional<String> resultadoNombre = dialogoNombre.showAndWait();
-        if (resultadoNombre.isPresent())
-        {
-            String nombreBtn = resultadoNombre.get();
-
-            Button nuevoBtn = new Button(nombreBtn);
-            nuevoBtn.setMinHeight(height);
-            nuevoBtn.setMinWidth(width);
-            // Configura el estilo de tu botón si lo deseas
-            nuevoBtn.setStyle(btnBoxCategorias.getStyle() + "-fx-background-color: blue; -fx-text-fill: white;");
-            nuevoBtn.setOnAction((ActionEvent event1) ->
-            {
-                PanelApp.getTabs().clear();
-                borderPanel.setCenter(PanelApp);
-                obtenerLosComponentesDeLaBaseDeDatos(3, nuevoBtn.getText());
-            });
-
-            // Agrega el botón al VBox
-            PanelCategorias.getChildren().add(nuevoBtn);
-
-            // Guarda el VBox actualizado en tu lógica o donde sea necesario
-            guardarVBox(nuevoBtn.getText(), nombreBtn);
-
-            //Instancio la clase
-            CrearTabla ct = new CrearTabla();
-            ct.setTabla(nombreBtn);
-            ct.start(nuevoStage);
-        }
-        else {
-            alerta(resourceBundle.getString("categoria_personalizada_btn_crear_error2"), "", "");
-        }
     }
 
     @FXML

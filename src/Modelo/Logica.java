@@ -10,7 +10,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
 import javax.imageio.ImageIO;
 
 public class Logica {
@@ -99,7 +98,7 @@ public class Logica {
             rs.close();
         } catch (SQLException | IOException e)
         {
-           // Auxiliares.alerta(e.getMessage(), "Clase Logica", "leerAccesosDirecto");
+            // Auxiliares.alerta(e.getMessage(), "Clase Logica", "leerAccesosDirecto");
         }
         return listaAd;
     }
@@ -213,14 +212,14 @@ public class Logica {
                 {
                     case 1 ->
                     {
-                        if (tableName.equalsIgnoreCase("programas") || tableName.equalsIgnoreCase("otros") || tableName.equalsIgnoreCase("juegos"))
+                        if (tableName.equalsIgnoreCase("Programas") || tableName.equalsIgnoreCase("Otros") || tableName.equalsIgnoreCase("Juegos"))
                         {
                             nombresDeBD.add(tableName);
                         }
                     }
                     case 2 ->
                     {
-                        if (tableName.equalsIgnoreCase("web"))
+                        if (tableName.equalsIgnoreCase("Web"))
                         {
                             nombresDeBD.add(tableName);
                         }
@@ -240,14 +239,14 @@ public class Logica {
                     }
                     case 4 ->
                     {
-                        if (tableName.equalsIgnoreCase("carpeta"))
+                        if (tableName.equalsIgnoreCase("Carpeta"))
                         {
                             nombresDeBD.add(tableName);
                         }
                     }
                     case 5 ->
                     {
-                        if (tableName.equalsIgnoreCase("todo"))
+                        if (tableName.equalsIgnoreCase("Todo"))
                         {
                             String sql = "SELECT * FROM " + tableName;
                             ps = con.prepareStatement(sql);
@@ -268,35 +267,6 @@ public class Logica {
             //Auxiliares.alerta(e.getMessage(), "Clase Logica", "obtenerTablas");
         }
         return nombresDeBD;
-    }
-
-    //metodo para guardar las categorias
-    public static void guardarVBox(String nombreTabla, String nombre)
-    {
-        String url = "jdbc:mysql://localhost:3306/gestiondeaccesosdirectos?serverTimezone = UTC";
-        String user = "root";
-        String password = "";
-        String query = "CREATE TABLE " + nombreTabla + " ( nombre VARCHAR(255), direccion VARCHAR(255),icono BLOB,id INT PRIMARY KEY )";
-        String insertQuery = "INSERT INTO configuracion (nombreTablas) VALUE ('" + nombreTabla + "')";
-
-        try (Connection connection = DriverManager.getConnection(url, user, password); Statement statement = connection.createStatement())
-        {
-            statement.executeUpdate(query);
-            statement.executeUpdate(insertQuery);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "La tabla se ha creado correctamente.");
-            alert.showAndWait();
-        } catch (SQLException e)
-        {
-            Auxiliares.alerta(e.getMessage(), "Clase Logica", "Ha ocurrido un error al crear la tabla: ");
-        }
-    }
-
-    //metodo que devuelve las categorias
-    public static ArrayList<String> leerVBOX()
-    {
-        ArrayList<String> tablasComparar3 = obtenerTablas(3);
-
-        return tablasComparar3;
     }
 
 }
