@@ -8,7 +8,6 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -266,14 +265,8 @@ public class HomeController implements Initializable, Hablable {
     @FXML
     private void MenuItemIdioma(ActionEvent event)
     {
-        // Obtener el idioma seleccionado por el usuario
-        //String idioma = "es_ES"; // Por ejemplo, "es" para español o "en" para inglés
-
-        // Cargar el archivo de propiedades correspondiente al idioma seleccionado
-        ResourceBundle bundle = ResourceBundle.getBundle("Home");
-
-        // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
-        updateNodeLanguage(borderPanel, bundle);
+        VentanaIdioma vi = new VentanaIdioma();
+        vi.showAndWait();
     }
 
     @FXML

@@ -2,31 +2,43 @@
     -fx-text-fill: white;
 }
 
-
-.menu-bar{
-    -fx-background-color: #0d1824 ;    
+#menuBox{
+    -fx-font-weight: bold;
+    -fx-font-size:1.1em;
+    -fx-text-fill: black;
 }
 #menuBox:hover{
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
-        #0008F9,
-        #1A3487,
-        radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+#menuBox .label:hover{    
+    -fx-text-fill: black;
+}
+
+.menu-bar{
+    -fx-background-color:#0d1824;
 }
 .menu-bar .label {
-    -fx-text-fill: #dedede;
+    -fx-text-fill: white;
+}
+.menu-bar:hover .label {    
+    -fx-text-fill: white;
 }
 .menu-item .label{
     -fx-text-fill: white;
 }
 .menu-item {
     -fx-background-color:  #0d1824;
-    -fx-border-color:  #0d1824;
+    -fx-text-fill: white;
 }
 .menu-item:hover {
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #1C146E 0% , #09052F 100%),
         #0008F9,
         #1A3487,
         radial-gradient(center 50% 50% , radius 100% , #3529C2 ,#081584 );
+}
+#prueba{
+    -fx-text-fill: white;
 }
 
 .tab-pane{
@@ -55,17 +67,17 @@
         radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.75),4,0,0,1);
 }
-.tab:selected{    
-   -fx-background-repeat: no-repeat;
+.tab:selected{
+    -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
         #6D6E88,
         #ACADC8,
         radial-gradient(center 50% 50% , radius 100% , #FFFFFF ,#FFFFFF );
-   -fx-padding: 10 30 13 30;
+    -fx-padding: 10 30 13 30;
     -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
-.tab:hover {    
+.tab:hover {
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #363646 0% , #2B2A36 100%),
         #363646,
         #363646,
@@ -120,7 +132,7 @@
     -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
 .button:focused{
-   -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
         #6D6E88,
         #ACADC8,
         radial-gradient(center 50% 50% , radius 100% , #ACADC8 ,#ACADC8 );
@@ -152,10 +164,10 @@
 }
 
 #tabPanelAppBuscar {
-    -fx-background-image: url('/Archivos/Iconos/search-50.png');    
+    -fx-background-image: url('/Archivos/Iconos/search-50.png');
 }
 #tabPanelAppBuscar:selected {
-    -fx-background-image: url('/Archivos/Iconos/search_animado.gif');    
+    -fx-background-image: url('/Archivos/Iconos/search_animado.gif');
 }
 
 #tabPanelWeb {

@@ -43,7 +43,7 @@
          <menus>
             <Menu id="menuBox" fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
-                  <MenuItem fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" text="Agregar Acceso Directo" />
+                  <MenuItem id="prueba" fx:id="menuArchivoAgrega" mnemonicParsing="false" onAction="#menuArchivoAgregar" text="Agregar Acceso Directo" />
                   <MenuItem fx:id="menuArchivoCerrar" mnemonicParsing="false" onAction="#MenuItemCerrarApp" text="CerrarApp" />
                </items>
             </Menu>
