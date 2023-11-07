@@ -105,7 +105,7 @@ public class botonFlotante extends Application implements Hablable {
 
         Scene scene = new Scene(root);
         //Stilos
-        scene.getStylesheets().add("/Archivos/flotante.css");
+        scene.getStylesheets().add("Archivos/Css/flotante.css");
 
         stage.initStyle(StageStyle.UNDECORATED);
 

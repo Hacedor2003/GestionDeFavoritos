@@ -13,7 +13,7 @@ public class CrearBaseDeDatos {
         try
         {
             // create a database connection
-            connection = DriverManager.getConnection("jdbc:sqlite:D:/Proyectos/Proyectos_NetBeans/GestionDeFavoritos/src/Archivos/gestiondeAccesosDirectos.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:D:/Proyectos/Proyectos_NetBeans/GestionDeFavoritos/src/Archivos/BaseDatos/gestiondeAccesosDirectos.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 

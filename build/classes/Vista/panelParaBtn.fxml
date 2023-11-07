@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="panel" stylesheets="@../Archivos/panelparabtn.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
+<Pane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="panel" stylesheets="@../Archivos/Css/panelparabtn.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PanelParaBtnController">
    <children>
-      <Button fx:id="btnBase" layoutX="8.0" layoutY="5.0" mnemonicParsing="false" stylesheets="@../Archivos/panelparabtn.css">
+      <Button fx:id="btnBase" layoutX="8.0" layoutY="5.0" mnemonicParsing="false" stylesheets="@../Archivos/Css/panelparabtn.css">
          <graphic>
             <HBox fx:id="PanelDondeEstaTodo">
                <children>

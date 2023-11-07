@@ -47,7 +47,7 @@ public class Boton {
             nuevoBoton.setGraphic(new ImageView(fxImage));
         }
         else {
-            nuevoBoton.setGraphic(new ImageView("/Archivos/icons8-web-24 (1).png"));
+            nuevoBoton.setGraphic(new ImageView("Archivos/Iconos/icons8-web-24 (1).png"));
         }
 
         nuevoBoton.setText(nombre);

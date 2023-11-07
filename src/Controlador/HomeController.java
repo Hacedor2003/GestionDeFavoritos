@@ -111,9 +111,7 @@ public class HomeController implements Initializable, Hablable {
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
         obtenerLosComponentesDeLaBaseDeDatos(4, "");
-        listaTodasTablas = obtenerTablas(3);
-
-        btnCategoriaHome.setText(textCategoriaHome);
+        listaTodasTablas = obtenerTablas(3);        
     }
 
     @FXML

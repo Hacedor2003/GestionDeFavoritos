@@ -100,7 +100,7 @@ public class Auxiliares implements Hablable {
     {
         Button btnCrear = new Button(btnCrearTexto);
         btnCrear.setId("btnCrear");
-        btnCrear.getStylesheets().add("/Archivos/btncrear.css");
+        btnCrear.getStylesheets().add("Archivos/Css/btncrear.css");
         btnCrear.getStyleClass().add("btnCrear");
         try
         {
@@ -152,7 +152,7 @@ public class Auxiliares implements Hablable {
 
         VBox root = new VBox(10, nombreLabel, urlFieldNombre, tipoAppChoiceBox, addButton, cancelButton);
         Scene scene = new Scene(root, 300, 250);
-        scene.getStylesheets().add("/Archivos/AddApp.css");
+        scene.getStylesheets().add("Archivos/Css/AddApp.css");
 
         ventana.setScene(scene);
         ventana.showAndWait();
@@ -190,7 +190,7 @@ public class Auxiliares implements Hablable {
 
         VBox root = new VBox(10, direccionLabel, urlFieldDireccion, nombreLabel, urlFieldNombre, saveButton, cancelButton);
         Scene scene = new Scene(root, 300, 250);
-        scene.getStylesheets().add("/Archivos/AddApp.css");
+        scene.getStylesheets().add("Archivos/Css/AddApp.css");
 
         ventana.setScene(scene);
         ventana.showAndWait();

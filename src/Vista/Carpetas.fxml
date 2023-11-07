@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane id="tab" fx:id="PanelApp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0d1824;" styleClass="mainFxmlClass" stylesheets="@../Archivos/home.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.CarpetasController">
+<TabPane id="tab" fx:id="PanelApp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0d1824;" styleClass="mainFxmlClass" stylesheets="@../Archivos/Css/home.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.CarpetasController">
    <tabs>
       <Tab fx:id="tabPanelAppBuscar">
          <content>

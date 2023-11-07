@@ -152,52 +152,52 @@
 }
 
 #tabPanelAppBuscar {
-    -fx-background-image: url('/Archivos/search-50.png');    
+    -fx-background-image: url('/Archivos/Iconos/search-50.png');    
 }
 #tabPanelAppBuscar:selected {
-    -fx-background-image: url('/Archivos/search_animado.gif');    
+    -fx-background-image: url('/Archivos/Iconos/search_animado.gif');    
 }
 
 #tabPanelWeb {
-    -fx-background-image: url('/Archivos/icons8-web-50.png');
+    -fx-background-image: url('/Archivos/Iconos/icons8-web-50.png');
 }
 #tabPanelWeb:selected {
-    -fx-background-image: url('/Archivos/icons8-web.gif');
+    -fx-background-image: url('/Archivos/Iconos/icons8-web.gif');
 }
 
 #tabPanelCarpeta {
-    -fx-background-image: url('/Archivos/icons8-folder-50.png');
+    -fx-background-image: url('/Archivos/Iconos/icons8-folder-50.png');
 }
 #tabPanelCarpeta:selected {
-    -fx-background-image: url('/Archivos/icons8-folder.gif');
+    -fx-background-image: url('/Archivos/Iconos/icons8-folder.gif');
 }
 
 #tabPanelApilacion {
-    -fx-background-image: url('/Archivos/icons8-window-settings-50.png');
+    -fx-background-image: url('/Archivos/Iconos/icons8-window-settings-50.png');
 }
 #tabPanelApilacion:selected {
-    -fx-background-image: url('/Archivos/icons8-window-settings.gif');
+    -fx-background-image: url('/Archivos/Iconos/icons8-window-settings.gif');
 }
 
 
 
 #tabPanelApilacionJuegos {
-    -fx-background-image: url('/Archivos/icons8-spades-50.png');
+    -fx-background-image: url('/Archivos/Iconos/icons8-spades-50.png');
 }
 #tabPanelApilacionJuegos:selected {
-    -fx-background-image: url('/Archivos/icons8-spades.gif');
+    -fx-background-image: url('/Archivos/Iconos/icons8-spades.gif');
 }
 
 #tabPanelApilacionOtros {
-    -fx-background-image: url('/Archivos/icons8-apps-50.png');
+    -fx-background-image: url('/Archivos/Iconos/icons8-apps-50.png');
 }
 #tabPanelApilacionOtros:selected {
-    -fx-background-image: url('/Archivos/icons8-apps.gif');
+    -fx-background-image: url('/Archivos/Iconos/icons8-apps.gif');
 }
 
 #tabPanelApilacionProgramas {
-    -fx-background-image: url('/Archivos/icons8-software-50.png');
+    -fx-background-image: url('/Archivos/Iconos/icons8-software-50.png');
 }
 #tabPanelApilacionProgramas:selected {
-    -fx-background-image: url('/Archivos/icons8-software.gif');
+    -fx-background-image: url('/Archivos/Iconos/icons8-software.gif');
 }

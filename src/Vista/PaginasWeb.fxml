@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane id="tab" fx:id="PanelApp" style="-fx-background-color: #0d1824;" styleClass="mainFxmlClass" stylesheets="@../Archivos/home.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PaginasWebController">
+<TabPane id="tab" fx:id="PanelApp" style="-fx-background-color: #0d1824;" styleClass="mainFxmlClass" stylesheets="@../Archivos/Css/home.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.PaginasWebController">
    <tabs>
       <Tab fx:id="tabPanelAppBuscar">
          <content>

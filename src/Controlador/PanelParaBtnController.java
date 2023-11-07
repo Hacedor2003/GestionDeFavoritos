@@ -87,7 +87,7 @@ public class PanelParaBtnController implements Initializable {
         if (indicacion == 2)
         {
             ImageView imageView = new ImageView();
-            imageView.setImage(new Image("/archivos/icons8-cancel-24.png"));
+            imageView.setImage(new Image("Archivos/Iconos/icons8-cancel-24.png"));
             btnParaCancelar.setGraphic(imageView);
 
             btnParaCancelar.setMinHeight(btnObjetivo.getHeight());

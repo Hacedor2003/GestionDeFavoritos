@@ -8,9 +8,9 @@
 
 <BorderPane fx:id="borderPanel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.HomeController">
    <left>
-      <VBox fx:id="PanelCategorias" prefHeight="586.0" prefWidth="111.0" style="-fx-background-color: #0d1824;" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="PanelCategorias" prefHeight="586.0" prefWidth="111.0" style="-fx-background-color: #0d1824;" stylesheets="@../Archivos/Css/home.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="126.0" stylesheets="@../Archivos/home.css" text="Home" textFill="WHITE">
+            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="126.0" stylesheets="@../Archivos/Css/home.css" text="Home" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -39,7 +39,7 @@
       </VBox>
    </left>
    <top>
-      <MenuBar fx:id="menuBar" stylesheets="@../Archivos/home.css" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" stylesheets="@../Archivos/Css/home.css" BorderPane.alignment="CENTER">
          <menus>
             <Menu id="menuBox" fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
                <items>
@@ -78,7 +78,7 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane fx:id="PanelApp" blendMode="MULTIPLY" style="-fx-background-color: #0d1824;" styleClass="MenuBar" stylesheets="@../Archivos/home.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="PanelApp" blendMode="MULTIPLY" style="-fx-background-color: #0d1824;" styleClass="MenuBar" stylesheets="@../Archivos/Css/home.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
             <Tab fx:id="tabPanelAppBuscar" closable="false">
                <content>

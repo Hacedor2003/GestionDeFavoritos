@@ -12,7 +12,7 @@ public class Conexion {
      Connection con;
      public Connection getConnection(){
          try{
-             String myBD = "jdbc:sqlite:D:/Proyectos/Proyectos_NetBeans/GestionDeFavoritos/src/Archivos/gestiondeAccesosDirectos.db";
+             String myBD = "jdbc:sqlite:D:/Proyectos/Proyectos_NetBeans/GestionDeFavoritos/src/Archivos/BaseDatos/gestiondeAccesosDirectos.db";
              con = DriverManager.getConnection(myBD,"root","");
              return con;
          }catch(SQLException e){
