@@ -51,7 +51,6 @@ public class HomeController implements Initializable, Hablable {
     private Menu menuVer;
     @FXML
     private MenuItem menuVerSiempreEncima;
-    @FXML
     private MenuItem menuVerIdioma;
     @FXML
     private Menu menuConfiguracion;
@@ -61,7 +60,6 @@ public class HomeController implements Initializable, Hablable {
     private MenuItem menuConfigIniMini;
     @FXML
     private Menu menuAyuda;
-    @FXML
     private MenuItem menuAyudaSitioWeb;
     @FXML
     private MenuItem menuAyudaAcerca;
@@ -262,7 +260,6 @@ public class HomeController implements Initializable, Hablable {
         }
     }
 
-    @FXML
     private void MenuItemIdioma(ActionEvent event)
     {
         VentanaIdioma vi = new VentanaIdioma();
@@ -307,7 +304,6 @@ public class HomeController implements Initializable, Hablable {
         }
     }
 
-    @FXML
     private void MenuItemSitioWeb(ActionEvent event)
     {
         alerta("Implementacion", "HomeController", "MenuItemSitioWeb");
