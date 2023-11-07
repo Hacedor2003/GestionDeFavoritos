@@ -10,27 +10,27 @@
    <left>
       <VBox fx:id="PanelCategorias" prefHeight="586.0" prefWidth="111.0" style="-fx-background-color: #0d1824;" stylesheets="@../Archivos/Css/home.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="126.0" stylesheets="@../Archivos/Css/home.css" text="Home" textFill="WHITE">
+            <Button id="btnCategoriaHome" fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnhome" prefHeight="42.0" prefWidth="126.0" stylesheets="@../Archivos/Css/home.css" text="Home" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="182.0" text="Aplicaciones" textFill="WHITE">
+            <Button id="btnCategoriaApp" fx:id="btnCategoriaApp" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#btnaplicaciones" prefHeight="42.0" prefWidth="182.0" text="Aplicaciones" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="150.0" text="Paginas Web" textFill="WHITE">
+            <Button id="btnCategoriaWeb" fx:id="btnCategoriaWeb" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#btnPaginasWeb" prefHeight="42.0" prefWidth="150.0" text="Paginas Web" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onMouseClicked="#btnCarpetas" prefHeight="42.0" prefWidth="169.0" text="Carpetas" textFill="WHITE">
+            <Button id="btnCategoriaCarp" fx:id="btnCategoriaCar" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onMouseClicked="#btnCarpetas" prefHeight="42.0" prefWidth="169.0" text="Carpetas" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCategoriaHome" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="178.0" text="Flotante" textFill="WHITE">
+            <Button id="btnCategoriaFlotante" fx:id="btnCategoriaFlo" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onMouseClicked="#btnFlotante" prefHeight="42.0" prefWidth="178.0" text="Flotante" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

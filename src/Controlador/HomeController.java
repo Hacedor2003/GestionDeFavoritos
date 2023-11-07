@@ -86,6 +86,7 @@ public class HomeController implements Initializable, Hablable {
     private Pane PaneAccesosDirectos;
 
     private int indicador = 1;
+
     private String catPerTipo1 = resourceBundle.getString("categoria_personalizada_tipo1");
     private String catPerTipo2 = resourceBundle.getString("categoria_personalizada_tipo2");
     private String catPerTipo3 = resourceBundle.getString("categoria_personalizada_tipo3");
@@ -98,20 +99,41 @@ public class HomeController implements Initializable, Hablable {
     private String textCategoriaCar = resourceBundle.getString("btn_CategoriasCar");
     private String textCategoriaFlo = resourceBundle.getString("btn_CategoriasFlo");
 
-    protected Stage stage;
-    Stage nuevoStage = new Stage();
-    private ArrayList<String> listaTodasTablas;
+    private String textMenuArchivo = resourceBundle.getString("menu_Archivo");
+    private String textMenuArchivoAgre = resourceBundle.getString("menu_Archivo_Agre");
+    private String textMenuArchivoCerr = resourceBundle.getString("menu_Archivo_cerr");
+
+    private String textMenuVer = resourceBundle.getString("menu_Ver");
+    private String textMenuVerSiem = resourceBundle.getString("menu_Ver_siem");
+    private String textMenuVerIdio = resourceBundle.getString("menu_Ver_idio");
+
+    private String textMenuConf = resourceBundle.getString("menu_Configuracion");
+    private String textMenuConfgCar = resourceBundle.getString("menu_Configuracion_car");
+    private String textMenuConfgIni = resourceBundle.getString("menu_Configuracion_ini");
+
+    private String textMenuAyuda = resourceBundle.getString("menu_Ayuda");
+    private String textMenuAyudaSit = resourceBundle.getString("menu_Ayuda_sit");
+    private String textMenuAyudaAce = resourceBundle.getString("menu_Ayuda_ace");
+
+    private Stage stage;
     @FXML
     private Button btnCategoriaHome;
+    @FXML
+    private Button btnCategoriaApp;
+    @FXML
+    private Button btnCategoriaWeb;
+    @FXML
+    private Button btnCategoriaCar;
+    @FXML
+    private Button btnCategoriaFlo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        //listaTodasTablas = obtenerTablas(5);
         obtenerLosComponentesDeLaBaseDeDatos(1, "");
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
         obtenerLosComponentesDeLaBaseDeDatos(4, "");
-        listaTodasTablas = obtenerTablas(3);        
+        inicializar();
     }
 
     @FXML
@@ -395,8 +417,55 @@ public class HomeController implements Initializable, Hablable {
                 catPerTipo3 = resourceBundle.getString("categoria_personalizada_tipo3");
                 catPer = resourceBundle.getString("categoria_personalizada_tipo");
                 catPerElegir = resourceBundle.getString("btn_flotante_categorias_elegir");
+
+                textCategoriaHome = resourceBundle.getString("btn_CategoriasHome");
+                textCategoriaApp = resourceBundle.getString("btn_CategoriasApp");
+                textCategoriaWeb = resourceBundle.getString("btn_CategoriasWeb");
+                textCategoriaCar = resourceBundle.getString("btn_CategoriasCar");
+                textCategoriaFlo = resourceBundle.getString("btn_CategoriasFlo");
+
+                textMenuArchivo = resourceBundle.getString("menu_Archivo");
+                textMenuArchivoAgre = resourceBundle.getString("menu_Archivo_Agre");
+                textMenuArchivoCerr = resourceBundle.getString("menu_Archivo_cerr");
+
+                textMenuVer = resourceBundle.getString("menu_Ver");
+                textMenuVerSiem = resourceBundle.getString("menu_Ver_siem");
+                textMenuVerIdio = resourceBundle.getString("menu_Ver_idio");
+
+                textMenuConf = resourceBundle.getString("menu_Configuracion");
+                textMenuConfgCar = resourceBundle.getString("menu_Configuracion_car");
+                textMenuConfgIni = resourceBundle.getString("menu_Configuracion_ini");
+
+                textMenuAyuda = resourceBundle.getString("menu_Ayuda");
+                textMenuAyudaSit = resourceBundle.getString("menu_Ayuda_sit");
+                textMenuAyudaAce = resourceBundle.getString("menu_Ayuda_ace");
             }
         }
+    }
+
+    private void inicializar()
+    {
+        btnCategoriaHome.setText(textCategoriaHome);
+        btnCategoriaApp.setText(textCategoriaApp);
+        btnCategoriaWeb.setText(textCategoriaWeb);
+        btnCategoriaCar.setText(textCategoriaCar);
+        btnCategoriaFlo.setText(textCategoriaFlo);
+
+        menuArchivo.setText(textMenuArchivo);
+        menuArchivoAgrega.setText(textMenuArchivoAgre);
+        menuArchivoCerrar.setText(textMenuArchivoCerr);
+
+        menuAyuda.setText(textMenuAyuda);
+        menuAyudaAcerca.setText(textMenuAyudaAce);
+        menuAyudaSitioWeb.setText(textMenuAyudaSit);
+
+        menuConfiguracion.setText(textMenuConf);
+        menuConfigCargarIniciar.setText(textMenuConfgCar);
+        menuConfigIniMini.setText(textMenuConfgIni);
+
+        menuVer.setText(textMenuVer);
+        menuVerIdioma.setText(textMenuVerIdio);
+        menuVerSiempreEncima.setText(textMenuVerSiem);
     }
 
 }

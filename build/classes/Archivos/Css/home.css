@@ -93,7 +93,7 @@
     -fx-rotate: 0;
 }
 
-#btnCategoriaHome{
+.button{
     -fx-padding:8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0,0 0 7 0;
     -fx-background-radius: 8;
@@ -106,7 +106,7 @@
     -fx-font-size:1.1em;
     -fx-text-fill: black;
 }
-#btnCategoriaHome:hover{
+.button:hover{
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #2C2C3A 0% , #19191F 100%),
         #363641,
         #363641,
@@ -115,11 +115,11 @@
     -fx-font-weight: bold;
     -fx-font-size:1.1em;
 }
-#btnCategoriaHome:pressed{
+.button:pressed{
     -fx-padding: 10 15 13 15;
     -fx-background-insets: 2 0 0 0,2 0 3 0 , 2 0 0 4, 2 0 5 0;
 }
-#btnCategoriaHome:focused{
+.button:focused{
    -fx-background-color: linear-gradient(from 0% 93% to 0% 100% , #6D6E88 0% , #2B2A36 100%),
         #6D6E88,
         #ACADC8,
