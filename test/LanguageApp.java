@@ -15,7 +15,6 @@ import javafx.scene.control.Labeled;
 public class LanguageApp extends Application {
 
     private ResourceBundle bundle;
-    private ResourceBundle bundle2;
     private VBox root;
 
     public static void main(String[] args)
@@ -42,7 +41,7 @@ public class LanguageApp extends Application {
             String idioma = "en"; // o "en" para inglés
 
             // Cargar el archivo de propiedades correspondiente al idioma seleccionado
-            ResourceBundle font = ResourceBundle.getBundle("labels", Locale.ENGLISH);
+            ResourceBundle font = ResourceBundle.getBundle("labels", new Locale(idioma));
 
             // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
             updateNodeLanguage(root, font);

@@ -4,14 +4,18 @@ import Controlador.PanelParaBtnController;
 import static Modelo.Auxiliares.resourceBundle;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
@@ -28,7 +32,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Hacedor
  */
-public class botonFlotante extends Application {
+public class botonFlotante extends Application implements Hablable {
 
     //Inicializacion
     private double xOffset = 0;
@@ -39,6 +43,10 @@ public class botonFlotante extends Application {
     private Accordion acordeon;
     private TitledPane pestana;
 
+    private String textoAlerta = resourceBundle.getString("error_nuevos_btn");
+    private String btnCerrar = resourceBundle.getString("btn_flotante_pestana_cerrar");
+    private String pestanaTexto = resourceBundle.getString("btn_flotante_pestana");
+
     @Override
     public void start(Stage stage)
     {
@@ -46,7 +54,7 @@ public class botonFlotante extends Application {
         acordeon = new Accordion();
         pestana = new TitledPane();
 
-        pestana.setText(resourceBundle.getString("btn_flotante_pestana"));
+        pestana.setText(pestanaTexto);
 
         //Panel Base        
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -65,7 +73,7 @@ public class botonFlotante extends Application {
         });
 
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem closeMenuItem = new MenuItem(resourceBundle.getString("btn_flotante_pestana_cerrar"));
+        MenuItem closeMenuItem = new MenuItem(btnCerrar);
         closeMenuItem.setOnAction(event ->
         {
             stage.close();
@@ -167,7 +175,7 @@ public class botonFlotante extends Application {
                         pestana.setContent(panel); // Establecer el contenido del Tab 
                     } else
                     {
-                        Auxiliares.alerta("Existe una coincidencia", "", "");
+                        Auxiliares.alerta(textoAlerta, "", "");
                         encontrado = true;
                         if (encontrado)
                         {
@@ -235,6 +243,40 @@ public class botonFlotante extends Application {
     public void setIndicador(int indicador)
     {
         this.indicador = indicador;
+    }
+
+    @Override
+    public void cambiarIdioma(String idioma)
+    {
+        ResourceBundle font = ResourceBundle.getBundle("labels", new Locale(idioma));
+
+        // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
+        //updateNodeLanguage(scene, font);
+    }
+
+    @Override
+    public void updateNodeLanguage(Node node, ResourceBundle bundle)
+    {
+        if (node instanceof Parent)
+        {
+            for (Node child : ((Parent) node).getChildrenUnmodifiable())
+            {
+                updateNodeLanguage(child, bundle);
+            }
+        }
+
+        if (node instanceof Labeled)
+        {
+            Labeled labeled = (Labeled) node;
+            String key = labeled.getText();
+            if (key != null && !key.isEmpty())
+            {
+                pestanaTexto = resourceBundle.getString("btn_flotante_pestana");
+                btnCerrar = resourceBundle.getString("btn_flotante_pestana_cerrar");
+                textoAlerta = resourceBundle.getString("error_nuevos_btn");
+
+            }
+        }
     }
 
 }

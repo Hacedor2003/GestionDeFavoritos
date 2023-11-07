@@ -26,12 +26,15 @@ public class PanelParaBtnFlotanteController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        acordeonDondeEsta.expandedPaneProperty().addListener((observable, oldPane, newPane) -> {
-            if (newPane != null) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        acordeonDondeEsta.expandedPaneProperty().addListener((observable, oldPane, newPane) ->
+        {
+            if (newPane != null)
+            {
                 // Se ha abierto una nueva pestaña, ajusta el VBox al contenido
                 PanelDondeEstaTodo.requestLayout();
             }
         });
-    }    
+    }
 }

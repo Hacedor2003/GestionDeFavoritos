@@ -21,7 +21,7 @@ public class Boton {
     public static Button inicializarBotonDeLasPestañas(int index, String tabla, int indicacion)
     {
         //Declaracion de variables
-        Button nuevoBoton = new Button("Nuevo Botón");
+        Button nuevoBoton = new Button("");
         String nombre;
         String direccion;
         int id;

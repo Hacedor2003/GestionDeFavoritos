@@ -8,16 +8,19 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -27,23 +30,35 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.filechooser.FileSystemView;
 
-public class Auxiliares {
+public class Auxiliares implements Hablable {
 
     //Inicializacion    
     static private ArrayList<String> listaTodasTablas;
     static ArrayList<String> nombresApp = Logica.obtenerTablas(1);
-    public static ResourceBundle resourceBundle = ResourceBundle.getBundle("Archivos/Home");    
+
+    private static String alertaError = resourceBundle.getString("alerta_error");
+    private static String btnCrearTexto = resourceBundle.getString("btn_Anadir");
+    private static String nombreAccesoDirecto = resourceBundle.getString("alerta_nombre_add_app");
+    private static String textAgregar = resourceBundle.getString("alerta_btn_agregar");
+    private static String textCancelar = resourceBundle.getString("alerta_btn_cancelar");
+    private static String textGuardar = resourceBundle.getString("alerta_btn_guardar");
+    private static String textProgramas = resourceBundle.getString("tab_App_programas");
+    private static String textJuegos = resourceBundle.getString("tab_App_juegos");
+    private static String textOtros = resourceBundle.getString("tab_App_otros");
+    private static String alertaWebDireccion = resourceBundle.getString("alerta_direccion_add_web");
+    private static String alertaWebNombre = resourceBundle.getString("alerta_nombre_add_web");
 
     /**
      * Metodo para mostrar un error mensaje:Mensaje a mostrar
      * tituloVentana:Titulo de la ventana emergente Evento: evento donde se
      * realizo el error
+     *
      * @param mensaje
      */
     public static void alerta(String mensaje, String tituloVentana, String evento)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(resourceBundle.getString("alerta_error"));
+        alert.setTitle(alertaError);
         alert.setHeaderText(tituloVentana);
         alert.setContentText(evento + resourceBundle.getString("alerta_error") + "\n" + mensaje);
         alert.showAndWait();
@@ -83,7 +98,7 @@ public class Auxiliares {
      */
     public static Button obtenerBtnCrearAccesoDirecto(String tituloClase, int indicador)
     {
-        Button btnCrear = new Button(resourceBundle.getString("btn_Anadir"));
+        Button btnCrear = new Button(btnCrearTexto);
         btnCrear.setId("btnCrear");
         btnCrear.getStylesheets().add("/Archivos/btncrear.css");
         btnCrear.getStyleClass().add("btnCrear");
@@ -115,18 +130,18 @@ public class Auxiliares {
     public static void btnAnadirApp()
     {
         Stage ventana = new Stage();
-        Label nombreLabel = new Label(resourceBundle.getString("alerta_nombre_add_app"));
+        Label nombreLabel = new Label(nombreAccesoDirecto);
         TextField urlFieldNombre = new TextField();
         urlFieldNombre.setMaxWidth(200);
-        Button addButton = new Button(resourceBundle.getString("alerta_btn_agregar"));
-        Button cancelButton = new Button(resourceBundle.getString("alerta_btn_cancelar"));
+        Button addButton = new Button(textAgregar);
+        Button cancelButton = new Button(textCancelar);
         ChoiceBox<String> tipoAppChoiceBox = new ChoiceBox<>();
-        tipoAppChoiceBox.getItems().addAll("Programas", "Juegos", "Otros");
-        tipoAppChoiceBox.setValue("Programas");
+        tipoAppChoiceBox.getItems().addAll(textProgramas, textJuegos, textOtros);
+        tipoAppChoiceBox.setValue(textProgramas);
 
         addButton.setOnAction(e ->
         {
-            obtenerDirectorioArchivo(tipoAppChoiceBox.getValue(), "Auxiliares",urlFieldNombre.getText());
+            obtenerDirectorioArchivo(tipoAppChoiceBox.getValue(), "Auxiliares", urlFieldNombre.getText());
             ventana.close();
         });
 
@@ -149,14 +164,14 @@ public class Auxiliares {
     public static void btnAnadirWeb()
     {
         Stage ventana = new Stage();
-        Label direccionLabel = new Label(resourceBundle.getString("alerta_direccion_add_web"));
-        Label nombreLabel = new Label(resourceBundle.getString("alerta_nombre_add_web"));
+        Label direccionLabel = new Label(alertaWebDireccion);
+        Label nombreLabel = new Label(alertaWebNombre);
         TextField urlFieldDireccion = new TextField();
         TextField urlFieldNombre = new TextField();
         urlFieldDireccion.setMaxWidth(200);
         urlFieldNombre.setMaxWidth(200);
-        Button saveButton = new Button(resourceBundle.getString("alerta_btn_guardar"));
-        Button cancelButton = new Button(resourceBundle.getString("alerta_btn_cancelar"));
+        Button saveButton = new Button(textGuardar);
+        Button cancelButton = new Button(textCancelar);
 
         saveButton.setOnAction(e ->
         {
@@ -414,6 +429,46 @@ public class Auxiliares {
         }
 
         return panelContolador;
+    }
+
+    @Override
+    public void cambiarIdioma(String idioma)
+    {
+        ResourceBundle font = ResourceBundle.getBundle("labels", new Locale(idioma));
+
+        // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
+        //updateNodeLanguage(scene, font);
+    }
+
+    @Override
+    public void updateNodeLanguage(Node node, ResourceBundle bundle)
+    {
+        if (node instanceof Parent)
+        {
+            for (Node child : ((Parent) node).getChildrenUnmodifiable())
+            {
+                updateNodeLanguage(child, bundle);
+            }
+        }
+
+        if (node instanceof Labeled)
+        {
+            Labeled labeled = (Labeled) node;
+            String key = labeled.getText();
+            if (key != null && !key.isEmpty())
+            {
+                alertaError = resourceBundle.getString("alerta_error");
+                btnCrearTexto = resourceBundle.getString("btn_Anadir");
+                nombreAccesoDirecto = resourceBundle.getString("alerta_nombre_add_app");
+                textAgregar = resourceBundle.getString("alerta_btn_agregar");
+                textCancelar = resourceBundle.getString("alerta_btn_cancelar");
+                alertaWebDireccion = resourceBundle.getString("alerta_direccion_add_web");
+                alertaWebNombre = resourceBundle.getString("alerta_nombre_add_web");
+                textAgregar = resourceBundle.getString("alerta_btn_agregar");
+                textCancelar = resourceBundle.getString("alerta_btn_cancelar");
+                textGuardar = resourceBundle.getString("alerta_btn_guardar");
+            }
+        }
     }
 
 }

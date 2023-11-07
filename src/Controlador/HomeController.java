@@ -13,8 +13,6 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +22,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -32,7 +29,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -40,7 +36,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class HomeController implements Initializable {
+public class HomeController implements Initializable, Hablable {
 
     @FXML
     private BorderPane borderPanel;
@@ -90,6 +86,17 @@ public class HomeController implements Initializable {
     private Pane PaneAccesosDirectos;
 
     private int indicador = 1;
+    private String catPerTipo1 = resourceBundle.getString("categoria_personalizada_tipo1");
+    private String catPerTipo2 = resourceBundle.getString("categoria_personalizada_tipo2");
+    private String catPerTipo3 = resourceBundle.getString("categoria_personalizada_tipo3");
+    private String catPer = resourceBundle.getString("categoria_personalizada_tipo");
+    private String catPerElegir = resourceBundle.getString("btn_flotante_categorias_elegir");
+
+    private String textCategoriaHome = resourceBundle.getString("btn_CategoriasHome");
+    private String textCategoriaApp = resourceBundle.getString("btn_CategoriasApp");
+    private String textCategoriaWeb = resourceBundle.getString("btn_CategoriasWeb");
+    private String textCategoriaCar = resourceBundle.getString("btn_CategoriasCar");
+    private String textCategoriaFlo = resourceBundle.getString("btn_CategoriasFlo");
 
     protected Stage stage;
     Stage nuevoStage = new Stage();
@@ -105,6 +112,8 @@ public class HomeController implements Initializable {
         obtenerLosComponentesDeLaBaseDeDatos(2, "");
         obtenerLosComponentesDeLaBaseDeDatos(4, "");
         listaTodasTablas = obtenerTablas(3);
+
+        btnCategoriaHome.setText(textCategoriaHome);
     }
 
     @FXML
@@ -247,27 +256,6 @@ public class HomeController implements Initializable {
         updateNodeLanguage(borderPanel, bundle);
     }
 
-    private void updateNodeLanguage(Node node, ResourceBundle bundle)
-    {
-        if (node instanceof Parent)
-        {
-            for (Node child : ((Parent) node).getChildrenUnmodifiable())
-            {
-                updateNodeLanguage(child, bundle);
-            }
-        }
-
-        if (node instanceof Labeled)
-        {
-            Labeled labeled = (Labeled) node;
-            String key = labeled.getText();
-            if (key != null && !key.isEmpty())
-            {
-                labeled.setText(bundle.getString(key));
-            }
-        }
-    }
-
     @FXML
     private void MenuItemCargarIniciarSistema(ActionEvent event)
     {
@@ -324,13 +312,13 @@ public class HomeController implements Initializable {
     {
         // Crear un nuevo diálogo de alerta
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(resourceBundle.getString("categoria_personalizada_tipo"));
-        alert.setHeaderText(resourceBundle.getString("btn_flotante_categorias_elegir"));
+        alert.setTitle(catPer);
+        alert.setHeaderText(catPerElegir);
 
         // Crear los botones de opción
-        ButtonType opcion1 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo1"));
-        ButtonType opcion2 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo2"));
-        ButtonType opcion3 = new ButtonType(resourceBundle.getString("categoria_personalizada_tipo3"));
+        ButtonType opcion1 = new ButtonType(catPerTipo1);
+        ButtonType opcion2 = new ButtonType(catPerTipo2);
+        ButtonType opcion3 = new ButtonType(catPerTipo3);
 
         // Agregar los botones de opción al diálogo
         alert.getButtonTypes().addAll(opcion1, opcion2, opcion3);
@@ -376,6 +364,41 @@ public class HomeController implements Initializable {
     private void btnCarpetas(MouseEvent event)
     {
         loadPage("Carpetas");
+    }
+
+    @Override
+    public void cambiarIdioma(String idioma)
+    {
+        ResourceBundle font = ResourceBundle.getBundle("labels", new Locale(idioma));
+
+        // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
+        updateNodeLanguage(borderPanel, font);
+    }
+
+    @Override
+    public void updateNodeLanguage(Node node, ResourceBundle bundle)
+    {
+        if (node instanceof Parent)
+        {
+            for (Node child : ((Parent) node).getChildrenUnmodifiable())
+            {
+                updateNodeLanguage(child, bundle);
+            }
+        }
+
+        if (node instanceof Labeled)
+        {
+            Labeled labeled = (Labeled) node;
+            String key = labeled.getText();
+            if (key != null && !key.isEmpty())
+            {
+                catPerTipo1 = resourceBundle.getString("categoria_personalizada_tipo1");
+                catPerTipo2 = resourceBundle.getString("categoria_personalizada_tipo2");
+                catPerTipo3 = resourceBundle.getString("categoria_personalizada_tipo3");
+                catPer = resourceBundle.getString("categoria_personalizada_tipo");
+                catPerElegir = resourceBundle.getString("btn_flotante_categorias_elegir");
+            }
+        }
     }
 
 }

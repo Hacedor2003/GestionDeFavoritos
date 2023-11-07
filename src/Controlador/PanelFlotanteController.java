@@ -16,13 +16,25 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import static Modelo.Auxiliares.resourceBundle;
+import Modelo.Hablable;
+import java.util.Locale;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Labeled;
 
 /**
  * FXML Controller class
  *
  * @author Hacedor
  */
-public class PanelFlotanteController implements Initializable {
+public class PanelFlotanteController implements Initializable, Hablable {
+
+    private static String categoriaApp = resourceBundle.getString("btn_flotante_categoria_app");
+    private static String categoriaWeb = resourceBundle.getString("btn_flotante_categoria_web");
+    private static String categoriaPer = resourceBundle.getString("btn_flotante_categorias_personalizadas");
+    private static String categoriaCar = resourceBundle.getString("btn_flotante_categorias_carpetas");
+    private static String categoriaAll = resourceBundle.getString("btn_flotante_categorias_all");
+    private static String categoriElegir = resourceBundle.getString("btn_flotante_categorias_elegir");
 
     @FXML
     private AnchorPane panelBase;
@@ -40,13 +52,13 @@ public class PanelFlotanteController implements Initializable {
         stage = new Stage();
 
         ArrayList<String> listaTablas = new ArrayList<>();
-        listaTablas.add(resourceBundle.getString("btn_flotante_categoria_app"));
-        listaTablas.add(resourceBundle.getString("btn_flotante_categoria_web"));
-        listaTablas.add(resourceBundle.getString("btn_flotante_categorias_personalizadas"));
-        listaTablas.add(resourceBundle.getString("btn_flotante_categorias_carpetas"));
-        listaTablas.add(resourceBundle.getString("btn_flotante_categorias_all"));
+        listaTablas.add(categoriaApp);
+        listaTablas.add(categoriaWeb);
+        listaTablas.add(categoriaPer);
+        listaTablas.add(categoriaCar);
+        listaTablas.add(categoriaAll);
         opcion.getItems().addAll(listaTablas);
-        opcion.setValue(resourceBundle.getString("btn_flotante_categorias_elegir"));  
+        opcion.setValue(categoriElegir);
     }
 
     @FXML
@@ -92,6 +104,43 @@ public class PanelFlotanteController implements Initializable {
         }
 
         return numero;
+    }
+
+    @Override
+    public void cambiarIdioma(String idioma)
+    {
+        ResourceBundle font = ResourceBundle.getBundle("labels", new Locale(idioma));
+
+        // Recorrer todos los nodos de la escena y actualizar las cadenas de texto
+        updateNodeLanguage(panelBase, font);
+    }
+
+    @Override
+    public void updateNodeLanguage(Node node, ResourceBundle bundle)
+    {
+        if (node instanceof Parent)
+        {
+            for (Node child : ((Parent) node).getChildrenUnmodifiable())
+            {
+                updateNodeLanguage(child, bundle);
+            }
+        }
+
+        if (node instanceof Labeled)
+        {
+            Labeled labeled = (Labeled) node;
+            String key = labeled.getText();
+            if (key != null && !key.isEmpty())
+            {
+                categoriaApp = resourceBundle.getString("btn_flotante_categoria_app");
+                categoriaWeb = resourceBundle.getString("btn_flotante_categoria_web");
+                categoriaPer = resourceBundle.getString("btn_flotante_categorias_personalizadas");
+                categoriaCar = resourceBundle.getString("btn_flotante_categorias_carpetas");
+                categoriaAll = resourceBundle.getString("btn_flotante_categorias_all");
+                categoriElegir = resourceBundle.getString("btn_flotante_categorias_elegir");
+            }
+
+        }
     }
 
 }

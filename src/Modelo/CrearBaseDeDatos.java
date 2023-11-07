@@ -28,11 +28,11 @@ public class CrearBaseDeDatos {
             statement.executeUpdate("drop table if exists Web");
             statement.executeUpdate("create table Web (nombre varchar(300), direccion varchar(300),id integer primary key autoincrement)");
 
-            statement.executeUpdate("drop table if exists Todo");
+          /*  statement.executeUpdate("drop table if exists Todo");
             statement.executeUpdate("create table Todo (nombre varchar(300))");
 
             statement.executeUpdate("drop table if exists Configuracion");
-            statement.executeUpdate("create table Configuracion (nombre varchar(300))");
+            statement.executeUpdate("create table Configuracion (nombre varchar(300))"); */
             
             statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('Carpeta')");
             statement.executeUpdate("INSERT INTO todo (nombre) VALUES ('Juegos')");
